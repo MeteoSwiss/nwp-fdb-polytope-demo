@@ -56,7 +56,7 @@ pipeline {
                                     passwordVariable: 'NXPASS',
                                     usernameVariable: 'NXUSER')]) {
                     sh '''
-                        podman login docker-intern-nexus.meteoswiss.ch -u $NXUSER -p $NXPASSS
+                        podman login docker-intern-nexus.meteoswiss.ch -u $NXUSER -p $NXPASS
 
                         podman push $INTERNAL_IMAGE_TAG
                     '''
