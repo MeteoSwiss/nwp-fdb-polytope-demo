@@ -5,6 +5,7 @@ After building the container through the VSCode task `Build demo use-case image`
 Replase `<COMMAND_HERE>` with one of the following commands:
  - python -m useCase.total_precipitation
  - python -m useCase.wind
+ - python -m useCase.timeseries
 
 
 ```shell

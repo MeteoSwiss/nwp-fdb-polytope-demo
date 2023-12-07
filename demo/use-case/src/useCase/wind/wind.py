@@ -78,9 +78,12 @@ def plot_wind():
     crs = ccrs.epsg(3857)
     fig = plt.figure(figsize=(11, 8))
     ax = fig.add_subplot(1, 1, 1, projection=crs)
+    m_s_to_knots = 1.94384
 
     levels, colors = get_levels_colors()
-    c = ax.contourf(dense.x, dense.y, ff, transform=crs, levels=levels, colors=colors)
+    c = ax.contourf(
+        dense.x, dense.y, ff * m_s_to_knots, transform=crs, levels=levels, colors=colors
+    )
     fig.colorbar(c, label="knots")
 
     ax.add_feature(cfeature.BORDERS)
