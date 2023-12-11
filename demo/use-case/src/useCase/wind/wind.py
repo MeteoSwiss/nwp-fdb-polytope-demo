@@ -39,7 +39,7 @@ def plot_wind():
         "step": "0",
         "param": ["500027", "500029"],
     }
-    ds = mch_model_data.get_from_polytope(request, fields=["U_10M", "V_10M"])
+    ds = mch_model_data.get(request, fields=["U_10M", "V_10M"])
 
     u_10m = ds["U_10M"].isel(z=0, eps=0, time=0)
     v_10m = ds["V_10M"].isel(z=0, eps=0, time=0)

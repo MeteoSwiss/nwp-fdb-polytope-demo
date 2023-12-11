@@ -30,7 +30,7 @@ def plot_total_precipitation():
         "step": ["0", "24"],
         "param": "500041",
     }
-    ds = mch_model_data.get_from_polytope(request, fields=["TOT_PREC"])
+    ds = mch_model_data.get(request, fields=["TOT_PREC"])
 
     tot_prec = ds["TOT_PREC"]
     tot_prec_24h = time_ops.delta(tot_prec, np.timedelta64(24, "h"))
