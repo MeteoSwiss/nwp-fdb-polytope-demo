@@ -3,34 +3,26 @@ import cartopy.feature as cfeature
 import idpi.operators.time_operators as time_ops
 import matplotlib.pyplot as plt
 import numpy as np
+from idpi import mars
 from idpi.operators.support_operators import get_grid_coords
 
 from ..mch_model_data import mch_model_data
 
 
 def plot_total_precipitation():
-    # Doesn't work yet
-    # request = mars.Request(
-    #     "TOT_PREC",
-    #     date="20230201",
-    #     step=[0, 24],
-    #     time="0300",
-    #     levtype=mars.LevType.SURFACE,
-    # )
-    request = {
-        "class": "od",
-        "date": "20230201",
-        "expver": "0001",
-        "stream": "enfo",
-        "time": "0300",
-        "model": "COSMO-1E",
-        "type": "ememb",
-        "number": "0",
-        "levtype": "sfc",
-        "step": ["0", "24"],
-        "param": "500041",
-    }
-    ds = mch_model_data.get(request, fields=["TOT_PREC"])
+    request = mars.Request(
+        "TOT_PREC",
+        date="20230201",
+        time="0300",
+        expver="0001",
+        number=0,
+        step=(0, 24),
+        levtype=mars.LevType.SURFACE,
+        model=mars.Model.COSMO_1E,
+        stream=mars.Stream.ENS_FORECAST,
+        type=mars.Type.ENS_MEMBER,
+    )
+    ds = mch_model_data.get(request, ref_param_for_grid="TOT_PREC")
 
     tot_prec = ds["TOT_PREC"]
     tot_prec_24h = time_ops.delta(tot_prec, np.timedelta64(24, "h"))

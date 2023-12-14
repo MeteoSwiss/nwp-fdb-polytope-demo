@@ -1,39 +1,39 @@
 from ..mch_model_data import mch_model_data
 
+from idpi import mars
 from idpi.operators import wind, destagger
 import matplotlib.pyplot as plt
 import numpy as np
 
 
 def timeseries():
-    request = {
-        "class": "od",
-        "date": "20230201",
-        "expver": "0001",
-        "stream": "enfo",
-        "time": "0300",
-        "model": "COSMO-1E",
-        "type": "ememb",
-        "number": "0",
-        "levtype": "sfc",
-        "step": [str(i) for i in range(0, 24)],
-        "param": ["500027", "500029"],
-    }
-    ds = mch_model_data.get_from_polytope(request, fields=["U_10M", "V_10M"])
-    request_ml = {
-        "class": "od",
-        "date": "20230201",
-        "expver": "0001",
-        "stream": "enfo",
-        "time": "0300",
-        "model": "COSMO-1E",
-        "type": "ememb",
-        "number": "0",
-        "levtype": "ml",
-        "step": [str(i) for i in range(0, 24)],
-        "param": ["500008", "500028", "500030"],
-        "levelist": ["20", "40"],
-    }
+    request = mars.Request(
+        ("U_10M", "V_10M"),
+        date="20230201",
+        time="0300",
+        expver="0001",
+        number=0,
+        step=tuple(range(24)),
+        levtype=mars.LevType.SURFACE,
+        model=mars.Model.COSMO_1E,
+        stream=mars.Stream.ENS_FORECAST,
+        type=mars.Type.ENS_MEMBER,
+    )
+    ds = mch_model_data.get(request, ref_param_for_grid="U_10M")
+    request_ml = mars.Request(
+        ("HHL", "U_10M", "V_10M"),
+        date="20230201",
+        time="0300",
+        expver="0001",
+        levelist=(20, 40),
+        number=0,
+        step=tuple(range(24)),
+        levtype=mars.LevType.MODEL_LEVEL,
+        model=mars.Model.COSMO_1E,
+        stream=mars.Stream.ENS_FORECAST,
+        type=mars.Type.ENS_MEMBER,
+    )
+    ds_ml = mch_model_data.get(request_ml, ref_param_for_grid="HHL")
 
     xi = 588
     yi = 493
@@ -42,7 +42,6 @@ def timeseries():
     v_point = ds["V_10M"].isel(z=0, eps=0, x=xi, y=yi)
     result = wind.speed(u_point, v_point)
 
-    ds_ml = mch_model_data.get_from_polytope(request_ml, fields=["HHL", "U", "V"])
     u = ds_ml["U"]
     v = ds_ml["V"]
     hhl = ds_ml["HHL"]

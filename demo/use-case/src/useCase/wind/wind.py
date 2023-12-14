@@ -3,6 +3,7 @@ import dataclasses as dc
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import matplotlib.pyplot as plt
+from idpi import mars
 from idpi.operators import gis, regrid, wind
 
 from ..mch_model_data import mch_model_data
@@ -19,27 +20,19 @@ def get_levels_colors():
 
 
 def plot_wind():
-    # Doesn't work yet
-    # request = mars.Request(
-    #     ["U_10M", "V_10M"],
-    #     date="20230201",
-    #     time="0300",
-    #     levtype=mars.LevType.SURFACE,
-    # )
-    request = {
-        "class": "od",
-        "date": "20230201",
-        "expver": "0001",
-        "stream": "enfo",
-        "time": "0300",
-        "model": "COSMO-1E",
-        "type": "ememb",
-        "number": "0",
-        "levtype": "sfc",
-        "step": "0",
-        "param": ["500027", "500029"],
-    }
-    ds = mch_model_data.get(request, fields=["U_10M", "V_10M"])
+    request = mars.Request(
+        ("U_10M", "V_10M"),
+        date="20230201",
+        time="0300",
+        expver="0001",
+        number=0,
+        step=0,
+        levtype=mars.LevType.SURFACE,
+        model=mars.Model.COSMO_1E,
+        stream=mars.Stream.ENS_FORECAST,
+        type=mars.Type.ENS_MEMBER,
+    )
+    ds = mch_model_data.get(request, ref_param_for_grid="U_10M")
 
     u_10m = ds["U_10M"].isel(z=0, eps=0, time=0)
     v_10m = ds["V_10M"].isel(z=0, eps=0, time=0)
