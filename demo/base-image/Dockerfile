@@ -3,7 +3,7 @@ FROM ${container_registry}/mch/python/builder:0.33 as mch-base
 
 RUN git clone --depth 1 --branch revise_mars_model https://github.com/cosunae/eccodes-cosmo-resources.git
 
-FROM ${container_registry}/numericalweatherpredictions/fdb-polytope:2312.939e46eb468053e641398ff7d3109512a340ba72 as fdb
+FROM ${container_registry}/numericalweatherpredictions/fdb-polytope:2312.1e0b80674eea36ff47b7b4089990fa6658c2983b as fdb
 
 FROM ${container_registry}/mambaorg/micromamba:1.5.3-jammy AS base
 
