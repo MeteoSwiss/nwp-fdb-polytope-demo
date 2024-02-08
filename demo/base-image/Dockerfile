@@ -3,7 +3,7 @@ FROM ${container_registry}/mch/python/builder:0.33 as mch-base
 
 RUN git clone --depth 1 --branch mars-levtype-echotop-2 https://github.com/cfkanesan/eccodes-cosmo-resources.git
 
-FROM ${container_registry}/numericalweatherpredictions/fdb-polytope:2312.1e0b80674eea36ff47b7b4089990fa6658c2983b as fdb
+FROM ${container_registry}/numericalweatherpredictions/fdb-polytope:2402.97f799706f3ab32996700a4160aca7eaec321dc4 as fdb
 
 FROM ${container_registry}/mambaorg/micromamba:1.5.3-jammy AS base
 
