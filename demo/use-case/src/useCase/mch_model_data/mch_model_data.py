@@ -41,7 +41,9 @@ def get_from_polytope(
     polytope_client.retrieve("mch", request.to_fdb(), filename)
     datafiles = [Path(filename)]
     reader = GribReader.from_files(datafiles, ref_param=ref_param_for_grid)
-    return reader.load_fieldnames(list(request.param))
+    if not isinstance(request.param, str):
+        return reader.load_fieldnames(request.param)
+    return reader.load_fieldnames([request.param])
 
 
 def get_from_fdb(

@@ -46,3 +46,16 @@ Specify the environment variable `FDB5_CONFIG` with the config of FDB
 ```json
 {'type':'local','engine':'toc','schema':'<SCHEMA>','spaces':[{'handler':'Default','roots':[{'path':'<FDB_ROOT>'}]}]}
 ```
+
+## Run container at AWS
+
+Use the following command to run the container on AWS ECS.
+
+```shell
+aws ecs run-task \
+  --cluster polytope-demo \
+  --task-definition polytope-demo \
+  --network-configuration '{ "awsvpcConfiguration": {"subnets":["subnet-098ac0ff2aa40933c","subnet-0c36df0a99fe3b136"],"securityGroups":["sg-0c6a013e82af170f1"],"assignPublicIp":"DISABLED" }}' \
+  --launch-type FARGATE \
+  --overrides '{ "containerOverrides": [{"name": "polytope_demo", "command": "<COMMAND_HERE>"}]'
+```

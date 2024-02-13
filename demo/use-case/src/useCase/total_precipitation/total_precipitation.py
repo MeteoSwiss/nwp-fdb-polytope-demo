@@ -1,3 +1,5 @@
+import datetime as dt
+
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import idpi.operators.time_operators as time_ops
@@ -7,6 +9,7 @@ from idpi import mars
 from idpi.operators.support_operators import get_grid_coords
 
 from ..mch_model_data import mch_model_data
+from ..util import upload
 
 
 def plot_total_precipitation():
@@ -46,6 +49,9 @@ def plot_total_precipitation():
     ax.set_title("Total Precipitation rate (S) (24h)")
     fig.colorbar(a, label="kg m^-2 s^-1")
     fig.savefig("out/total_precipitation.png")
+
+    object_name = f"total_precipitation-demo-{dt.datetime.now().isoformat()}.png"
+    upload("out/total_precipitation.png", object_name)
 
 
 def _get_crs_rotll(geo):

@@ -1,4 +1,5 @@
 import dataclasses as dc
+import datetime as dt
 
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
@@ -7,6 +8,7 @@ from idpi import mars
 from idpi.operators import gis, regrid, wind
 
 from ..mch_model_data import mch_model_data
+from ..util import upload
 
 
 def get_levels_colors():
@@ -87,3 +89,7 @@ def plot_wind():
 
     ax.set_title("10m Wind Speed (CTRL)")
     fig.savefig("out/wind.png")
+
+    object_name = f"wind-demo-{dt.datetime.now().isoformat()}.png"
+    upload("out/wind.png", object_name)
+

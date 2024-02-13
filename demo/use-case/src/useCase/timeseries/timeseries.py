@@ -1,9 +1,12 @@
-from ..mch_model_data import mch_model_data
+import datetime as dt
 
-from idpi import mars
-from idpi.operators import wind, destagger
 import matplotlib.pyplot as plt
 import numpy as np
+from idpi import mars
+from idpi.operators import wind, destagger
+
+from ..mch_model_data import mch_model_data
+from ..util import upload
 
 
 def timeseries():
@@ -21,7 +24,7 @@ def timeseries():
     )
     ds = mch_model_data.get(request, ref_param_for_grid="U_10M")
     request_ml = mars.Request(
-        ("HHL", "U_10M", "V_10M"),
+        ("HHL", "U", "V"),
         date="20230201",
         time="0300",
         expver="0001",
@@ -83,3 +86,6 @@ def timeseries():
     plt.xticks(np.arange(0, 24, step=1), minor=True)
     plt.yticks(np.arange(0, yt, step=5), minor=True)
     plt.savefig("out/timeseries.png")
+
+    object_name = f"timeseries-demo-{dt.datetime.now().isoformat()}.png"
+    upload("out/timeseries.png", object_name)
