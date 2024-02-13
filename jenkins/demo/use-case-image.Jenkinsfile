@@ -9,6 +9,7 @@ pipeline {
 
     parameters {
         booleanParam(name: 'PUSH_IMAGES_TO_NEXUS', defaultValue: false, description: 'Push images to Nexus?')
+        booleanParam(name: 'PUSH_IMAGES_TO_ECR', defaultValue: false, description: 'Push images to ECR?')
     }
 
     environment { 
@@ -17,6 +18,11 @@ pipeline {
         IMAGE_TAG = "numericalweatherpredictions/polytope/demo/use-case:$TAG"
         INTERNAL_IMAGE_TAG = "docker-intern-nexus.meteoswiss.ch/$IMAGE_TAG"
         PUBLIC_IMAGE_TAG = "docker-public-nexus.meteoswiss.ch/$IMAGE_TAG"
+
+        ECR_REPO = "493666016161.dkr.ecr.eu-central-2.amazonaws.com"
+        ECR_IMAGE_TAG = "${ECR_REPO}/${IMAGE_TAG}"
+
+        PATH = "/opt/maker/tools/aws:$PATH"
     }
 
     stages {
@@ -25,6 +31,14 @@ pipeline {
                 sh '''
                     #!/bin/bash 
                     podman version
+                '''
+            }
+        }
+        stage('AWS CLI version'){
+            steps {
+                sh '''
+                    #!/bin/bash 
+                    aws --version
                 '''
             }
         }
@@ -43,10 +57,11 @@ pipeline {
                     
                     podman tag $IMAGE_TAG $INTERNAL_IMAGE_TAG
                     podman tag $IMAGE_TAG $PUBLIC_IMAGE_TAG
+                    podman tag $IMAGE_TAG $ECR_IMAGE_TAG
                 '''
             }
         }
-        stage('Tag & push image') {
+        stage('Push to Nexus') {
             when { 
                 anyOf{
                     branch "main"
@@ -67,6 +82,33 @@ pipeline {
                 }
             } 
             
+        }
+        stage('Push to ECR') {
+            when { 
+                anyOf{
+                    branch "main"
+                    expression { return params.PUSH_IMAGES_TO_ECR }
+                } 
+            }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'aws-icon-sandbox',
+                                    passwordVariable: 'AWS_SECRET_ACCESS_KEY',
+                                    usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+                    sh '''
+                        #!/bin/bash
+
+                        if test -f /etc/ssl/certs/ca-certificates.crt; then
+                            export AWS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+                        else
+                            export AWS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.crt
+                        fi
+
+                        aws ecr get-login-password --region eu-central-2 | podman login --username AWS --password-stdin --cert-dir /etc/ssl/certs ${ECR_REPO}
+                        podman push --cert-dir /etc/ssl/certs ${ECR_IMAGE_TAG}
+                    '''
+                }
+            } 
+            
         } 
     }
     post { 
@@ -75,9 +117,11 @@ pipeline {
                 podman image rm -f $IMAGE_TAG
                 podman image rm -f $INTERNAL_IMAGE_TAG
                 podman image rm -f $PUBLIC_IMAGE_TAG
+                podman image rm -f $ECR_IMAGE_TAG
 
                 podman logout docker-intern-nexus.meteoswiss.ch || true
                 podman logout docker-public-nexus.meteoswiss.ch || true
+                podman logout ${ECR_REPO} || true
             '''
         }
     }
