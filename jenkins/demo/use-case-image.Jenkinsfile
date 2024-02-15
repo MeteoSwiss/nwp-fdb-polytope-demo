@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'podman'}
+    agent { label 'podman4'}
 
     options {
         disableConcurrentBuilds()
