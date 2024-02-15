@@ -51,7 +51,8 @@ def get_from_fdb(
 ) -> dict[str, xr.DataArray]:
     base = request.to_fdb()
     reader = GribReader(
-        ref_param=base | {"param": ref_param_for_grid}, source=DataSource()
+        ref_param=base | {"param": ref_param_for_grid},
+        source=DataSource(),
     )
 
     if not isinstance(request.param, str):
