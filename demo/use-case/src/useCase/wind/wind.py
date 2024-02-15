@@ -1,8 +1,10 @@
 import dataclasses as dc
 import datetime as dt
+from pathlib import Path
 
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
+import click
 import matplotlib.pyplot as plt
 from idpi import mars
 from idpi.operators import gis, regrid, wind
@@ -21,16 +23,38 @@ def get_levels_colors():
     return levels, colors
 
 
-def plot_wind():
+@click.command()
+@click.option(
+    "-r",
+    "--ref-time",
+    type=click.DateTime(["%Y%m%d%H"]),
+    default=dt.datetime(2023, 2, 1, 3),
+    help="Reference time, format: YYYYMMDDHH",
+)
+@click.option(
+    "-l",
+    "--lead-time",
+    type=click.INT,
+    default=0,
+    help="Lead time, type: int, default: 0",
+)
+@click.option(
+    "-o",
+    "--out-path",
+    type=click.Path(path_type=Path),
+    default=Path("out/wind.png"),
+    help="Output path",
+)
+def plot_wind(ref_time: dt.datetime, lead_time: int, out_path: Path):
     request = mars.Request(
         ("U_10M", "V_10M"),
-        date="20230201",
-        time="0300",
+        date=ref_time.strftime("%Y%m%d"),
+        time=ref_time.strftime("%H00"),
         expver="0001",
         number=0,
-        step=0,
+        step=lead_time,
         levtype=mars.LevType.SURFACE,
-        model=mars.Model.COSMO_1E,
+        model=mars.Model.ICON_CH1_EPS,
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
     )
@@ -88,8 +112,7 @@ def plot_wind():
     ax.quiver(dst.x, dst.y, u, v, transform=crs, scale=500)
 
     ax.set_title("10m Wind Speed (CTRL)")
-    fig.savefig("out/wind.png")
+    fig.savefig(out_path)
 
     object_name = f"wind-demo-{dt.datetime.now().isoformat()}.png"
-    upload("out/wind.png", object_name)
-
+    upload(out_path, object_name)

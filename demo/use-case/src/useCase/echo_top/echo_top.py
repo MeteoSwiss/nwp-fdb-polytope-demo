@@ -16,6 +16,7 @@ from ..mch_model_data import mch_model_data
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 logger = logging.getLogger(__name__)
 
+
 def get_client():
     if mch_model_data.SOURCE == "FDB":
         return pyfdb.FDB()
@@ -68,7 +69,7 @@ def compute_echo_top(ref_time: dt.datetime, lead_time: int, out_path: Path):
         number=tuple(range(11)),
         step=lead_time,
         levtype=mars.LevType.MODEL_LEVEL,
-        model=mars.Model.COSMO_1E,
+        model=mars.Model.ICON_CH1_EPS,
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
     )
