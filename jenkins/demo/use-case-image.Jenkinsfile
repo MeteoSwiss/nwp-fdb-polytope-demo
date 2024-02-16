@@ -105,6 +105,7 @@ pipeline {
 
                         aws ecr get-login-password --region eu-central-2 | podman login --username AWS --password-stdin --cert-dir /etc/ssl/certs ${ECR_REPO}
                         podman push --cert-dir /etc/ssl/certs ${ECR_IMAGE_TAG}
+                        aws ssm put-parameter --name "/polytope/demo/use-case/containertag" --type "String" --value "${TAG}" --overwrite
                     '''
                 }
             } 
