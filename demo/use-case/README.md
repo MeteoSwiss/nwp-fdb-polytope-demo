@@ -3,11 +3,13 @@
 After building the container through the VSCode task `Build demo use-case image`, you can run it with the following command from the LabVM.
 
 Replase `<COMMAND_HERE>` with one of the following commands:
- - python -m useCase.total_precipitation
- - python -m useCase.wind
- - python -m useCase.timeseries
+ - `python -m useCase.total_precipitation -r 2024022303 -l 1440`
+ - `python -m useCase.wind -r 2024022303 -l 0`
+ - `python -m useCase.timeseries -r 2024022303 -l 1440`
 
 Set the environment variable `MCH_MODEL_DATA_SOURCE` to `FDB` if FDB should be accessed directly rather than via Polytope. This also requires the additional environment variable `FDB5_CONFIG`.
+
+Set the environment variable `MCH_MODEL_DATA_SOURCE` to `FASTAPI` if FDB should be accessed via FastApi. This also requires the additional environment variable `FDB_HOST`. Note the FastApi server needs to be running and address needs to be provided in the `FDB_HOST` environment variable.
 
 ## Run container
 
@@ -20,6 +22,7 @@ podman run \
   -e REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
   -v $(pwd)/demo/use-case/out:/app/out --userns=keep-id \
   --network=host \
+  --rm \
   numericalweatherpredictions/polytope/demo/use-case:latest \
   <COMMAND_HERE>
 ```
@@ -51,11 +54,13 @@ Specify the environment variable `FDB5_CONFIG` with the config of FDB
 
 Use the following command to run the container on AWS ECS.
 
+`SPLIT_COMMAND_HERE = "python","-m","useCase.wind",...`
+
 ```shell
 aws ecs run-task \
   --cluster polytope-demo \
   --task-definition polytope-demo \
   --network-configuration '{ "awsvpcConfiguration": {"subnets":["subnet-098ac0ff2aa40933c","subnet-0c36df0a99fe3b136"],"securityGroups":["sg-0c6a013e82af170f1"],"assignPublicIp":"DISABLED" }}' \
   --launch-type FARGATE \
-  --overrides '{ "containerOverrides": [{"name": "polytope_demo", "command": "<COMMAND_HERE>"}]'
+  --overrides '{ "containerOverrides": [{"name": "polytope_demo", "command": [<SPLIT_COMMAND_HERE>]}]}'
 ```
