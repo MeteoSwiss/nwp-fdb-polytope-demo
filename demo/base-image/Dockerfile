@@ -23,8 +23,7 @@ COPY --from=fdb --chown=$MAMBA_USER:$MAMBA_USER /opt/fdb /opt/fdb
 COPY --from=mch-base --chown=$MAMBA_USER:$MAMBA_USER /src/eccodes-cosmo-resources/definitions /opt/conda/share/eccodes-cosmo-resources/definitions
 
 ENV PATH=/opt/conda/bin:/opt/fdb/bin:$PATH \
-    GRIB_DEFINITION_PATH=/opt/conda/share/eccodes-cosmo-resources/definitions:/opt/conda/share/eccodes/definitions \
-    FDB5_HOME=/opt/fdb
+    GRIB_DEFINITION_PATH=/opt/conda/share/eccodes-cosmo-resources/definitions:/opt/conda/share/eccodes/definitions
 
 USER $MAMBA_USER
 
