@@ -9,8 +9,6 @@ Replase `<COMMAND_HERE>` with one of the following commands:
 
 Set the environment variable `MCH_MODEL_DATA_SOURCE` to `FDB` if FDB should be accessed directly rather than via Polytope. This also requires the additional environment variable `FDB5_CONFIG`.
 
-Set the environment variable `MCH_MODEL_DATA_SOURCE` to `FASTAPI` if FDB should be accessed via FastApi. This also requires the additional environment variable `FDB_HOST`. Note the FastApi server needs to be running and address needs to be provided in the `FDB_HOST` environment variable.
-
 ## Run container
 
 ```shell

@@ -5,7 +5,6 @@ from pathlib import Path
 
 import click
 from idpi import grib_decoder, mars, metadata, data_source
-from idpi import fdb_client
 from idpi.operators.destagger import destagger
 from idpi.operators.vertical_interpolation import interpolate_k2any
 import pyfdb
@@ -13,15 +12,13 @@ import pyfdb
 from ..mch_model_data import mch_model_data
 
 
-logging.basicConfig(level=logging.INFO, stream=sys.stdout)
+logging.basicConfig(level=logging.DEBUG, stream=sys.stdout)
 logger = logging.getLogger(__name__)
 
 
 def get_client():
     if mch_model_data.SOURCE == "FDB":
         return pyfdb.FDB()
-    elif mch_model_data.SOURCE == "FASTAPI":
-        return fdb_client.FDBClient(mch_model_data.FDB_HOST)
     else:
         msg = f"Unsupported value for source: {mch_model_data.SOURCE}"
         raise RuntimeError(msg)
@@ -61,7 +58,21 @@ def compute_echo_top(ref_time: dt.datetime, lead_time: int, out_path: Path):
     )
 
     request = mars.Request(
-        ("HHL", "DBZ"),
+        "HHL",
+        date=ref_time.strftime("%Y%m%d"),
+        time=ref_time.strftime("%H00"),
+        expver="0001",
+        levelist=tuple(range(1, 82)),
+        number=tuple(range(11)),
+        step=0,
+        levtype=mars.LevType.MODEL_LEVEL,
+        model=mars.Model.ICON_CH1_EPS,
+        stream=mars.Stream.ENS_FORECAST,
+        type=mars.Type.ENS_MEMBER,
+    )
+    hhl = mch_model_data.get(request)["HHL"]
+    request = mars.Request(
+        "DBZ",
         date=ref_time.strftime("%Y%m%d"),
         time=ref_time.strftime("%H00"),
         expver="0001",
@@ -73,13 +84,13 @@ def compute_echo_top(ref_time: dt.datetime, lead_time: int, out_path: Path):
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
     )
-    ds = mch_model_data.get(request, ref_param_for_grid="HHL")
+    dbz = mch_model_data.get(request)["DBZ"]
 
     client = get_client()
 
     # Calculate ECHOTOPinM
-    hfl = destagger(ds["HHL"], "z")
-    echo_top = interpolate_k2any(hfl, "high_fold", ds["DBZ"], [15.0], hfl)
+    hfl = destagger(hhl, "z")
+    echo_top = interpolate_k2any(hfl, "high_fold", dbz, [15.0], hfl)
 
     echo_top.attrs |= metadata.override(echo_top.message, shortName="ECHOTOPinM")
     echo_top.attrs["vcoord_type"] = "echoTopInDBZ"

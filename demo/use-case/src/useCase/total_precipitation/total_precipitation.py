@@ -49,7 +49,7 @@ def plot_total_precipitation(ref_time: dt.datetime, lead_time: int, out_path: Pa
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
     )
-    ds = mch_model_data.get(request, ref_param_for_grid="TOT_PREC")
+    ds = mch_model_data.get(request)
 
     tot_prec = ds["TOT_PREC"]
     tot_prec_24h = time_ops.delta(tot_prec, np.timedelta64(24, "h"))

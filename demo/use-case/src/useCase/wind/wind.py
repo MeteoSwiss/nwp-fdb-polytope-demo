@@ -58,7 +58,7 @@ def plot_wind(ref_time: dt.datetime, lead_time: int, out_path: Path):
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
     )
-    ds = mch_model_data.get(request, ref_param_for_grid="U_10M")
+    ds = mch_model_data.get(request)
 
     u_10m = ds["U_10M"].isel(z=0, eps=0, time=0)
     v_10m = ds["V_10M"].isel(z=0, eps=0, time=0)

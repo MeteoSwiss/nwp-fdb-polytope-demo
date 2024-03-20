@@ -5,7 +5,7 @@ import click
 import matplotlib.pyplot as plt
 import numpy as np
 from idpi import mars
-from idpi.operators import destagger, wind
+from idpi.operators import wind
 
 from ..mch_model_data import mch_model_data
 from ..util import upload
@@ -47,7 +47,7 @@ def timeseries(ref_time: dt.datetime, lead_time: int, out_path: Path):
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
     )
-    ds = mch_model_data.get(request, ref_param_for_grid="U_10M")
+    ds = mch_model_data.get(request)
     request_ml = mars.Request(
         ("HHL", "U", "V"),
         date="20230201",
@@ -61,7 +61,7 @@ def timeseries(ref_time: dt.datetime, lead_time: int, out_path: Path):
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
     )
-    ds_ml = mch_model_data.get(request_ml, ref_param_for_grid="HHL")
+    ds_ml = mch_model_data.get(request_ml)
 
     xi = 588
     yi = 493
@@ -73,15 +73,13 @@ def timeseries(ref_time: dt.datetime, lead_time: int, out_path: Path):
     u = ds_ml["U"]
     v = ds_ml["V"]
     hhl = ds_ml["HHL"]
-    u_ml = destagger.destagger(u, "x")
-    v_ml = destagger.destagger(v, "y")
 
-    u_ml_point = u_ml.isel(eps=0, x=xi, y=yi)
-    v_ml_point = v_ml.isel(eps=0, x=xi, y=yi)
+    u_point = u.isel(eps=0, x=xi, y=yi)
+    v_point = v.isel(eps=0, x=xi, y=yi)
 
     hhl_point = hhl.isel(eps=0, x=xi, y=yi)
 
-    result_ml = wind.speed(u_ml_point, v_ml_point)
+    result_ml = wind.speed(u_point, v_point)
 
     m_s_to_knots = 1.94384
     lat = u_point.coords.get("lat").item()
