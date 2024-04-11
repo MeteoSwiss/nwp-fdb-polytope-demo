@@ -1,4 +1,5 @@
 import datetime as dt
+import os
 from pathlib import Path
 
 import cartopy.crs as ccrs
@@ -7,11 +8,16 @@ import click
 import idpi.operators.time_operators as time_ops
 import matplotlib.pyplot as plt
 import numpy as np
-from idpi import mars
+from idpi import mars, mch_model_data
 from idpi.operators.support_operators import get_grid_coords
 
-from ..mch_model_data import mch_model_data
 from ..util import upload
+
+
+def get_data(request):
+    if os.environ.get("MCH_MODEL_DATA_SOURCE") == "FDB":
+        return mch_model_data.get_from_fdb(request)
+    return mch_model_data.get_from_polytope(request)
 
 
 @click.command()
@@ -49,7 +55,7 @@ def plot_total_precipitation(ref_time: dt.datetime, lead_time: int, out_path: Pa
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
     )
-    ds = mch_model_data.get(request)
+    ds = get_data(request)
 
     tot_prec = ds["TOT_PREC"]
     tot_prec_24h = time_ops.delta(tot_prec, np.timedelta64(24, "h"))

@@ -18,6 +18,7 @@ podman run \
   -e POLYTOPE_PASSWORD=************ \
   -e https_proxy=$https_proxy \
   -e REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+  -e SSL_CERT_DIR=/etc/ssl/certs \
   -v $(pwd)/demo/use-case/out:/app/out --userns=keep-id \
   --network=host \
   --rm \

@@ -1,16 +1,22 @@
 import dataclasses as dc
 import datetime as dt
+import os
 from pathlib import Path
 
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import click
 import matplotlib.pyplot as plt
-from idpi import mars
+from idpi import mars, metadata, mch_model_data
 from idpi.operators import gis, regrid, wind
 
-from ..mch_model_data import mch_model_data
 from ..util import upload
+
+
+def get_data(request):
+    if os.environ.get("MCH_MODEL_DATA_SOURCE") == "FDB":
+        return mch_model_data.get_from_fdb(request)
+    return mch_model_data.get_from_polytope(request)
 
 
 def get_levels_colors():
@@ -58,7 +64,8 @@ def plot_wind(ref_time: dt.datetime, lead_time: int, out_path: Path):
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
     )
-    ds = mch_model_data.get(request)
+    ds = get_data(request)
+    metadata.set_origin_xy(ds, ref_param="U_10M")
 
     u_10m = ds["U_10M"].isel(z=0, eps=0, time=0)
     v_10m = ds["V_10M"].isel(z=0, eps=0, time=0)

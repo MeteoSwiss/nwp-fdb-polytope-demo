@@ -4,24 +4,14 @@ import sys
 from pathlib import Path
 
 import click
-from idpi import grib_decoder, mars, metadata, data_source
+from idpi import grib_decoder, mars, metadata, data_source, mch_model_data
 from idpi.operators.destagger import destagger
 from idpi.operators.vertical_interpolation import interpolate_k2any
 import pyfdb
 
-from ..mch_model_data import mch_model_data
-
 
 logging.basicConfig(level=logging.DEBUG, stream=sys.stdout)
 logger = logging.getLogger(__name__)
-
-
-def get_client():
-    if mch_model_data.SOURCE == "FDB":
-        return pyfdb.FDB()
-    else:
-        msg = f"Unsupported value for source: {mch_model_data.SOURCE}"
-        raise RuntimeError(msg)
 
 
 @click.command()
@@ -63,14 +53,14 @@ def compute_echo_top(ref_time: dt.datetime, lead_time: int, out_path: Path):
         time=ref_time.strftime("%H00"),
         expver="0001",
         levelist=tuple(range(1, 82)),
-        number=tuple(range(11)),
+        number=0,
         step=0,
         levtype=mars.LevType.MODEL_LEVEL,
         model=mars.Model.ICON_CH1_EPS,
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
     )
-    hhl = mch_model_data.get(request)["HHL"]
+    hhl = mch_model_data.get_from_fdb(request)["HHL"]
     request = mars.Request(
         "DBZ",
         date=ref_time.strftime("%Y%m%d"),
@@ -84,16 +74,20 @@ def compute_echo_top(ref_time: dt.datetime, lead_time: int, out_path: Path):
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
     )
-    dbz = mch_model_data.get(request)["DBZ"]
+    dbz = mch_model_data.get_from_fdb(request)["DBZ"]
 
-    client = get_client()
+    logger.info("Data for ECHOTOPinM received.")
+    logger.info("Computation of ECHOTOPinM started.")
+
+    fdb = pyfdb.FDB()
 
     # Calculate ECHOTOPinM
     hfl = destagger(hhl, "z")
     echo_top = interpolate_k2any(hfl, "high_fold", dbz, [15.0], hfl)
 
-    echo_top.attrs |= metadata.override(echo_top.message, shortName="ECHOTOPinM")
-    echo_top.attrs["vcoord_type"] = "echoTopInDBZ"
+    echo_top.attrs |= metadata.override(
+        echo_top.message, shortName="ECHOTOPinM", typeOfLevel="echoTopInDBZ"
+    )
 
     logger.info("Archiving ECHOTOPinM in FDB")
     with data_source.cosmo_grib_defs():
@@ -101,6 +95,6 @@ def compute_echo_top(ref_time: dt.datetime, lead_time: int, out_path: Path):
             grib_decoder.save(echo_top.rename({"DBZ": "z"}), tmp)
             tmp.seek(0)
 
-            client.archive(tmp.read())
+            fdb.archive(tmp.read())
 
     logger.info("Done")

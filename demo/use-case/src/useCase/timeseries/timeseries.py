@@ -4,10 +4,8 @@ from pathlib import Path
 import click
 import matplotlib.pyplot as plt
 import numpy as np
-from idpi import mars
-from idpi.operators import wind
+from idpi import mars, mch_model_data
 
-from ..mch_model_data import mch_model_data
 from ..util import upload
 
 
@@ -16,7 +14,7 @@ from ..util import upload
     "-r",
     "--ref-time",
     type=click.DateTime(["%Y%m%d%H"]),
-    default=dt.datetime(2023, 2, 1, 3),
+    default=dt.datetime(2024, 2, 22, 3),
     help="Reference time, format: YYYYMMDDHH",
 )
 @click.option(
@@ -30,75 +28,47 @@ from ..util import upload
     "-o",
     "--out-path",
     type=click.Path(path_type=Path),
-    default=Path("out/total_precipitation.png"),
+    default=Path("out/timeseries.png"),
     help="Output path",
 )
 def timeseries(ref_time: dt.datetime, lead_time: int, out_path: Path):
-    steps = [t * 60 for t in range(lead_time // 60)]
+    lat = 47.47
+    lon = 8.55
     request = mars.Request(
-        ("U_10M", "V_10M"),
-        date="20230201",
-        time="0300",
+        "U_10M",
+        date=ref_time.strftime("%Y%m%d"),
+        time=ref_time.strftime("%H00"),
         expver="0001",
-        number=0,
-        step=tuple(steps),
+        number=1,
         levtype=mars.LevType.SURFACE,
         model=mars.Model.ICON_CH1_EPS,
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
+        feature=mars.TimeseriesFeature(points=[(lat, lon)], end=lead_time),
     )
-    ds = mch_model_data.get(request)
-    request_ml = mars.Request(
-        ("HHL", "U", "V"),
-        date="20230201",
-        time="0300",
+    u = mch_model_data.get_from_polytope(request)["10 metre U wind component"]
+    request = mars.Request(
+        "V_10M",
+        date=ref_time.strftime("%Y%m%d"),
+        time=ref_time.strftime("%H00"),
         expver="0001",
-        levelist=(20, 40),
-        number=0,
-        step=tuple(steps),
-        levtype=mars.LevType.MODEL_LEVEL,
+        number=1,
+        levtype=mars.LevType.SURFACE,
         model=mars.Model.ICON_CH1_EPS,
         stream=mars.Stream.ENS_FORECAST,
         type=mars.Type.ENS_MEMBER,
+        feature=mars.TimeseriesFeature(points=[(lat, lon)], end=lead_time),
     )
-    ds_ml = mch_model_data.get(request_ml)
-
-    xi = 588
-    yi = 493
-
-    u_point = ds["U_10M"].isel(z=0, eps=0, x=xi, y=yi)
-    v_point = ds["V_10M"].isel(z=0, eps=0, x=xi, y=yi)
-    result = wind.speed(u_point, v_point)
-
-    u = ds_ml["U"]
-    v = ds_ml["V"]
-    hhl = ds_ml["HHL"]
-
-    u_point = u.isel(eps=0, x=xi, y=yi)
-    v_point = v.isel(eps=0, x=xi, y=yi)
-
-    hhl_point = hhl.isel(eps=0, x=xi, y=yi)
-
-    result_ml = wind.speed(u_point, v_point)
+    v = mch_model_data.get_from_polytope(request)["10 metre V wind component"]
+    result = np.sqrt(u**2 + v**2).squeeze()
 
     m_s_to_knots = 1.94384
-    lat = u_point.coords.get("lat").item()
-    lon = u_point.coords.get("lon").item()
+    steps = (u.t - np.datetime64(ref_time)) / np.timedelta64(1, "h")
 
     plt.figure()
     plt.plot(steps, result * m_s_to_knots, label="10m")
-    plt.plot(
-        steps,
-        result_ml.isel(z=0) * m_s_to_knots,
-        label=f"height amsl (m) ~ {hhl_point.isel(z=0).item():.0f}",
-    )
-    plt.plot(
-        steps,
-        result_ml.isel(z=1) * m_s_to_knots,
-        label=f"height amsl (m) ~ {hhl_point.isel(z=1).item():.0f}",
-    )
     title = (
-        f"Wind speed timeseries @ZRH ({lat},{lon})\n {ref_time.isoformat()} - COSMO-1E"
+        f"Wind speed timeseries @ZRH ({lat},{lon})\n {ref_time.isoformat()} - {request.model!s}"
     )
     plt.title(title)
     plt.ylabel("knots")
@@ -109,7 +79,7 @@ def timeseries(ref_time: dt.datetime, lead_time: int, out_path: Path):
     plt.xlim(0, 23)
     plt.ylim(bottom=0)
     plt.xticks(np.arange(0, 24, step=1), minor=True)
-    plt.yticks(np.arange(0, yt, step=5), minor=True)
+    plt.yticks(np.arange(0, yt, step=1), minor=True)
     plt.savefig(out_path)
 
     object_name = f"timeseries-demo-{dt.datetime.now().isoformat()}.png"
