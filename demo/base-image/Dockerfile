@@ -1,7 +1,7 @@
 ARG container_registry=dockerhub.apps.cp.meteoswiss.ch
 FROM ${container_registry}/mch/python/builder as mch-base
 
-RUN git clone --depth 1 --branch mars-levtype-echotop-2 https://github.com/cfkanesan/eccodes-cosmo-resources.git
+RUN git clone --depth 1 --branch revise_mars_model https://github.com/cosunae/eccodes-cosmo-resources.git
 
 FROM ${container_registry}/numericalweatherpredictions/fdb-polytope:2403.d8bea9607e36a2076a634680cebd61733d210c1f as fdb
 
@@ -23,7 +23,8 @@ COPY --from=fdb --chown=$MAMBA_USER:$MAMBA_USER /opt/fdb /opt/fdb
 COPY --from=mch-base --chown=$MAMBA_USER:$MAMBA_USER /src/eccodes-cosmo-resources/definitions /opt/conda/share/eccodes-cosmo-resources/definitions
 
 ENV PATH=/opt/conda/bin:/opt/fdb/bin:$PATH \
-    GRIB_DEFINITION_PATH=/opt/conda/share/eccodes-cosmo-resources/definitions:/opt/conda/share/eccodes/definitions
+    GRIB_DEFINITION_PATH=/opt/conda/share/eccodes-cosmo-resources/definitions:/opt/conda/share/eccodes/definitions \
+    FDB5_HOME=/opt/fdb
 
 USER $MAMBA_USER
 
