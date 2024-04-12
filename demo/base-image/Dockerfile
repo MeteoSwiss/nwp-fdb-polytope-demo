@@ -3,7 +3,7 @@ FROM ${container_registry}/mch/python/builder as mch-base
 
 RUN git clone --depth 1 --branch revise_mars_model https://github.com/cosunae/eccodes-cosmo-resources.git
 
-FROM ${container_registry}/numericalweatherpredictions/fdb-polytope:2403.d8bea9607e36a2076a634680cebd61733d210c1f as fdb
+FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2404.469236c8d65aeb0f78f95b19a5e39e25541c8056 as dependencies
 
 FROM ${container_registry}/mambaorg/micromamba:1.5.8-jammy AS base
 
@@ -18,8 +18,8 @@ ENV PIP_CERT=/etc/ssl/certs/ca-certificates.crt \
     PIP_INDEX_URL='https://hub.meteoswiss.ch/nexus/repository/python-all/simple' \
     PIP_NO_CACHE_DIR=0
 
-COPY --from=fdb --chown=$MAMBA_USER:$MAMBA_USER /work/spack-root /work/spack-root
-COPY --from=fdb --chown=$MAMBA_USER:$MAMBA_USER /opt/fdb /opt/fdb
+COPY --from=dependencies --chown=$MAMBA_USER:$MAMBA_USER /work/spack-root /work/spack-root
+COPY --from=dependencies --chown=$MAMBA_USER:$MAMBA_USER /opt/fdb /opt/fdb
 COPY --from=mch-base --chown=$MAMBA_USER:$MAMBA_USER /src/eccodes-cosmo-resources/definitions /opt/conda/share/eccodes-cosmo-resources/definitions
 
 ENV PATH=/opt/conda/bin:/opt/fdb/bin:$PATH \
