@@ -1,7 +1,7 @@
 ARG container_registry=dockerhub.apps.cp.meteoswiss.ch
 FROM ${container_registry}/mch/python/builder as mch-base
 
-FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2404.8afab0fd961ea7c536bfb4ae88771b9c3d217235 as dependencies
+FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2404.9256fa61d93216e2d1762a2449efd1db1468ca61 as dependencies
 
 FROM quay.io/jupyter/base-notebook:python-3.11.8
 
