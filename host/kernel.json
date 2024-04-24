@@ -1,0 +1,20 @@
+{
+    "argv": [
+        "/usr/bin/podman",
+        "run",
+        "--env=REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt",
+        "--env=SSL_CERT_DIR=/etc/ssl/certs/",
+        "--network=host",
+        "--rm",
+        "--userns=keep-id",
+        "--volume={connection_file}:/connection-spec:U",
+        "dockerhub.apps.cp.meteoswiss.ch/numericalweatherpredictions/polytope/demo/use-case:2404.77f548f8b79cbe7c6e9f2397a294040cc6a59ec2",
+        "python",
+        "-m",
+        "ipykernel_launcher",
+        "-f",
+        "/connection-spec"
+    ],
+    "display_name": "polytope-demo",
+    "language": "python"
+}

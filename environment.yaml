@@ -1,0 +1,14 @@
+name: base
+channels:
+  - conda-forge
+dependencies:
+  - eccodes=2.32.0
+  - pip=24.0
+  - pip:
+      - meteodatalab@https://github.com/MeteoSwiss/meteodata-lab/archive/b898c0ea0d4a77094ce6ccf390767bad5eadf58b.tar.gz
+      - pyfdb@https://github.com/ecmwf/pyfdb/archive/refs/tags/0.0.3.tar.gz
+      - polytope-client==0.7.4
+      - eccovjson==0.0.5
+      - matplotlib==3.8.4
+      - cartopy==0.22
+      - earthkit-data==0.7.0
