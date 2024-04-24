@@ -5,11 +5,11 @@ from pathlib import Path
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import click
-import idpi.operators.time_operators as time_ops
+import meteodatalab.operators.time_operators as time_ops
 import matplotlib.pyplot as plt
 import numpy as np
-from idpi import mars, mch_model_data
-from idpi.operators.support_operators import get_grid_coords
+from meteodatalab import mars, mch_model_data
+from meteodatalab.operators.support_operators import get_grid_coords
 
 from ..util import upload
 

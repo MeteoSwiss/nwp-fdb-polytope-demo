@@ -4,9 +4,9 @@ import sys
 from pathlib import Path
 
 import click
-from idpi import grib_decoder, mars, metadata, data_source, mch_model_data
-from idpi.operators.destagger import destagger
-from idpi.operators.vertical_interpolation import interpolate_k2any
+from meteodatalab import grib_decoder, mars, metadata, data_source, mch_model_data
+from meteodatalab.operators.destagger import destagger
+from meteodatalab.operators.vertical_interpolation import interpolate_k2any
 import pyfdb
 
 
@@ -53,7 +53,7 @@ def compute_echo_top(ref_time: dt.datetime, lead_time: int, out_path: Path):
         time=ref_time.strftime("%H00"),
         expver="0001",
         levelist=tuple(range(1, 82)),
-        number=0,
+        number=tuple(range(11)),
         step=0,
         levtype=mars.LevType.MODEL_LEVEL,
         model=mars.Model.ICON_CH1_EPS,

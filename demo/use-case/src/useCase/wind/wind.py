@@ -7,8 +7,8 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import click
 import matplotlib.pyplot as plt
-from idpi import mars, metadata, mch_model_data
-from idpi.operators import gis, regrid, wind
+from meteodatalab import mars, metadata, mch_model_data
+from meteodatalab.operators import gis, regrid, wind
 
 from ..util import upload
 

@@ -4,7 +4,7 @@ from pathlib import Path
 import click
 import matplotlib.pyplot as plt
 import numpy as np
-from idpi import mars, mch_model_data
+from meteodatalab import mars, mch_model_data
 
 from ..util import upload
 
