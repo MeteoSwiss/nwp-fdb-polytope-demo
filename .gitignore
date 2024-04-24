@@ -1,0 +1,5 @@
+polytope-demo
+.ipynb_checkpoints
+__pycache__
+.spack-env
+spack.lock
