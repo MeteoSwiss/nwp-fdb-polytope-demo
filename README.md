@@ -1,6 +1,14 @@
-# Notebooks
+# FDB and Polytope model data access and processing using meteodata-lab, example notebooks
 
-The notebooks for the demo can be found in the directory [notebooks](notebooks):
+This repository contains what is required to install and run various jupyter notebooks for the following usecases:
+
+* Retrieving a specified selection of GRIB fields into an xarray object and processing with meteorological operators.
+* Remotely retrieving a very reduced subset of GRIB fields, eg just a few grid points, via the Polytope algorithm, to create a timeseries over an extended period.
+* Writing GRIB fields data back to FDB having processed the model data at CSCS.
+  
+The notebooks for the demo can be found in the directory [notebooks](notebooks).
+
+## Jupyter Notebooks
 
 Notebooks to run from CSCS (Balfrin/Eiger):
 - 1_Data_Retrieval_from_FDB_Preprocessing
