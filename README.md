@@ -1,6 +1,6 @@
 # FDB and Polytope model data access and processing using meteodata-lab, example notebooks
 
-This repository contains what is required to install and run various jupyter notebooks for the following usecases:
+This repository contains all that is required to install and run various Jupyter notebooks, to demonstrate the simplified access to model data via [FDB](https://github.com/ecmwf/fdb) and [Polytope](https://github.com/ecmwf/polytope) (ECMWF) and the subsequent post-processing via a data processing framework [meteodata-lab](https://github.com/MeteoSwiss/meteodata-lab) (in development). The following use cases are covered by the notebooks:
 
 * Retrieving a specified selection of GRIB fields into an xarray object and processing with meteorological operators.
 * Remotely retrieving a very reduced subset of GRIB fields, eg just a few grid points, via the Polytope algorithm, to create a timeseries over an extended period.
