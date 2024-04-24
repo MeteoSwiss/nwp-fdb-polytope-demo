@@ -96,4 +96,5 @@ Afterwards connect to the external Jupyter server from the notebook with the url
 
 ![Exisiting Jupyter Server...](./host/vscode_remote_jupyter-server.png)
 
-With VSCode, you need to have the `Jupyter` VSCode extension (https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) insalled.
+> [!NOTE]
+> With VSCode, you need to have the `Jupyter` VSCode extension (https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) insalled.
