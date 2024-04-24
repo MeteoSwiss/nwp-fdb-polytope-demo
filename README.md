@@ -44,7 +44,7 @@ sudo apt install pipx
 export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 pipx install jupyterlab
 
-./demo/notebook/host/install_kernel.sh
+./host/install_kernel.sh
 ```
 Connect to the jupyter server <br>
 - **from VSCode:** <br>
