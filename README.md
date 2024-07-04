@@ -10,7 +10,7 @@ The notebooks for the demo can be found in the directory [notebooks](notebooks).
 
 ## Jupyter Notebooks
 
-Notebooks to run from CSCS (Balfrin/Eiger):
+Notebooks to run from CSCS (Balfrin):
 - 1_Data_Retrieval_from_FDB_Preprocessing
 - 2_Precompute_and_Store_Echotop_to_FDB
 
@@ -19,23 +19,19 @@ Notebooks to run from the LabVM:
 - 4_Location_and_TimeSeries_Access
 
 
-> [!WARNING]
-> Note that the FDB remote server is currently deployed with minimal resources and is thus not expected to handle heavy load at this time.
-> If you run the notebooks and experience timeouts or other issues, please contact either christian.kanesan@meteoswiss.ch or victoria.cherkas@meteoswiss.ch who will try to help.
-
 **Forecasts available in FDB**
 
 > [!NOTE]
-> The remote FDB server references an instance of FDB that normally contains **only the two latest forecasts**. This means the FDB requests in the notebooks should usually use date = today and time as  either 0000, 0300, 0600, 0900 etc. given the forecasts are every 3 hour). The data is usually available in the FDB a couple of hours after the forecast start time. If the FDB returns no data, contact victoria.cherkas@meteoswiss.ch to enquire about which data is currently archived in the FDB.
+> The realtime FDB normally contains **just the two latest forecasts**. This means the FDB requests in the notebooks should usually use date = today and time as either 0000, 0300, 0600, 0900 etc. (given the forecasts run every 3 hour). The data is usually available in the FDB a couple of hours after the forecast start time. If the requests to FDB return no data, see these [instructions](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+ICON-CH1#Query-available-data-on-Balfrin) for how to query yourself which data is currently archived in the FDB, or contact victoria.cherkas@meteoswiss.ch.
 
 # Instructions
 
 To use the Jupyter notebooks you have the following two options regarding the runtime dependencies and the jupyter server:
 
-1. Jupyter server on the lab-vm or at CSCS (Balfrin/Eiger) and runtime dependencies in a container
+1. Jupyter server on the lab-vm or at CSCS (Balfrin) and runtime dependencies in a container
 2. Both the jupyter server and the runtime dependencies in a container (LabVM only)
 
-##   Jupyter server on the Lab-VM or at CSCS (Balfrin/Eiger)
+##   Jupyter server on the Lab-VM or at CSCS (Balfrin)
 #### LabVM
 
 With this approach you define a kernel definiton in your jupyter server with a reference to the container.
@@ -55,7 +51,7 @@ Open the notebook and select the `polytope-demo` kernel in "Select Kernel" -> "S
   ```
   Open the URL given in the code and select the `polytope-demo` kernel.
 
-#### CSCS (Balfrin/Eiger)
+#### CSCS (Balfrin)
 
 Setup spack for the machine and build FDB.
 
