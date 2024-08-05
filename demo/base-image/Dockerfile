@@ -1,9 +1,9 @@
 ARG container_registry=dockerhub.apps.cp.meteoswiss.ch
 FROM ${container_registry}/mch/python/builder as mch-base
 
-RUN git clone --depth 1 --branch revise_mars_model https://github.com/cosunae/eccodes-cosmo-resources.git
+RUN git clone --depth 1 --branch v2.35.0.1dm1 https://github.com/COSMO-ORG/eccodes-cosmo-resources.git
 
-FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2404.9256fa61d93216e2d1762a2449efd1db1468ca61 as dependencies
+FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2407.20f38c334c988422d60699558023b08dfc470a5d as dependencies
 
 FROM ${container_registry}/mambaorg/micromamba:1.5.8-jammy AS base
 
