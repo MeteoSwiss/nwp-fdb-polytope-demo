@@ -1,5 +1,5 @@
 ARG container_registry=dockerhub.apps.cp.meteoswiss.ch
-ARG base_image_tag=2404.f17b2395c09f764328d460e41247e99a4bca5e65
+ARG base_image_tag=2407.18e5e8c8747bf4564a03ed73bcc2ae67edb7a05d
 
 FROM ${container_registry}/numericalweatherpredictions/polytope/demo/base:${base_image_tag}
 
