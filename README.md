@@ -18,11 +18,14 @@ Notebooks to run from the LabVM:
 - 3_Retrieve_Echotop_and_Regrid
 - 4_Location_and_TimeSeries_Access
 
-
 **Forecasts available in FDB**
 
 > [!NOTE]
 > The realtime FDB normally contains **just the two latest forecasts**. This means the FDB requests in the notebooks should usually use date = today and time as either 0000, 0300, 0600, 0900 etc. (given the forecasts run every 3 hour). The data is usually available in the FDB a couple of hours after the forecast start time. If the requests to FDB return no data, see these [instructions](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+ICON-CH1#Query-available-data-on-Balfrin) for how to query yourself which data is currently archived in the FDB, or contact victoria.cherkas@meteoswiss.ch.
+
+> [!NOTE]
+> Only a single service account can write data to the aforementioned FDB. This means that the writing of computed GRIB fields in notebook 2 (2_Precompute_and_Store_Echotop_to_FDB) cannot be run by any user on CSCS. Subsequently the reading of this same data on the LabVM in Notebook 3 (3_Retrieve_Echotop_and_Regrid) would only work when notebook 2 was run under this specific service account. Please contact victoria.cherkas@meteoswiss.ch or christian.kanesan@meteoswiss.ch to see the demo in full. Alternatively you can create your own FDB and write back to this.
+
 
 # Instructions
 
