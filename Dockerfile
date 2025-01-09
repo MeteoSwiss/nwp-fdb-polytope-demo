@@ -24,7 +24,7 @@ ENV PATH=/opt/fdb/bin:$PATH \
     FDB5_HOME=/opt/fdb \
     FDB_REMOTE_RETRIEVE_QUEUE_LENGTH=10
 
-COPY --chown=$NB_UID:$NB_GID env.yaml /tmp/env.yaml
+COPY --chown=$NB_UID:$NB_GID environment.yaml /tmp/env.yaml
 
 RUN mamba env update --file /tmp/env.yaml && \
     mamba clean --all --yes && \
