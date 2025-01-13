@@ -3,7 +3,7 @@ FROM ${container_registry}/mch/python/builder as mch-base
 
 RUN git clone --depth 1 --branch v2.35.0.1dm1 https://github.com/COSMO-ORG/eccodes-cosmo-resources.git
 
-FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2407.20f38c334c988422d60699558023b08dfc470a5d as dependencies
+FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2412.4f1d129904ad087f94525082cf8c712ee572996f as dependencies
 
 FROM ${container_registry}/mambaorg/micromamba:1.5.8-jammy AS base
 
