@@ -43,13 +43,13 @@ Specify the environment variable `FDB5_CONFIG` with the config of FDB
 #### Remote
 
 ```json
-{'type':'remote','engine':'remote','store':'remote','host':'<HOST>','port':'<PORT>'}
+{"type":"remote","engine":"remote","store":"remote","host":"<HOST>","port":"<PORT>"}
 ```
 
 #### Local
 
 ```json
-{'type':'local','engine':'toc','schema':'<SCHEMA>','spaces':[{'handler':'Default','roots':[{'path':'<FDB_ROOT>'}]}]}
+{"type":"local","engine":"toc","schema":"<SCHEMA>","spaces":[{"handler":"Default","roots":[{"path":"<FDB_ROOT>"}]}]}
 ```
 
 ## Run container at AWS
