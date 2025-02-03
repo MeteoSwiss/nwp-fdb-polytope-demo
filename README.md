@@ -35,7 +35,7 @@ When making changes to the notebooks, modify and run the notebooks in the `noteb
 sh remove_notebooks_output.sh
 ```
 
-This will create versions of the notebooks with all outputs stripped in the `clean_notebooks` directory to facilitate easier reviews.
+This will create versions of the notebooks with all outputs stripped in the `notebooks/cleaned` directory to facilitate easier reviews.
 
 # Instructions
 
