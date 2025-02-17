@@ -6,11 +6,12 @@
 # To also clear the output of the notebooks to prepare to commiting changes, pass
 # in the -c option.
 
+rm -f notebooks/snapshot/*.html
 rm -f notebooks/snapshot/*.ipynb
 cp notebooks/*.ipynb notebooks/snapshot/
 find notebooks -maxdepth 1 -name *ipynb -execdir \
   jupyter nbconvert '{}' --to html \;
-mv notebooks/*.html notebooks/snapshot
+mv notebooks/*.html notebooks/snapshot/
 
 while getopts ":c" option; do
   case $option in
