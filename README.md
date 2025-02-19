@@ -33,7 +33,7 @@ When modifying the notebooks, work in the `notebooks` directory.
 In order to create snapshots based on the current status of the notebooks in the `notebooks/snapshot` directory, run
 
 ```
-sh make_snapshot.sh
+sh make_snapshots.sh
 ```
 
 Before submitting, also clear the output of the working version of the notebooks. This makes merges and reviews easier as they do not
@@ -41,7 +41,7 @@ also include the much larger diffs to the output. Jenkins will also ensure that 
 to merge a pull request. To clear notebooks and snapshot run
 
 ```
-sh make_snapshot.sh -c
+sh make_snapshots.sh -c
 ```
 
 # Instructions
