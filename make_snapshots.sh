@@ -6,22 +6,43 @@
 # To also clear the output of the notebooks to prepare to commiting changes, pass
 # in the -c option.
 
-rm -f notebooks/snapshot/*.html
-rm -f notebooks/snapshot/*.ipynb
-cp notebooks/*.ipynb notebooks/snapshot/
-find notebooks -maxdepth 1 -name *ipynb -execdir \
-  jupyter nbconvert '{}' --to html \;
-mv notebooks/*.html notebooks/snapshot/
+CLEAR_OUTPUTS=false
 
 while getopts ":c" option; do
   case $option in
     c) # Clear the notebook output
-      find notebooks -maxdepth 1 -name *ipynb -execdir \
-        jupyter nbconvert --clear-output '{}' --output './{}' \;
-      exit;;
+      CLEAR_OUTPUTS=true
+      ;;
     \?)
       echo "Error: Invalid option"
-      exit;;
+      exit 1;;
   esac
 done
+
+for filename in notebooks/*.ipynb; do
+  jupyter nbconvert "$filename" --clear-output --output test-clear
+  if diff "$filename" notebooks/test-clear.ipynb > /dev/null ; then
+    read -p "$filename has no output, do you still want to snapshot it? [y/N] " yn
+    case $yn in
+        [yY] )
+            ;;
+        [nN] )
+            echo "skipping"
+            continue
+            ;;
+        * )
+            echo "skipping"
+            continue
+            ;;
+    esac
+  fi
+  cp -f $filename notebooks/snapshot/
+  jupyter nbconvert $filename --to html --output-dir notebooks/snapshot
+done
+rm notebooks/test-clear.ipynb
+
+if [ "$CLEAR_OUTPUTS" = true ] ; then
+    find notebooks -maxdepth 1 -name *ipynb -execdir \
+      jupyter nbconvert --clear-output '{}' --output './{}' \;
+fi
 

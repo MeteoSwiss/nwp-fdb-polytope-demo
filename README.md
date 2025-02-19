@@ -28,14 +28,21 @@ Notebooks to run from the LabVM:
 
 ## Making Changes
 
-When making changes to the notebooks, modify and run the notebooks in the `notebooks` directory. After the changes are complete, keep the version with output and run
+When modifying the notebooks, work in the `notebooks` directory.
 
+In order to create snapshots based on the current status of the notebooks in the `notebooks/snapshot` directory, run
 
 ```
-sh remove_notebooks_output.sh
+sh make_snapshot.sh
 ```
 
-This will create versions of the notebooks with all outputs stripped in the `notebooks/cleaned` directory to facilitate easier reviews.
+Before submitting, also clear the output of the working version of the notebooks. This makes merges and reviews easier as they do not
+also include the much larger diffs to the output. Jenkins will also ensure that the working notebooks have been cleared before allowing
+to merge a pull request. To clear notebooks and snapshot run
+
+```
+sh make_snapshot.sh -c
+```
 
 # Instructions
 

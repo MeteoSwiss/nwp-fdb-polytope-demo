@@ -1,5 +1,3 @@
-// Add a test to ensure that the ipynb files in the notebooks/ dir are cleaned.
-
 class Globals {
     // constants
     static final String PROJECT = 'nwp-fdb-polytope-demo'
@@ -16,15 +14,14 @@ pipeline {
         NO_PROXY = '.meteoswiss.ch,localhost'
     }
 
-    options {                                                                                                                                                                                 
-        gitLabConnection('CollabGitLab')                                                                                                                                                      
-                                                                                                                                                                                              
-        // New jobs should wait until older jobs are finished                                                                                                                                 
-        disableConcurrentBuilds()                                                                                                                                                             
-        // Discard old builds                                                                                                                                                                 
-        buildDiscarder(logRotator(artifactDaysToKeepStr: '7', artifactNumToKeepStr: '1', daysToKeepStr: '45', numToKeepStr: '10'))                                                            
-        // Timeout the pipeline build after 1 hour                                                                                                                                            
-        timeout(time: 1, unit: 'HOURS')                                                                                                                                                       
+    options {
+        gitLabConnection('CollabGitLab')
+        // New jobs should wait until older jobs are finished
+        disableConcurrentBuilds()
+        // Discard old builds
+        buildDiscarder(logRotator(artifactDaysToKeepStr: '7', artifactNumToKeepStr: '1', daysToKeepStr: '45', numToKeepStr: '10'))
+        // Timeout the pipeline build after 1 hour
+        timeout(time: 1, unit: 'HOURS')
     }
 
     stages {
