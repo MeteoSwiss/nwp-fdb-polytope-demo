@@ -11,4 +11,3 @@ COPY --chown=jovyan verify_clear.sh .
 RUN chmod +x ./verify_clear.sh
 
 ENTRYPOINT ["./verify_clear.sh"]
-
