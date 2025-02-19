@@ -25,6 +25,12 @@ pipeline {
     }
 
     stages {
+        stage('Init') {
+            steps {
+              updateGitlabCommitStatus name: 'Build', state: 'running'
+            }
+        }
+
         stage('Presubmit Test') {
             steps {
                 script { 
