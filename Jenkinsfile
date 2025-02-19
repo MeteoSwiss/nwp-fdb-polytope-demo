@@ -5,7 +5,6 @@ class Globals {
     static final String PROJECT = 'nwp-fdb-polytope-demo'
 }
 
-
 @Library('dev_tools@main') _
 pipeline {
     agent { label 'zuerh407' }
@@ -26,14 +25,21 @@ pipeline {
         buildDiscarder(logRotator(artifactDaysToKeepStr: '7', artifactNumToKeepStr: '1', daysToKeepStr: '45', numToKeepStr: '10'))                                                            
         // Timeout the pipeline build after 1 hour                                                                                                                                            
         timeout(time: 1, unit: 'HOURS')                                                                                                                                                       
-    }    
+    }
 
     stages {
         stage('Presubmit Test') {
             steps {
                 script { 
                     runWithPodman(
-                        'quay.io/jupyter/minimal-notebook:python-3.11', '. verify_clear.sh'
+                        'quay.io/jupyter/minimal-notebook:python-3.11',
+                        '''
+                        mkdir /home/jovyan/notebooks &&
+                        cp notebooks/*ipynb /home/jovyan/notebooks &&
+                        cp verify_clear.sh /home/jovyan &&
+                        cd /home/jovyan &&
+                        sh verify_clear.sh
+                        '''
                     )
                 }
             }
