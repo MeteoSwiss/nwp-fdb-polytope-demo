@@ -4,3 +4,4 @@ __pycache__
 .spack-env
 spack.lock
 *.swp
+tmp/

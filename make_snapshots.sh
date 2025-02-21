@@ -6,43 +6,44 @@
 # To also clear the output of the notebooks to prepare to commiting changes, pass
 # in the -c option.
 
-CLEAR_OUTPUTS=false
+clear_outputs=false
 
 while getopts ":c" option; do
-  case $option in
-    c) # Clear the notebook output
-      CLEAR_OUTPUTS=true
-      ;;
-    \?)
-      echo "Error: Invalid option"
-      exit 1;;
-  esac
-done
-
-for filename in notebooks/*.ipynb; do
-  jupyter nbconvert "$filename" --clear-output --output test-clear
-  if diff "$filename" notebooks/test-clear.ipynb > /dev/null ; then
-    read -p "$filename has no output, do you still want to snapshot it? [y/N] " yn
-    case $yn in
-        [yY] )
+    case $option in
+        c) # Clear the notebook output
+            clear_outputs=true
             ;;
-        [nN] )
-            echo "skipping"
-            continue
-            ;;
-        * )
-            echo "skipping"
-            continue
-            ;;
+        \?)
+            echo "Error: Invalid option"
+            exit 1;;
     esac
-  fi
-  cp -f $filename notebooks/snapshot/
-  jupyter nbconvert $filename --to html --output-dir notebooks/snapshot
 done
-rm notebooks/test-clear.ipynb
 
-if [ "$CLEAR_OUTPUTS" = true ] ; then
+mkdir tmp
+for filename in notebooks/*.ipynb; do
+    jupyter nbconvert "${filename}" --clear-output --output ../tmp/test-clear
+    if diff "${filename}" tmp/test-clear.ipynb > /dev/null ; then
+        read -p "${filename} has no output, do you still want to snapshot it? [y/N] " yn
+        case $yn in
+            [yY] )
+                ;;
+            [nN] )
+                echo "skipping"
+                continue
+                ;;
+            * )
+                echo "skipping"
+                continue
+                ;;
+        esac
+    fi
+    jupyter nbconvert "${filename}" --to html --output-dir notebooks/snapshot
+done
+rm tmp/test-clear.ipynb
+rmdir tmp
+
+if [ "${clear_outputs}" = true ] ; then
     find notebooks -maxdepth 1 -name *ipynb -execdir \
-      jupyter nbconvert --clear-output '{}' --output './{}' \;
+        jupyter nbconvert --clear-output '{}' --output './{}' \;
 fi
 

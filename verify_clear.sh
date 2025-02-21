@@ -4,18 +4,19 @@
 # This script can be used in a test as a test in CI to prevent github pushes
 # of dirty notebooks.
 
-
-export DIFF_FAIL=0
+diff_fail=0
+mkdir tmp
 for filename in notebooks/*.ipynb; do
-  jupyter nbconvert "$filename" --clear-output --output test-clear
-  if diff "$filename" notebooks/test-clear.ipynb > /dev/null ; then
-    echo "Notebook $filename is cleared."
-  else
-    echo "Notebook $filename was not cleared."
-    DIFF_FAIL=1
-  fi
-  rm notebooks/test-clear.ipynb
+    jupyter nbconvert "${filename}" --clear-output --output ../tmp/test-clear
+    if diff "${filename}" tmp/test-clear.ipynb > /dev/null ; then
+        echo "Notebook ${filename} is cleared."
+    else
+        echo "Notebook ${filename} was not cleared."
+        diff_fail=1
+    fi
+    rm tmp/test-clear.ipynb
 done
+rmdir tmp
 
-exit $DIFF_FAIL
+exit $diff_fail
 

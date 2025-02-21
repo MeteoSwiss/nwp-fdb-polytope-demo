@@ -5,17 +5,9 @@ class Globals {
 
 @Library('dev_tools@main') _
 pipeline {
-    agent { label 'zuerh407' }
-
-    environment {
-        PATH = "$workspace/.venv-mchbuild/bin:$HOME/tools/openshift-client-tools:$HOME/tools/trivy:$PATH"
-        HTTP_PROXY = 'http://proxy.meteoswiss.ch:8080'
-        HTTPS_PROXY = 'http://proxy.meteoswiss.ch:8080'
-        NO_PROXY = '.meteoswiss.ch,localhost'
-    }
+    agent { label 'podman' }
 
     options {
-        gitLabConnection('CollabGitLab')
         // New jobs should wait until older jobs are finished
         disableConcurrentBuilds()
         // Discard old builds
@@ -25,17 +17,11 @@ pipeline {
     }
 
     stages {
-        stage('Init') {
-            steps {
-              updateGitlabCommitStatus name: 'Build', state: 'running'
-            }
-        }
-
         stage('Presubmit Test') {
             steps {
                 script { 
                     runWithPodman(
-                        'quay.io/jupyter/minimal-notebook:python-3.11',
+                        'docker-all-nexus.meteoswiss.ch/jupyter/minimal-notebook:python-3.11',
                         '''
                         mkdir /home/jovyan/notebooks &&
                         cp notebooks/*ipynb /home/jovyan/notebooks &&
@@ -50,11 +36,7 @@ pipeline {
     }
 
     post {
-        aborted {
-            updateGitlabCommitStatus name: 'Build', state: 'canceled'
-        }
         failure {
-            updateGitlabCommitStatus name: 'Build', state: 'failed'
             echo 'Sending email'
             emailext(subject: "${currentBuild.fullDisplayName}: ${currentBuild.currentResult}",
                 attachLog: true,
@@ -64,7 +46,7 @@ pipeline {
         }
         success {
             echo 'Build succeeded'
-            updateGitlabCommitStatus name: 'Build', state: 'success'
         }
     }
 }
+
