@@ -11,10 +11,9 @@ clear_outputs=false
 while getopts ":c" option; do
     case $option in
         c) # Clear the notebook output
-            clear_outputs=true
-            ;;
+            clear_outputs=true;;
         \?)
-            echo "Error: Invalid option"
+            echo "Usage: $0 [-c]"
             exit 1;;
     esac
 done
@@ -29,12 +28,10 @@ for filename in notebooks/*.ipynb; do
                 ;;
             [nN] )
                 echo "skipping"
-                continue
-                ;;
+                continue;;
             * )
                 echo "skipping"
-                continue
-                ;;
+                continue;;
         esac
     fi
     jupyter nbconvert "${filename}" --to html --output-dir notebooks/snapshot
