@@ -26,6 +26,23 @@ Notebooks to run from the LabVM:
 > [!NOTE]
 > Only a single service account can write data to the aforementioned FDB. This means that the writing of computed GRIB fields in notebook 2 (2_Precompute_and_Store_Echotop_to_FDB) cannot be run by any user on CSCS. Subsequently the reading of this same data on the LabVM in Notebook 3 (3_Retrieve_Echotop_and_Regrid) would only work when notebook 2 was run under this specific service account. Please contact victoria.cherkas@meteoswiss.ch or christian.kanesan@meteoswiss.ch to see the demo in full. Alternatively you can create your own FDB and write back to this.
 
+## Making Changes
+
+When modifying the notebooks, work in the `notebooks` directory.
+
+In order to create snapshots based on the current status of the notebooks in the `notebooks/snapshot` directory, run
+
+```
+sh make_snapshots.sh
+```
+
+Before submitting, also clear the output of the working version of the notebooks. This makes merges and reviews easier as they do not
+also include the much larger diffs to the output. Jenkins will also ensure that the working notebooks have been cleared before allowing
+to merge a pull request. To clear notebooks and snapshot run
+
+```
+sh make_snapshots.sh -c
+```
 
 # Instructions
 
