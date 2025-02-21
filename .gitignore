@@ -3,3 +3,5 @@ polytope-demo
 __pycache__
 .spack-env
 spack.lock
+*.swp
+tmp/
