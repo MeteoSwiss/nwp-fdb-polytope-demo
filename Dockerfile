@@ -1,9 +1,9 @@
 ARG container_registry=dockerhub.apps.cp.meteoswiss.ch
 FROM ${container_registry}/mch/python/builder as mch-base
 
-FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2407.20f38c334c988422d60699558023b08dfc470a5d as dependencies
+FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2502.a7cb2819496d9cacb9669a1152a1ef9801786521 as dependencies
 
-FROM quay.io/jupyter/base-notebook:python-3.11.8
+FROM ${container_registry}/jupyter/base-notebook:python-3.11.8
 
 USER root
 COPY --from=mch-base /usr/local/share/ca-certificates/mchroot.crt /usr/local/share/ca-certificates/mchroot.crt
@@ -24,7 +24,7 @@ ENV PATH=/opt/fdb/bin:$PATH \
     FDB5_HOME=/opt/fdb \
     FDB_REMOTE_RETRIEVE_QUEUE_LENGTH=10
 
-COPY --chown=$NB_UID:$NB_GID demo/notebook/container/env.yaml /tmp/env.yaml
+COPY --chown=$NB_UID:$NB_GID environment.yaml /tmp/env.yaml
 
 RUN mamba env update --file /tmp/env.yaml && \
     mamba clean --all --yes && \
