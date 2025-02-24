@@ -1,0 +1,129 @@
+pipeline {
+    agent { label 'podman4'}
+
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(artifactDaysToKeepStr: '7', artifactNumToKeepStr: '5', daysToKeepStr: '7', numToKeepStr: '5'))
+        timeout(time: 48, unit: 'HOURS')
+    }
+
+    parameters {
+        booleanParam(name: 'PUSH_IMAGES_TO_NEXUS', defaultValue: false, description: 'Push images to Nexus?')
+        booleanParam(name: 'PUSH_IMAGES_TO_ECR', defaultValue: false, description: 'Push images to ECR?')
+    }
+
+    environment { 
+        TAG = "${sh(script: "echo `date +%g%m.$GIT_COMMIT`", returnStdout: true).trim()}"
+
+        IMAGE_TAG = "numericalweatherpredictions/polytope/demo/use-case:$TAG"
+        INTERNAL_IMAGE_TAG = "docker-intern-nexus.meteoswiss.ch/$IMAGE_TAG"
+        PUBLIC_IMAGE_TAG = "docker-public-nexus.meteoswiss.ch/$IMAGE_TAG"
+
+        ECR_REPO = "493666016161.dkr.ecr.eu-central-2.amazonaws.com"
+        ECR_IMAGE_TAG = "${ECR_REPO}/${IMAGE_TAG}"
+
+        PATH = "/opt/maker/tools/aws:$PATH"
+    }
+
+    stages {
+        stage('Podman version') {
+            steps {
+                sh '''
+                    #!/bin/bash 
+                    podman version
+                '''
+            }
+        }
+        stage('AWS CLI version'){
+            steps {
+                sh '''
+                    #!/bin/bash 
+                    aws --version
+                '''
+            }
+        }
+        stage('Build demo/use-case image'){
+            steps{
+                sh '''
+                    #!/bin/bash
+                    podman build -f demo/use-case/Dockerfile \
+                        -t $IMAGE_TAG \
+                        --build-arg container_registry=docker-all-nexus.meteoswiss.ch \
+                        --build-arg http_proxy='http://proxy.meteoswiss.ch:8080/' \
+                        --build-arg https_proxy='http://proxy.meteoswiss.ch:8080/' \
+                        --build-arg no_proxy=.meteoswiss.ch,localhost,localaddress,127.0.0.1 \
+                        --format docker \
+                        .
+                    
+                    podman tag $IMAGE_TAG $INTERNAL_IMAGE_TAG
+                    podman tag $IMAGE_TAG $PUBLIC_IMAGE_TAG
+                    podman tag $IMAGE_TAG $ECR_IMAGE_TAG
+                '''
+            }
+        }
+        stage('Push to Nexus') {
+            when { 
+                anyOf{
+                    branch "main"
+                    expression { return params.PUSH_IMAGES_TO_NEXUS }
+                } 
+            }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'openshift-nexus',
+                                    passwordVariable: 'NXPASS',
+                                    usernameVariable: 'NXUSER')]) {
+                    sh '''
+                        podman login docker-intern-nexus.meteoswiss.ch -u $NXUSER -p $NXPASS
+                        podman login docker-public-nexus.meteoswiss.ch -u $NXUSER -p $NXPASS
+
+                        podman push $INTERNAL_IMAGE_TAG
+                        podman push $PUBLIC_IMAGE_TAG
+                    '''
+                }
+            } 
+            
+        }
+        stage('Push to ECR') {
+            when { 
+                anyOf{
+                    branch "main"
+                    expression { return params.PUSH_IMAGES_TO_ECR }
+                } 
+            }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'aws-icon-sandbox',
+                                    passwordVariable: 'AWS_SECRET_ACCESS_KEY',
+                                    usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+                    sh '''
+                        #!/bin/bash
+
+                        if test -f /etc/ssl/certs/ca-certificates.crt; then
+                            export AWS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+                        else
+                            export AWS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.crt
+                        fi
+
+                        aws ecr get-login-password --region eu-central-2 | podman login --username AWS --password-stdin --cert-dir /etc/ssl/certs ${ECR_REPO}
+                        podman push --cert-dir /etc/ssl/certs ${ECR_IMAGE_TAG}
+                        aws ssm put-parameter --name "/polytope/demo/use-case/containertag" --type "String" --value "${TAG}" --overwrite --region eu-central-2
+                    '''
+                }
+            } 
+            
+        } 
+    }
+    post { 
+        cleanup {
+            sh '''
+                podman image rm -f $IMAGE_TAG
+                podman image rm -f $INTERNAL_IMAGE_TAG
+                podman image rm -f $PUBLIC_IMAGE_TAG
+                podman image rm -f $ECR_IMAGE_TAG
+
+                podman logout docker-intern-nexus.meteoswiss.ch || true
+                podman logout docker-public-nexus.meteoswiss.ch || true
+                podman logout ${ECR_REPO} || true
+            '''
+        }
+    }
+}
