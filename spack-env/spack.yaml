@@ -1,11 +1,11 @@
 spack:
   specs:
-    - fdb@=5.11.116
-    - eckit@=1.26.2 linalg=none ~mpi
-    - metkit@=1.11.9
-    - eccodes@=2.33.0 jp2k=none ~fortran
+    - fdb@=5.13.106
+    - eckit@=1.28.3 linalg=none ~mpi
+    - metkit@=1.11.22
+    - eccodes@=2.35.0 jp2k=none ~fortran
     - hdf5 ~mpi
-    - ecbuild@=3.7.2
+    - ecbuild@=3.9.0
   concretizer:
     unify: true
   config:

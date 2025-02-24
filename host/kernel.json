@@ -8,7 +8,7 @@
         "--rm",
         "--userns=keep-id",
         "--volume={connection_file}:/connection-spec:U",
-        "dockerhub.apps.cp.meteoswiss.ch/numericalweatherpredictions/polytope/demo/use-case:2404.77f548f8b79cbe7c6e9f2397a294040cc6a59ec2",
+        "dockerhub.apps.cp.meteoswiss.ch/numericalweatherpredictions/polytope/demo/use-case:2407.20f38c334c988422d60699558023b08dfc470a5d",
         "python",
         "-m",
         "ipykernel_launcher",
