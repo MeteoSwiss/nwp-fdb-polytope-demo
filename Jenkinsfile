@@ -26,6 +26,7 @@ pipeline {
         IMAGE_TAG = "numericalweatherpredictions/polytope/demo/notebook:$TAG"
         INTERNAL_IMAGE_TAG = "docker-intern-nexus.meteoswiss.ch/$IMAGE_TAG"
         PUBLIC_IMAGE_TAG = "docker-public-nexus.meteoswiss.ch/$IMAGE_TAG"
+        HTTP_PROXY = "http://proxy.meteoswiss.ch:8080/"
     }
 
     stages {
@@ -60,9 +61,6 @@ pipeline {
                     podman build -f Dockerfile \
                         -t $IMAGE_TAG \
                         --build-arg container_registry=docker-all-nexus.meteoswiss.ch \
-                        --build-arg http_proxy='http://proxy.meteoswiss.ch:8080/' \
-                        --build-arg https_proxy='http://proxy.meteoswiss.ch:8080/' \
-                        --build-arg no_proxy=.meteoswiss.ch,localhost,localaddress,127.0.0.1 \
                         --format docker \
                         .
                     
