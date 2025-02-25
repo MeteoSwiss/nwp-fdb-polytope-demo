@@ -18,6 +18,7 @@ pipeline {
         IMAGE_TAG = "numericalweatherpredictions/polytope/demo/use-case:$TAG"
         INTERNAL_IMAGE_TAG = "docker-intern-nexus.meteoswiss.ch/$IMAGE_TAG"
         PUBLIC_IMAGE_TAG = "docker-public-nexus.meteoswiss.ch/$IMAGE_TAG"
+        HTTP_PROXY = "http://proxy.meteoswiss.ch:8080/"
 
         ECR_REPO = "493666016161.dkr.ecr.eu-central-2.amazonaws.com"
         ECR_IMAGE_TAG = "${ECR_REPO}/${IMAGE_TAG}"
@@ -46,12 +47,9 @@ pipeline {
             steps{
                 sh '''
                     #!/bin/bash
-                    podman build -f demo/use-case/Dockerfile \
+                    podman build -f use-case/Dockerfile \
                         -t $IMAGE_TAG \
                         --build-arg container_registry=docker-all-nexus.meteoswiss.ch \
-                        --build-arg http_proxy='http://proxy.meteoswiss.ch:8080/' \
-                        --build-arg https_proxy='http://proxy.meteoswiss.ch:8080/' \
-                        --build-arg no_proxy=.meteoswiss.ch,localhost,localaddress,127.0.0.1 \
                         --format docker \
                         .
                     
@@ -113,6 +111,17 @@ pipeline {
         } 
     }
     post { 
+        failure {
+            echo 'Sending email'
+            emailext(subject: "${currentBuild.fullDisplayName}: ${currentBuild.currentResult}",
+                attachLog: true,
+                attachmentsPattern: 'generatedFile.txt',
+                body: "Job '${env.JOB_NAME} #${env.BUILD_NUMBER}': ${env.BUILD_URL}",
+                recipientProviders: [requestor(), developers()])
+        }
+        success {
+            echo 'Build succeeded'
+        }
         cleanup {
             sh '''
                 podman image rm -f $IMAGE_TAG
