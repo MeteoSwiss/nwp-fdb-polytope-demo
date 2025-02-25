@@ -3,7 +3,7 @@ FROM ${container_registry}/mch/python/builder as mch-base
 
 RUN git clone --depth 1 --branch v2.35.0.1dm1 https://github.com/COSMO-ORG/eccodes-cosmo-resources.git
 
-FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2407.20f38c334c988422d60699558023b08dfc470a5d as dependencies
+FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2502.a7cb2819496d9cacb9669a1152a1ef9801786521 as dependencies
 
 FROM ${container_registry}/mambaorg/micromamba:1.5.8-jammy AS base
 
@@ -28,7 +28,7 @@ ENV PATH=/opt/conda/bin:/opt/fdb/bin:$PATH \
 
 USER $MAMBA_USER
 
-COPY --chown=$MAMBA_USER:$MAMBA_USER demo/base-image/env.yaml /tmp/env.yaml
+COPY --chown=$MAMBA_USER:$MAMBA_USER base-image/env.yaml /tmp/env.yaml
 
 RUN micromamba install -y -n base -f /tmp/env.yaml && \
     micromamba clean --all --yes
