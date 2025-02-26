@@ -18,7 +18,6 @@ pipeline {
         IMAGE_TAG = "numericalweatherpredictions/polytope/demo/use-case:$TAG"
         INTERNAL_IMAGE_TAG = "docker-intern-nexus.meteoswiss.ch/$IMAGE_TAG"
         PUBLIC_IMAGE_TAG = "docker-public-nexus.meteoswiss.ch/$IMAGE_TAG"
-        HTTP_PROXY = "http://proxy.meteoswiss.ch:8080/"
 
         ECR_REPO = "493666016161.dkr.ecr.eu-central-2.amazonaws.com"
         ECR_IMAGE_TAG = "${ECR_REPO}/${IMAGE_TAG}"

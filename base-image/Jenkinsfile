@@ -16,7 +16,6 @@ pipeline {
 
         IMAGE_TAG = "numericalweatherpredictions/polytope/demo/base:$TAG"
         INTERNAL_IMAGE_TAG = "docker-intern-nexus.meteoswiss.ch/$IMAGE_TAG"
-        HTTP_PROXY = "http://proxy.meteoswiss.ch:8080/"
     }
 
     stages {
