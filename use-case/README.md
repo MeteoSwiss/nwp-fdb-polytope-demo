@@ -2,7 +2,7 @@
 
 After building the container through the VSCode task `Build demo use-case image`, you can run it with the following command from the LabVM.
 
-Replase `<COMMAND_HERE>` with one of the following commands:
+Replace `<COMMAND_HERE>` with one of the following commands:
  - `python -m useCase.total_precipitation -r 2024022303 -l 1440`
  - `python -m useCase.wind -r 2024022303 -l 0`
  - `python -m useCase.timeseries -r 2024022303 -l 1440`
