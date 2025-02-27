@@ -7,4 +7,4 @@ spack.lock
 
 # Folders for local runs.
 tmp/
-use-case/out/
+out/

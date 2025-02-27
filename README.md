@@ -145,6 +145,7 @@ Specify the environment variable `FDB5_CONFIG` with the relevant config of FDB d
 ### Run container in LabVM
 
 ```shell
+mkdir out
 podman run \
   -e POLYTOPE_USERNAME=admin \
   -e POLYTOPE_ADDRESS=https://polytope-dev.mchml.cscs.ch \
@@ -152,7 +153,7 @@ podman run \
   -e https_proxy=$https_proxy \
   -e REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
   -e SSL_CERT_DIR=/etc/ssl/certs \
-  -v $(pwd)/demo/use-case/out:/app/out --userns=keep-id \
+  -v $(pwd)/out:/app/out --userns=keep-id \
   --network=host \
   --rm \
   numericalweatherpredictions/polytope/demo/use-case:latest \
