@@ -2,7 +2,7 @@
 
 This repository contains examples for using FDB and Polytope to access ICON forecast data and process it using meteodata-lab.
  
-The directory [notebooks](notebooks) contains the Jupyter notebooks and the directory [src](src) contains examples of processing data as a Python service.
+The directory [notebooks](notebooks) contains the Jupyter notebooks and the directory [nwp_polytope_demo](nwp_polytope_demo) contains examples of processing data as a Python service.
 
 **Forecasts available in FDB**
 
@@ -119,7 +119,7 @@ Afterwards connect to the external Jupyter server from the notebook with the url
 
 ## Polytope Python Service Example
 
-The [src](src) directory contains three Python examples of accessing and processing ICON forecast data. You can build the container through the VSCode task `Build demo use-case image` and run it with the following commands from the LabVM or CSCS.
+The [nwp_polytope_demo](nwp_polytope_demo) directory contains three Python examples of accessing and processing ICON forecast data. You can build the container through the VSCode task `Build demo use-case image` and run it with the following commands from the LabVM or CSCS.
 
 In the instructions below, replace `<COMMAND_HERE>` with one of the following commands:
  - `python -m total_precipitation -r 2024022303 -l 1440`
