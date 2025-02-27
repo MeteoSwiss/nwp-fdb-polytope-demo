@@ -3,7 +3,7 @@
     "tasks": [
         {
             "label": "Build demo base image",
-            "command": "podman build -f base-image/Dockerfile . --build-arg http_proxy=$HTTP_PROXY --build-arg https_proxy=$HTTPS_PROXY --build-arg no_proxy=$NO_PROXY -t numericalweatherpredictions/polytope/demo/base --format docker",
+            "command": "podman build -f base-image/Dockerfile . --network=host --build-arg http_proxy=$HTTP_PROXY --build-arg https_proxy=$HTTPS_PROXY --build-arg no_proxy=$NO_PROXY -t numericalweatherpredictions/polytope/demo/base --format docker",
             "type": "shell",
             "args": [],
             "presentation": {
@@ -13,7 +13,7 @@
         },
         {
             "label": "Build demo use-case image",
-            "command": "podman build -f Dockerfile.use-case . --build-arg http_proxy=$HTTP_PROXY --build-arg https_proxy=$HTTPS_PROXY --build-arg no_proxy=$NO_PROXY -t numericalweatherpredictions/polytope/demo/use-case --format docker",
+            "command": "podman build -f Dockerfile.use-case . --network=host --build-arg http_proxy=$HTTP_PROXY --build-arg https_proxy=$HTTPS_PROXY --build-arg no_proxy=$NO_PROXY -t numericalweatherpredictions/polytope/demo/use-case --format docker",
             "type": "shell",
             "args": [],
             "presentation": {
@@ -23,7 +23,7 @@
         },
         {
             "label": "Build demo notebook image",
-            "command": "podman build -f Dockerfile.notebooks . --build-arg http_proxy=$HTTP_PROXY --build-arg https_proxy=$HTTPS_PROXY --build-arg no_proxy=$NO_PROXY -t numericalweatherpredictions/polytope/demo/notebook --format docker",
+            "command": "podman build -f Dockerfile.notebooks . --network=host --build-arg http_proxy=$HTTP_PROXY --build-arg https_proxy=$HTTPS_PROXY --build-arg no_proxy=$NO_PROXY -t numericalweatherpredictions/polytope/demo/notebook --format docker",
             "type": "shell",
             "args": [],
             "presentation": {
