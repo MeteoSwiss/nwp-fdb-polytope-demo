@@ -7,6 +7,6 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER requirements-use-case.txt ./requirements.tx
 
 RUN pip install -r requirements.txt
 
-COPY --chown=$MAMBA_USER:$MAMBA_USER src .
+COPY --chown=$MAMBA_USER:$MAMBA_USER nwp_polytope_demo ./nwp_polytope_demo
 
 RUN mkdir /app/out
