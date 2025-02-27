@@ -46,7 +46,7 @@ pipeline {
             steps{
                 sh '''
                     #!/bin/bash
-                    podman build -f use-case/Dockerfile \
+                    podman build -f Dockerfile.use-case \
                         -t $IMAGE_TAG \
                         --build-arg container_registry=docker-all-nexus.meteoswiss.ch \
                         --format docker \
