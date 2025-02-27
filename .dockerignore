@@ -1,0 +1,7 @@
+*/__pycache__
+.ipynb_checkpoints
+.spack-env
+
+# Folders for local runs.
+tmp/
+out/
