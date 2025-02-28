@@ -14,7 +14,6 @@ url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
 [tool.poetry.dependencies]
 python = "~3.11"
 meteodatalab = { url = "https://github.com/MeteoSwiss/meteodata-lab/archive/f6318a4fec9442a772d8e59df8c903ced654afe3.tar.gz" }
-# pyfdb = { url = "https://github.com/ecmwf/pyfdb/archive/refs/tags/0.0.3.tar.gz" }
 pyfdb = "^0.0.3"
 polytope-client = "^0.7.4"
 eccovjson = "^0.0.5"
