@@ -58,7 +58,8 @@ pipeline {
             steps{
                 sh '''
                     #!/bin/bash
-                    podman build -f Dockerfile.notebooks \
+                    podman build -f Dockerfile \
+                        --target notebook \
                         -t $IMAGE_TAG \
                         --build-arg container_registry=docker-all-nexus.meteoswiss.ch \
                         --format docker \

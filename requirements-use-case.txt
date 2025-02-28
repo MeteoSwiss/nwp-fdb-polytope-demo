@@ -1,5 +1,0 @@
-cartopy==0.22
-boto3==1.34.36
-ipykernel==6.29.4
-eccovjson@https://github.com/cfkanesan/eccovjson/archive/refs/heads/update-params.zip
-matplotlib==3.8.4 
