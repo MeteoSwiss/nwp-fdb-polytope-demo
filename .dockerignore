@@ -1,9 +1,6 @@
-polytope-demo
+*/__pycache__
 .ipynb_checkpoints
-__pycache__
 .spack-env
-spack.lock
-*.swp
 
 # Folders for local runs.
 tmp/

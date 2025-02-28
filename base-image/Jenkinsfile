@@ -1,10 +1,10 @@
 pipeline {
-    agent { label 'podman4'}
+    agent { label 'podman'}
 
     options {
         disableConcurrentBuilds()
         buildDiscarder(logRotator(artifactDaysToKeepStr: '7', artifactNumToKeepStr: '5', daysToKeepStr: '7', numToKeepStr: '5'))
-        timeout(time: 48, unit: 'HOURS')
+        timeout(time: 2, unit: 'HOURS')
     }
 
     parameters {
@@ -31,12 +31,9 @@ pipeline {
             steps{
                 sh '''
                     #!/bin/bash
-                    podman build -f demo/base-image/Dockerfile \
+                    podman build -f base-image/Dockerfile \
                         -t $IMAGE_TAG \
                         --build-arg container_registry=docker-all-nexus.meteoswiss.ch \
-                        --build-arg http_proxy='http://proxy.meteoswiss.ch:8080/' \
-                        --build-arg https_proxy='http://proxy.meteoswiss.ch:8080/' \
-                        --build-arg no_proxy=.meteoswiss.ch,localhost,localaddress,127.0.0.1 \
                         --format docker \
                         .
                     
@@ -66,6 +63,17 @@ pipeline {
         } 
     }
     post { 
+        failure {
+            echo 'Sending email'
+            emailext(subject: "${currentBuild.fullDisplayName}: ${currentBuild.currentResult}",
+                attachLog: true,
+                attachmentsPattern: 'generatedFile.txt',
+                body: "Job '${env.JOB_NAME} #${env.BUILD_NUMBER}': ${env.BUILD_URL}",
+                recipientProviders: [requestor(), developers()])
+        }
+        success {
+            echo 'Build succeeded'
+        }
         cleanup {
             sh '''
                 podman image rm -f $IMAGE_TAG
