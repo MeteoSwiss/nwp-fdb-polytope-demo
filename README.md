@@ -63,13 +63,14 @@ conda create -n polytope-demo python=3.11
 poetry install --with notebook
 ```
 
-Connect to the jupyter server <br>
+Start and connect to the jupyter server <br>
 - **from VSCode:** <br>
 Open the notebook and select the `polytope-demo` kernel in "Select Kernel" -> "Select another Kernel..." -> "Python Environments..." <br>
 - **from the terminal:**
 ```sh
 poetry run jupyter lab --port 8080
 ```
+Either open the URL from the logs directly or in VSCode paste the URL in "Select Kernel" -> "Select another Kernel..." -> "Existing Jupyter Server...".
 
 #### CSCS (Balfrin)
 
