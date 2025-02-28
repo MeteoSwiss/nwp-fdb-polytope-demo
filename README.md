@@ -57,22 +57,19 @@ To use the Jupyter notebooks you have the following two options regarding the ru
 ###   Jupyter server on the Lab-VM or at CSCS (Balfrin)
 #### LabVM
 
-With this approach you define a kernel definiton in your jupyter server with a reference to the container.
+With this approach you create an environment that you can run as a jupyter kernel.
 ```sh
-sudo apt install pipx
-export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-pipx install jupyterlab
-
-./host/install_kernel.sh
+conda create -n polytope-demo python=3.11
+poetry install --with notebook
 ```
+
 Connect to the jupyter server <br>
 - **from VSCode:** <br>
-Open the notebook and select the `polytope-demo` kernel in "Select Kernel" -> "Select another Kernel..." -> "Jupyter Kernel..." <br>
-- **from your browser:**
-  ```sh
-  pipx run jupyter lab --port 8080
-  ```
-  Open the URL given in the code and select the `polytope-demo` kernel.
+Open the notebook and select the `polytope-demo` kernel in "Select Kernel" -> "Select another Kernel..." -> "Python Environments..." <br>
+- **from the terminal:**
+```sh
+poetry run jupyter lab --port 8080
+```
 
 #### CSCS (Balfrin)
 
@@ -86,11 +83,11 @@ spack install --no-checksum
 Setup the python environment.
 
 ```sh
-conda env create -n demo -f environment.yaml
-conda activate demo
+conda create -n polytope-demo python=3.11
+conda activate polytope-demo
+poetry install --with notebook
 git clone -b mars-levtype-echotop-2 https://github.com/cfkanesan/eccodes-cosmo-resources.git $CONDA_PREFIX/share/eccodes-cosmo-resources
-pip install jupyterlab
-python -m jupyter lab
+poetry run jupyter lab
 ```
 
 Use VSCode to forward the port that is binded to the jupyter lab server to your local machine and open the link in the jupyter lab server logs.
@@ -101,16 +98,14 @@ With this approach you have both the Jupyter server and the runtime dependencies
 
 ```sh
 podman run \
-  -e https_proxy=$https_proxy \
-  -e REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
-  -e SSL_CERT_DIR=/etc/ssl/certs/ \
+  -p 8888:8888
   --network=host \
   --rm \
   dockerhub.apps.cp.meteoswiss.ch/numericalweatherpredictions/polytope/demo/notebook:<TAG>
 ```
 `<TAG>`:The current container tag can be retrieved from: [https://nexus.meteoswiss.ch/nexus/service/rest/repository/browse/docker-all/v2/numericalweatherpredictions/polytope/demo/notebook/tags/](https://nexus.meteoswiss.ch/nexus/service/rest/repository/browse/docker-all/v2/numericalweatherpredictions/polytope/demo/notebook/tags/)
 
-Afterwards connect to the external Jupyter server from the notebook with the url from container log. Click "Select Kernel" -> "Existing Jupyter Server..." and then paste the url form the container log.
+Afterwards connect to the external Jupyter server from the notebook with the url from container log.
 
 ![Exisiting Jupyter Server...](./host/vscode_remote_jupyter-server.png)
 
@@ -122,9 +117,9 @@ Afterwards connect to the external Jupyter server from the notebook with the url
 The [nwp_polytope_demo](nwp_polytope_demo) directory contains three Python examples of accessing and processing ICON forecast data. You can build the container through the VSCode task `Build demo use-case image` and run it with the following commands from the LabVM or CSCS.
 
 In the instructions below, replace `<COMMAND_HERE>` with one of the following commands:
- - `python -m total_precipitation -r 2024022303 -l 1440`
- - `python -m wind -r 2024022303 -l 0`
- - `python -m timeseries -r 2024022303 -l 1440`
+ - `python -m nwp_polytope_demo.total_precipitation -r 2024022303 -l 1440`
+ - `python -m nwp_polytope_demo.wind -r 2024022303 -l 0`
+ - `python -m nwp_polytope_demo.timeseries -r 2024022303 -l 1440`
 
 Set the environment variable `MCH_MODEL_DATA_SOURCE` to `FDB` if FDB should be accessed directly rather than via Polytope. This also requires the additional environment variable `FDB5_CONFIG`.
 
@@ -153,7 +148,7 @@ podman run \
   -e https_proxy=$https_proxy \
   -e REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
   -e SSL_CERT_DIR=/etc/ssl/certs \
-  -v $(pwd)/out:/app/out --userns=keep-id \
+  -v $(pwd)/out:/src/app-root/out --userns=keep-id \
   --network=host \
   --rm \
   numericalweatherpredictions/polytope/demo/use-case:latest \
@@ -167,7 +162,7 @@ sarus run \
   -e POLYTOPE_USERNAME=admin \
   -e POLYTOPE_ADDRESS=https://polytope-dev.mchml.cscs.ch \
   -e POLYTOPE_PASSWORD=********** \
-  --mount=type=bind,destination=/app/out,src=<outdir> \
+  --mount=type=bind,destination=/src/app-root/out,src=<outdir> \
   container-registry.meteoswiss.ch/numericalweatherpredictions/polytope/demo/use-case:latest \
   <COMMAND_HERE>
 ```
