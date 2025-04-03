@@ -115,7 +115,7 @@ podman run \
 
 Afterwards connect to the external Jupyter server from the notebook with the url from container log.
 
-To rebuild and run the container with local changes, do the following
+To rebuild and run the container with local changes, run the following
 
 ```sh
 podman build --network=host --pull --target notebook -t polytope-demo .

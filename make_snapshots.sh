@@ -7,37 +7,42 @@
 # in the -c option.
 
 clear_outputs=false
+make_snapshots=false
 
-while getopts ":c" option; do
+while getopts ":cs" option; do
     case $option in
         c) # Clear the notebook output
             clear_outputs=true;;
+        s) # Snapshot the notebooks
+            make_snapshots=true;;
         \?)
-            echo "Usage: $0 [-c]"
+            echo "Usage: $0 [-c] [-s]"
             exit 1;;
     esac
 done
 
-mkdir tmp
-for filename in notebooks/*.ipynb; do
-    jupyter nbconvert "${filename}" --clear-output --output ../tmp/test-clear
-    if diff "${filename}" tmp/test-clear.ipynb > /dev/null ; then
-        read -p "${filename} has no output, do you still want to snapshot it? [y/N] " yn
-        case $yn in
-            [yY] )
-                ;;
-            [nN] )
-                echo "skipping"
-                continue;;
-            * )
-                echo "skipping"
-                continue;;
-        esac
-    fi
-    jupyter nbconvert "${filename}" --to html --output-dir notebooks/snapshot
-done
-rm tmp/test-clear.ipynb
-rmdir tmp
+if [ "${make_snapshots}" = true ] ; then
+    mkdir tmp
+    for filename in notebooks/*.ipynb; do
+        jupyter nbconvert "${filename}" --clear-output --output ../tmp/test-clear
+        if diff "${filename}" tmp/test-clear.ipynb > /dev/null ; then
+            read -p "${filename} has no output, do you still want to snapshot it? [y/N] " yn
+            case $yn in
+                [yY] )
+                    ;;
+                [nN] )
+                    echo "skipping"
+                    continue;;
+                * )
+                    echo "skipping"
+                    continue;;
+            esac
+        fi
+        jupyter nbconvert "${filename}" --to html --output-dir notebooks/snapshot
+    done
+    rm tmp/test-clear.ipynb
+    rmdir tmp
+fi
 
 if [ "${clear_outputs}" = true ] ; then
     find notebooks -maxdepth 1 -name *ipynb -execdir \
