@@ -13,15 +13,12 @@ url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
 
 [tool.poetry.dependencies]
 python = "~3.11"
-meteodata-lab = { git = "https://github.com/MeteoSwiss/meteodata-lab.git", branch = "main" }
+meteodata-lab = { git = "https://github.com/MeteoSwiss/meteodata-lab.git", branch = "main", extras = ["all"] }
 pyfdb = "^0.0.3"
 polytope-client = "^0.7.4"
-eccovjson = "^0.0.5"
 matplotlib = "^3.8.4"
 cartopy = "^0.22"
-earthkit-data = "^0.7.0"
-eccodes = "^1.7.1"
-boto3 = "^1.34.36"
+eccodes = ">=1.7.1"
 ipykernel = "^6.29.4"
 
 [tool.poetry.group.notebook.dependencies]
