@@ -1,7 +1,7 @@
 # FDB and Polytope model data access and processing using meteodata-lab
 
 This repository contains examples for using FDB and Polytope to access ICON forecast data and process it using meteodata-lab.
- 
+
 The directory [notebooks](notebooks) contains the Jupyter notebooks and the directory [nwp_polytope_demo](nwp_polytope_demo) contains examples of processing data as a Python service.
 
 **Forecasts available in FDB**
@@ -51,30 +51,18 @@ sh make_snapshots.sh -c
 
 To use the Jupyter notebooks you have the following two options regarding the runtime dependencies and the jupyter server:
 
-1. Jupyter server on the lab-vm or at CSCS (Balfrin) and runtime dependencies in a container
-2. Both the jupyter server and the runtime dependencies in a container (LabVM only)
+1. Build dependencies and create a virtual Python environment (recommended for Balfrin)
+1. Run everything from a container (recommended for lab-VM)
 
-###   Jupyter server on the Lab-VM or at CSCS (Balfrin)
-#### LabVM
+### Virtual Environment
 
 With this approach you create an environment that you can run as a jupyter kernel.
-```sh
-conda create -n polytope-demo python=3.11
-poetry install --with notebook
-```
+Setup takes longer, but you can make changes to the environment and persist changes
+to the notebooks.
 
-Start and connect to the jupyter server <br>
-- **from VSCode:** <br>
-Open the notebook and select the `polytope-demo` kernel in "Select Kernel" -> "Select another Kernel..." -> "Python Environments..." <br>
-- **from the terminal:**
-```sh
-poetry run jupyter lab --port 8080
-```
-Either open the URL from the logs directly or in VSCode paste the URL in "Select Kernel" -> "Select another Kernel..." -> "Existing Jupyter Server...".
+This assumes you already have spack, conda, and poetry configured.
 
-#### CSCS (Balfrin)
-
-Setup spack for the machine and build FDB.
+Create and setup the spack environment.
 
 ```sh
 spack env activate -p spack-env
@@ -87,15 +75,34 @@ Setup the python environment.
 conda create -n polytope-demo python=3.11
 conda activate polytope-demo
 poetry install --with notebook
-git clone -b mars-levtype-echotop-2 https://github.com/cfkanesan/eccodes-cosmo-resources.git $CONDA_PREFIX/share/eccodes-cosmo-resources
-poetry run jupyter lab
+git clone --depth 1 --branch v2.35.0.1dm1 https://github.com/COSMO-ORG/eccodes-cosmo-resources.git $CONDA_PREFIX/share/eccodes-cosmo-resources
 ```
 
-Use VSCode to forward the port that is binded to the jupyter lab server to your local machine and open the link in the jupyter lab server logs.
-Ctrl-C once to show the link again.
+Start and connect to the jupyter server either through VSCode or on the terminal.
+
+> [!NOTE]
+> With VSCode, you need to have the `Jupyter` VSCode extension (https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) insalled.
+
+#### From VSCode
+
+To start a kernel in VSCode and run the notebook:
+* Open the notebook you would like to work on
+* In the VSCode Command Palette Run `Notebook: Select Notebook Kernel` and choose `Select Another Kernel... > Python Environments...` and select the `polytope-demo` environment you set up.
+
+If running on CSCS, use a VSCode remote connection.
+
+#### From the terminal
+
+```sh
+poetry run jupyter lab --port 8080
+```
+Either open the URL from the logs directly or in VSCode paste the URL in "Select Kernel" -> "Select another Kernel..." -> "Existing Jupyter Server...".
+
+![Exisiting Jupyter Server...](./host/vscode_remote_jupyter-server.png)
 
 ###   Jupyter server in a container (LabVM only)
 With this approach you have both the Jupyter server and the runtime dependencies in a container.
+This simplifies the setup, but you cannot persist changes to the notebooks.
 
 ```sh
 podman run \
@@ -108,10 +115,13 @@ podman run \
 
 Afterwards connect to the external Jupyter server from the notebook with the url from container log.
 
-![Exisiting Jupyter Server...](./host/vscode_remote_jupyter-server.png)
+To rebuild and run the container with local changes, do the following
 
-> [!NOTE]
-> With VSCode, you need to have the `Jupyter` VSCode extension (https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) insalled.
+```sh
+podman build --network=host --pull --target notebook -t polytope-demo .
+podman run -p 8888:8888 --network=host --rm polytope-demo
+```
+
 
 ## Polytope Python Service Example
 
@@ -182,4 +192,3 @@ aws ecs run-task \
   --launch-type FARGATE \
   --overrides '{ "containerOverrides": [{"name": "polytope_demo", "command": [<SPLIT_COMMAND_HERE>]}]}'
 ```
-

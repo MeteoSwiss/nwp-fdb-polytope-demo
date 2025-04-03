@@ -5,7 +5,7 @@ FROM ${container_registry}/mch/python/builder as mch-base
 RUN git clone --depth 1 --branch v2.35.0.1dm1 https://github.com/COSMO-ORG/eccodes-cosmo-resources.git /src/eccodes-cosmo-resources
 RUN git clone --depth 1 --branch 2.35.0 https://github.com/ecmwf/eccodes.git /src/eccodes
 
-FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2502.a7cb2819496d9cacb9669a1152a1ef9801786521 as dependencies
+FROM ${container_registry}/numericalweatherpredictions/polytope-dependencies:2504.8619f4553a9788479581841697255d675b0d9520 as dependencies
 
 FROM dockerhub.apps.cp.meteoswiss.ch/mch/python-3.11:latest AS base
 
