@@ -3589,7 +3589,7 @@ optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "0.0.3.zip", hash = "sha256:9ae49204ddf6672d58776206d97eeb547e6898ed359e427f838ce9cece6d43cb"},
+    {file = "0.0.3.tar.gz", hash = "sha256:987738757416d033f97693d06975c1e1eb04c247e34404e2e3c3a879a867d5fe"},
 ]
 
 [package.dependencies]
@@ -3599,7 +3599,7 @@ pyeccodes = "*"
 
 [package.source]
 type = "url"
-url = "https://github.com/ecmwf/pyfdb/archive/refs/tags/0.0.3.zip"
+url = "https://github.com/ecmwf/pyfdb/archive/refs/tags/0.0.3.tar.gz"
 
 [[package]]
 name = "pygments"
@@ -4848,4 +4848,4 @@ reference = "pypi-mch"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "8ea88bf24b2e5623f54eae9204361423df49abac293dbae7401520de49aa1074"
+content-hash = "31414ef7479c84c2768484252411abc766850f3b7c7bff67e4355ebb6d05ad73"
