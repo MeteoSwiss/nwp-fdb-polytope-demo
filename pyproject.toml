@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "nwp-demo"
+# Keep only Major and Minor version in this configuration,
+# the patch version is calculated when releasing the library
+version = "1.0"
+description = "Demo scripts and notebooks for reading and processing forecast data using Polytope."
+authors = ["MeteoSwiss"]
+package-mode = false
+
+[[tool.poetry.source]]
+name = "pypi-mch"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+
+[tool.poetry.dependencies]
+python = "~3.11"
+meteodata-lab = { git = "https://github.com/MeteoSwiss/meteodata-lab.git", branch = "main", extras = ["all"] }
+pyfdb = { url = "https://github.com/ecmwf/pyfdb/archive/refs/tags/0.0.3.tar.gz" }
+polytope-client = "^0.7.4"
+matplotlib = "^3.8.4"
+cartopy = "^0.22"
+eccodes = "^1.7.1"
+ipykernel = "^6.29.4"
+
+[tool.poetry.group.notebook.dependencies]
+jupyterlab = "^4.3.5"
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+pythonpath = "."
+
+[tool.yapf]
+based_on_style = "pep8"
+column_limit = "120"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

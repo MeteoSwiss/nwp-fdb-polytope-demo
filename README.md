@@ -1,7 +1,7 @@
 # FDB and Polytope model data access and processing using meteodata-lab
 
 This repository contains examples for using FDB and Polytope to access ICON forecast data and process it using meteodata-lab.
- 
+
 The directory [notebooks](notebooks) contains the Jupyter notebooks and the directory [nwp_polytope_demo](nwp_polytope_demo) contains examples of processing data as a Python service.
 
 **Forecasts available in FDB**
@@ -51,32 +51,18 @@ sh make_snapshots.sh -c
 
 To use the Jupyter notebooks you have the following two options regarding the runtime dependencies and the jupyter server:
 
-1. Jupyter server on the lab-vm or at CSCS (Balfrin) and runtime dependencies in a container
-2. Both the jupyter server and the runtime dependencies in a container (LabVM only)
+1. Build dependencies and create a virtual Python environment (recommended for Balfrin)
+1. Run everything from a container (recommended for lab-VM)
 
-###   Jupyter server on the Lab-VM or at CSCS (Balfrin)
-#### LabVM
+### Virtual Environment
 
-With this approach you define a kernel definiton in your jupyter server with a reference to the container.
-```sh
-sudo apt install pipx
-export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-pipx install jupyterlab
+With this approach you create an environment that you can run as a jupyter kernel.
+Setup takes longer, but you can easily make changes to the environment and persist
+changes to the notebooks.
 
-./host/install_kernel.sh
-```
-Connect to the jupyter server <br>
-- **from VSCode:** <br>
-Open the notebook and select the `polytope-demo` kernel in "Select Kernel" -> "Select another Kernel..." -> "Jupyter Kernel..." <br>
-- **from your browser:**
-  ```sh
-  pipx run jupyter lab --port 8080
-  ```
-  Open the URL given in the code and select the `polytope-demo` kernel.
+This assumes you already have spack, conda, and poetry configured.
 
-#### CSCS (Balfrin)
-
-Setup spack for the machine and build FDB.
+Create and setup the spack environment.
 
 ```sh
 spack env activate -p spack-env
@@ -86,45 +72,88 @@ spack install --no-checksum
 Setup the python environment.
 
 ```sh
-conda env create -n demo -f environment.yaml
-conda activate demo
-git clone -b mars-levtype-echotop-2 https://github.com/cfkanesan/eccodes-cosmo-resources.git $CONDA_PREFIX/share/eccodes-cosmo-resources
-pip install jupyterlab
-python -m jupyter lab
+conda create -n polytope-demo python=3.11
+conda activate polytope-demo
+poetry install --with notebook
 ```
 
-Use VSCode to forward the port that is binded to the jupyter lab server to your local machine and open the link in the jupyter lab server logs.
-Ctrl-C once to show the link again.
+Configure ECCODES definitions. It is possible that poetry has already installed the
+definitions. In this case, `git clone` will fail and the failure can be ignored.
+
+```sh
+git clone --depth 1 --branch v2.35.0.1dm1 https://github.com/COSMO-ORG/eccodes-cosmo-resources.git ${CONDA_PREFIX}/share/eccodes-cosmo-resources
+git clone --depth 1 --branch 2.35.0 https://github.com/ecmwf/eccodes.git ${CONDA_PREFIX}/share/eccodes
+export GRIB_DEFINITION_PATH=${CONDA_PREFIX}/share/eccodes-cosmo-resources/definitions:${CONDA_PREFIX}/share/eccodes/definitions
+```
+
+
+Start and connect to the jupyter server either through VSCode or on the terminal.
+
+> [!NOTE]
+> With VSCode, you need to have the `Jupyter` VSCode extension (https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) insalled.
+
+#### From VSCode
+
+To start a kernel in VSCode and run the notebook:
+* Open the notebook you would like to work on
+* In the VSCode Command Palette Run `Notebook: Select Notebook Kernel` and choose `Select Another Kernel... > Python Environments...` and select the `polytope-demo` environment you set up.
+
+If running on CSCS, use a VSCode remote connection.
+
+#### From the terminal
+
+```sh
+poetry run jupyter lab --port 8080
+```
+Either open the URL from the logs directly or in VSCode paste the URL in "Select Kernel" -> "Select another Kernel..." -> "Existing Jupyter Server...".
+
+![Exisiting Jupyter Server...](./host/vscode_remote_jupyter-server.png)
 
 ###   Jupyter server in a container (LabVM only)
 With this approach you have both the Jupyter server and the runtime dependencies in a container.
+This simplifies the setup as it doesn't require any local installations or to check out the github
+project, but currently does not work in CSCS.
 
 ```sh
 podman run \
-  -e https_proxy=$https_proxy \
-  -e REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
-  -e SSL_CERT_DIR=/etc/ssl/certs/ \
+  -p 8888:8888
   --network=host \
   --rm \
   dockerhub.apps.cp.meteoswiss.ch/numericalweatherpredictions/polytope/demo/notebook:<TAG>
 ```
 `<TAG>`:The current container tag can be retrieved from: [https://nexus.meteoswiss.ch/nexus/service/rest/repository/browse/docker-all/v2/numericalweatherpredictions/polytope/demo/notebook/tags/](https://nexus.meteoswiss.ch/nexus/service/rest/repository/browse/docker-all/v2/numericalweatherpredictions/polytope/demo/notebook/tags/)
 
-Afterwards connect to the external Jupyter server from the notebook with the url from container log. Click "Select Kernel" -> "Existing Jupyter Server..." and then paste the url form the container log.
+If you want to persist changes to local versions of the notebooks, run the container from
+project directory and mount the local notebooks directory.
 
-![Exisiting Jupyter Server...](./host/vscode_remote_jupyter-server.png)
+```
+podman run \
+  -p 8888:8888
+  --network=host \
+  --mount type=bind,src=notebooks,dst=/src/app-root/notebooks/ \
+  --rm \
+  dockerhub.apps.cp.meteoswiss.ch/numericalweatherpredictions/polytope/demo/notebook:<TAG>
+```
 
-> [!NOTE]
-> With VSCode, you need to have the `Jupyter` VSCode extension (https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) insalled.
+Afterwards connect to the external Jupyter server from the notebook with the url from container log.
+
+To rebuild and run the container with local changes, run the following
+
+```sh
+podman build --network=host --pull --target notebook -t polytope-demo .
+podman run -p 8888:8888 --network=host --rm polytope-demo
+```
+
+
 
 ## Polytope Python Service Example
 
 The [nwp_polytope_demo](nwp_polytope_demo) directory contains three Python examples of accessing and processing ICON forecast data. You can build the container through the VSCode task `Build demo use-case image` and run it with the following commands from the LabVM or CSCS.
 
 In the instructions below, replace `<COMMAND_HERE>` with one of the following commands:
- - `python -m total_precipitation -r 2024022303 -l 1440`
- - `python -m wind -r 2024022303 -l 0`
- - `python -m timeseries -r 2024022303 -l 1440`
+ - `python -m nwp_polytope_demo.total_precipitation -r 2024022303 -l 1440`
+ - `python -m nwp_polytope_demo.wind -r 2024022303 -l 0`
+ - `python -m nwp_polytope_demo.timeseries -r 2024022303 -l 1440`
 
 Set the environment variable `MCH_MODEL_DATA_SOURCE` to `FDB` if FDB should be accessed directly rather than via Polytope. This also requires the additional environment variable `FDB5_CONFIG`.
 
@@ -153,7 +182,7 @@ podman run \
   -e https_proxy=$https_proxy \
   -e REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
   -e SSL_CERT_DIR=/etc/ssl/certs \
-  -v $(pwd)/out:/app/out --userns=keep-id \
+  -v $(pwd)/out:/src/app-root/out --userns=keep-id \
   --network=host \
   --rm \
   numericalweatherpredictions/polytope/demo/use-case:latest \
@@ -167,7 +196,7 @@ sarus run \
   -e POLYTOPE_USERNAME=admin \
   -e POLYTOPE_ADDRESS=https://polytope-dev.mchml.cscs.ch \
   -e POLYTOPE_PASSWORD=********** \
-  --mount=type=bind,destination=/app/out,src=<outdir> \
+  --mount=type=bind,destination=/src/app-root/out,src=<outdir> \
   container-registry.meteoswiss.ch/numericalweatherpredictions/polytope/demo/use-case:latest \
   <COMMAND_HERE>
 ```
@@ -186,4 +215,3 @@ aws ecs run-task \
   --launch-type FARGATE \
   --overrides '{ "containerOverrides": [{"name": "polytope_demo", "command": [<SPLIT_COMMAND_HERE>]}]}'
 ```
-
