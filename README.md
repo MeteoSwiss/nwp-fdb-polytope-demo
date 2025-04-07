@@ -57,8 +57,8 @@ To use the Jupyter notebooks you have the following two options regarding the ru
 ### Virtual Environment
 
 With this approach you create an environment that you can run as a jupyter kernel.
-Setup takes longer, but you can make changes to the environment and persist changes
-to the notebooks.
+Setup takes longer, but you can easily make changes to the environment and persist
+changes to the notebooks.
 
 This assumes you already have spack, conda, and poetry configured.
 
@@ -77,11 +77,12 @@ conda activate polytope-demo
 poetry install --with notebook
 ```
 
-Configure ECCODES definitions.
+Configure ECCODES definitions. It is possible that poetry has already installed the
+definitions. In this case, `git clone` will fail and the failure can be ignored.
 
 ```sh
 git clone --depth 1 --branch v2.35.0.1dm1 https://github.com/COSMO-ORG/eccodes-cosmo-resources.git ${CONDA_PREFIX}/share/eccodes-cosmo-resources
-RUN git clone --depth 1 --branch 2.35.0 https://github.com/ecmwf/eccodes.git ${CONDA_PREFIX}/share/eccodes
+git clone --depth 1 --branch 2.35.0 https://github.com/ecmwf/eccodes.git ${CONDA_PREFIX}/share/eccodes
 export GRIB_DEFINITION_PATH=${CONDA_PREFIX}/share/eccodes-cosmo-resources/definitions:${CONDA_PREFIX}/share/eccodes/definitions
 ```
 
