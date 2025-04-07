@@ -75,8 +75,16 @@ Setup the python environment.
 conda create -n polytope-demo python=3.11
 conda activate polytope-demo
 poetry install --with notebook
-git clone --depth 1 --branch v2.35.0.1dm1 https://github.com/COSMO-ORG/eccodes-cosmo-resources.git $CONDA_PREFIX/share/eccodes-cosmo-resources
 ```
+
+Configure ECCODES definitions.
+
+```sh
+git clone --depth 1 --branch v2.35.0.1dm1 https://github.com/COSMO-ORG/eccodes-cosmo-resources.git ${CONDA_PREFIX}/share/eccodes-cosmo-resources
+RUN git clone --depth 1 --branch 2.35.0 https://github.com/ecmwf/eccodes.git ${CONDA_PREFIX}/share/eccodes
+export GRIB_DEFINITION_PATH=${CONDA_PREFIX}/share/eccodes-cosmo-resources/definitions:${CONDA_PREFIX}/share/eccodes/definitions
+```
+
 
 Start and connect to the jupyter server either through VSCode or on the terminal.
 
