@@ -2510,7 +2510,7 @@ reference = "pypi-mch"
 
 [[package]]
 name = "meteodata-lab"
-version = "0.2.1a"
+version = "0.2.1a1"
 description = "A data post-processing framework on the basis of xarray."
 optional = false
 python-versions = ">=3.10,<3.13"
@@ -2537,7 +2537,7 @@ regrid = ["pyproj (>=3.6.1,<4.0.0)", "rasterio (>=1.3.10,<2.0.0)", "scipy (>=1.1
 type = "git"
 url = "https://github.com/MeteoSwiss/meteodata-lab.git"
 reference = "main"
-resolved_reference = "7486455c261bc3de1b2be1783a97f3f225755a25"
+resolved_reference = "242d79c56ae54c174018f4c41dd9518d5a393075"
 
 [[package]]
 name = "mistune"
@@ -4848,4 +4848,4 @@ reference = "pypi-mch"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "aac89c36a9a9d518b9270ddc3915fd090e9fd96af33cbaa4b111eb087e4de24d"
+content-hash = "8ea88bf24b2e5623f54eae9204361423df49abac293dbae7401520de49aa1074"

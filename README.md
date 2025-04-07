@@ -102,7 +102,8 @@ Either open the URL from the logs directly or in VSCode paste the URL in "Select
 
 ###   Jupyter server in a container (LabVM only)
 With this approach you have both the Jupyter server and the runtime dependencies in a container.
-This simplifies the setup, but you cannot persist changes to the notebooks.
+This simplifies the setup as it doesn't require any local installations or to check out the github
+project, but currently does not work in CSCS.
 
 ```sh
 podman run \
@@ -113,6 +114,18 @@ podman run \
 ```
 `<TAG>`:The current container tag can be retrieved from: [https://nexus.meteoswiss.ch/nexus/service/rest/repository/browse/docker-all/v2/numericalweatherpredictions/polytope/demo/notebook/tags/](https://nexus.meteoswiss.ch/nexus/service/rest/repository/browse/docker-all/v2/numericalweatherpredictions/polytope/demo/notebook/tags/)
 
+If you want to persist changes to local versions of the notebooks, run the container from
+project directory and mount the local notebooks directory.
+
+```
+podman run \
+  -p 8888:8888
+  --network=host \
+  --mount type=bind,src=notebooks,dst=/src/app-root/notebooks/ \
+  --rm \
+  dockerhub.apps.cp.meteoswiss.ch/numericalweatherpredictions/polytope/demo/notebook:<TAG>
+```
+
 Afterwards connect to the external Jupyter server from the notebook with the url from container log.
 
 To rebuild and run the container with local changes, run the following
@@ -121,6 +134,7 @@ To rebuild and run the container with local changes, run the following
 podman build --network=host --pull --target notebook -t polytope-demo .
 podman run -p 8888:8888 --network=host --rm polytope-demo
 ```
+
 
 
 ## Polytope Python Service Example

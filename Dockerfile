@@ -13,9 +13,6 @@ COPY --from=dependencies /work/spack-root /work/spack-root
 COPY --from=dependencies /opt/fdb /opt/fdb
 COPY --from=mch-base /src/eccodes/definitions /src/eccodes/definitions
 COPY --from=mch-base /src/eccodes-cosmo-resources/definitions /src/eccodes-cosmo-resources/definitions
-RUN mkdir -p spack-env/.spack-env && \
-    ln -s /opt/fdb spack-env/.spack-env/view 
-
 
 RUN pipx upgrade poetry
 
