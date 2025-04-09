@@ -7,7 +7,13 @@ The directory [notebooks](notebooks) contains the Jupyter notebooks and the dire
 **Forecasts available in FDB**
 
 > [!NOTE]
-> The realtime FDB normally contains **just the two latest forecasts**. This means the FDB requests should usually use date = today and time as either 0000, 0300, 0600, 0900 etc. (given the forecasts run every 3 hour). The data is usually available in the FDB a couple of hours after the forecast start time. If the requests to FDB return no data, see these [instructions](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+ICON-CH1#Query-available-data-on-Balfrin) for how to query yourself which data is currently archived in the FDB, or contact victoria.cherkas@meteoswiss.ch.
+> The realtime FDB normally contains **just the latest day of forecasts**. This means the FDB requests should usually use date = today and time as either 0000, 0300, 0600, 0900 etc. (given the forecasts run every 3 hour). The data is usually available in the FDB a couple of hours after the forecast start time. If the requests to FDB return no data, see these [instructions](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+ICON-CH1#Query-available-data-on-Balfrin) for how to query yourself which data is currently archived in the FDB, or contact victoria.cherkas@meteoswiss.ch.
+
+## Querying Polytope
+
+We use a local installation of [ECMWF Polytope](https://polytope.readthedocs.io/en/latest/) that provides a REST API for accessing MeteoSwiss ICON forecast data. For more details on our deployment, see our [Polytope Deployment](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/104243821/Polytope+Deployment) Confluence page (internal access only).
+
+In order to simplify use, meteodata-lab provides a wrapper around the API. The Polytope examples in these notebooks are built on meteodata-lab. For more details on use including instructions on how to get access to Polytope see our [Polytope](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/327780397/Polytope#How-to-Access-Polytope-with-meteodata-lab) Confluence page (internal access only).
 
 ## Jupyter Notebooks
 
