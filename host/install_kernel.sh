@@ -10,4 +10,4 @@ cd "$kernel_dir"
 
 mkdir -p polytope-demo
 
-cp ${root_dir}/kernel.json polytope-demo/
+sed "s|\"WRAPPER\"|\"$root_dir/uenv-wrapper.sh\"|" ${root_dir}/kernel.json > polytope-demo/kernel.json
