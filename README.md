@@ -46,7 +46,7 @@ You can follow the same installation of jupyter kernel as with [FDB](#Installati
 or
 deploy your own python environment and 
 ```
-pip install meteodata-lab
+poetry install
 ```
 
 ### Jupyter Notebooks
