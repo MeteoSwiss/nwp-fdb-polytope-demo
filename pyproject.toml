@@ -15,12 +15,9 @@ url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
 python = "~3.11"
 meteodata-lab = {version = "*", extras = ["polytope", "regrid"] }
 pyfdb = { url = "https://github.com/ecmwf/pyfdb/archive/refs/tags/0.0.3.tar.gz" }
-matplotlib = "^3.8.4"
-cartopy = "^0.22"
+earthkit-plots = "*"
 ipykernel = "^6.29.4"
-
-[tool.poetry.group.notebook.dependencies]
-jupyterlab = "^4.3.5"
+#eccodes = "^2.38.3"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]
