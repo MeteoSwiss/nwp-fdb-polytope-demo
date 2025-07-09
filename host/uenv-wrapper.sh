@@ -21,6 +21,6 @@ date >> /tmp/kernel_wrapper.log
 #cat "$1" >> /tmp/kernel_wrapper.log
 
 #uenv run fdb/25.7:1895345912 -- /user-environment/venvs/fdb/bin/python3.11 
-exec uenv run --view=fdb fdb/25.7:1895345912 -- /user-environment/venvs/fdb/bin/python3.11 "$@" > /tmp/kernel_wrapper.log 2>&1
+exec uenv run --view=fdb fdb/5.16:1907126596 -- /user-environment/venvs/fdb/bin/python3.11 "$@" > /tmp/kernel_wrapper.log 2>&1
 
 
