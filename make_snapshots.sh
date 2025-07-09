@@ -24,6 +24,11 @@ done
 if [ "${make_snapshots}" = true ] ; then
     mkdir tmp
     for filename in notebooks/*.ipynb; do
+	if grep -E -q 'EmailKey|Bearer' file.txt; then
+            echo "Token found in the notebook. Exiting script."
+            exit 1
+        fi
+
         jupyter nbconvert "${filename}" --clear-output --output ../tmp/test-clear
         if diff "${filename}" tmp/test-clear.ipynb > /dev/null ; then
             read -p "${filename} has no output, do you still want to snapshot it? [y/N] " yn
