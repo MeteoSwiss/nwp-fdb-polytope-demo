@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Pull the fdb uenv image
+uenv image pull --build fdb/5.16:1907126596
+
 root_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
 kernel_dir="$HOME/.local/share/jupyter/kernels/"
