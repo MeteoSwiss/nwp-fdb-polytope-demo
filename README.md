@@ -1,4 +1,4 @@
-# FDB and Polytope model data access and processing using meteodata-lab
+# FDB and Polytope model data access and processing
 
 This repository contains examples for using [FDB](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+for+ICON) and [Polytope](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/327780397/Polytope) to access ICON forecast data and process it using meteodata-lab.
 
@@ -26,15 +26,15 @@ bash host/install_kernel.sh
 
 Ctrl-Shift P -> 'Notebook: Select Notebook Kernel' -> 'Select Another Kernel' -> 'Jupyter Kernel' -> 'Polytope demo'
 
+Also make sure the python extension of VScode is not in [restricted](https://stackoverflow.com/questions/64723778/visual-studio-code-using-the-microsoft-python-extension-cannot-execute-code) mode
+
 #### FDB environment for python
 If you would like to develop python examples outside of the juypeter notebooks, see TODO how to use the FDB uenv environment .
 
 ## Jupyter Notebooks
 
 The following notebooks demonstrate how to access ICON model data (ICON-CH1-ENS & ICON-CH2-ENS) through FDB: 
-* [How to access model data with FDB from CSCS](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/1_Data_Retrieval_from_FDB_Preprocessing.ipynb)
-* [How to store data in FDB](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/2_Precompute_and_Store_Echotop_to_FDB.ipynb)
-  (for developers)
+* [How to access model data with FDB from CSCS](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/FDB/data_retrieve_from_FDB.ipynb)
 
 ## What is Polytope and Feature Extraction
 
@@ -52,6 +52,6 @@ poetry install
 ### Jupyter Notebooks
 
 The following notebooks demonstrate various use cases to access model data (ICON-CH1-ENS & ICON-CH2-ENS): 
-* [How to access feature extraction with Polytope](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/4_Location_and_TimeSeries_Access.ipynb)
-* [How to further process NWP data with meteodata-lab](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/3_Retrieve_Echotop_and_Regrid.ipynb)
+* [How to use feature extraction with Polytope](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/polytope_feature_extraction_icon.ipynb)
+* [How to access entire fields with Polytope](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/polytope_retrieve_full_icon_field.ipynb) -> Notice when accessing data from CSCS, using FDB instead will be significantly faster.
 
