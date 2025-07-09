@@ -3,7 +3,7 @@
 <!-- Include README content -->
 {% include_relative README.md %}
 
-## HTML Files
+## Rendered Notebooks
 
-- [File 1](notebooks/snapshot/1_Data_Retrieval_from_FDB_Preprocessing.html)
+- [Polytope Time Series Feature Extraction](notebooks/snapshot/polytope_feature_extraction_icon.html)
 
