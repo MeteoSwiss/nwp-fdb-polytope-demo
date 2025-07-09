@@ -3,6 +3,6 @@
 
 ## Rendered Notebooks
 
-- [FDB data retrieve](_posts/data_retrieve_from_FDB.html)
-- [Polytope Time Series Feature Extraction](_posts/polytope_feature_extraction_icon.html)
+- [FDB data retrieve](data_retrieve_from_FDB.html)
+- [Polytope Time Series Feature Extraction](polytope_feature_extraction_icon.html)
 
