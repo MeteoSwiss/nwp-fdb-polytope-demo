@@ -1,18 +1,6 @@
 import earthkit.data as ekd
 
-real_fdb_config = dict(
-    type="local",
-    engine="toc",
-    schema="/scratch/mch/cosuna/rea-l-ch1/schema",
-    spaces=[
-        dict(
-            handler="Default",
-            roots=[
-                {"path": "/scratch/mch/cosuna/rea-l-ch1_testdata"},
-            ],
-        )
-    ],
-)
+from config import real_fdb_config
 
 req = {
     "date": "20120101/to/20121231",
