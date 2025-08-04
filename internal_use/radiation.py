@@ -3,9 +3,9 @@ import time
 
 from config import real_fdb_config
 
-# Request to retrieve ASWDIFD_S at surface level between the 1st january and 31st december of 2021 hourly
+# Request to retrieve ASWDIFD_S and ASWDIR_S at surface level between the 1st and 10th of january hourly
 req = {
-    "date": "20120101/to/20121231",
+    "date": "20120101/to/20120110",
     "time": "0000",
     "stream": "enfo",
     "class": "od",
@@ -13,7 +13,7 @@ req = {
     "model": "icon-ch1-eps",
     "type": "cf",
     "levtype": "sfc",
-    "param": "500481",
+    "param": "500480/500481",
     "step": "0/to/24/by/1",
 }
 

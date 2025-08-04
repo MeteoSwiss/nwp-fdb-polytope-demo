@@ -1,12 +1,18 @@
-### FDB access via uenv
+# FDB access via uenv
 
-#### File Overview
+## File Overview
 
-- [radiation.py](radiation.py): single parameter surface level across a year
-- [wind_10M.py](wind_10M.py): two parameters surface level across a day
-- [wind_multi_levels.py](wind_multi_levels.py): two parameters on multiple model level across a day
+**Python:** Retrieve FDB-Data via python script
+- [config.py](config.py): Configuration of the data folder
+- [radiation.py](radiation.py): Retrieve two parameters at surface level across 10 days
+- [wind_10M.py](wind_10M.py): Retrieve two parameters at surface level across a day
+- [wind_multi_levels.py](wind_multi_levels.py): Retrieve two parameters on multiple model levels across a day
 
-#### Installing the uenv image
+**Mars:** Retrieve FDB-Data via mars request
+- [request_model_level.mars](request_model_level.mars): Retrieve one parameter at surface level
+- [request_surface.mars](request_surface.mars): Retrieve one parameter on multiple model levels
+
+## Installing the uenv image
 1. When using **uenv** on Balfrin for the first time. Create a repo in the default location by executing the following command.
 ```
 uenv repo create
@@ -18,14 +24,14 @@ uenv repo create
 uenv image pull fdb/5.16:v<version>
 ```
 
-#### Running a uenv image
+## Running a uenv image
 Run the image as follows:
 ```
 uenv run --view=fdb fdb/5.16:v<version> -- /user-environment/venvs/fdb/bin/python3 internal_use/<filename>
 ```
 This will load the image in memory and unmount it as soon as the application exits.
 
-#### Running a uenv image for development purposes
+## Running a uenv image for development purposes
 Start the image:
 ```
 uenv start --view=fdb fdb/5.16:v<version>
@@ -36,27 +42,47 @@ To stop the image execute:
 ```
 uenv stop
 ```
-#### Request structure
+
+## How to retrieve data
+
+### Request structure
 The request is a dictionary containing information on the following typical keywords:
-- **"date"**:       Date of the forecast (eg "20121231")
-- **"time"**:       Reference Time (eg "0000")
-- **"stream"**:     Forecasting system used to generated the data (eg "enfo" for ensemble forecast)
-- **"class"**:      Specifies the ECMWF classification given to the data (eg "od" for operational data)
-- **"expver"**:     Identifies the experiment or model version (eg "0001" for operational data)
-- **"model"**:      Model name (eg "icon-ch1-eps")
-- **"type"**:       Type of observation, image or field (eg "cf" for control forecast)
-- **"levtype"**:    Type of horizontal level (eg "ml" for model level)
-- **"levelist"**:   List of levels only needed for multilevel fields (eg "1/to/20")
-- **"param"**:      Parameter of a field (eg "50011" for T_2M)
-- **"step"**:       Timestep (eg "1/to/24/by/1" for hourly steps)
+- **date**:       Date of the forecast (eg "20121231")
+- **time**:       Reference Time (eg "0000")
+- **stream**:     Forecasting system used to generated the data (eg "enfo" for ensemble forecast)
+- **class**:      Specifies the ECMWF classification given to the data (eg "od" for operational data)
+- **expver**:     Identifies the experiment or model version (eg "0001" for operational data)
+- **model**:      Model name (eg "icon-ch1-eps")
+- **type**:       Type of observation, image or field (eg "cf" for control forecast)
+- **levtype**:    Type of horizontal level (eg "ml" for model level)
+- **levelist**:   List of levels only needed for multilevel fields (eg "1/to/20")
+- **param**:      Parameter of a field (eg "50011" for T_2M)
+- **step**:       Timestep (eg "1/to/24/by/1" for hourly steps)
 
 To check the full list of identification keywords go to [ECMWF - Identification keywords](https://confluence.ecmwf.int/display/UDOC/Identification+keywords).
 
-#### Parameters
+### Parameters
 
-To match a parameter to a number consult the following page: [meteodatalab/data/field_mappings.yml](https://github.com/MeteoSwiss/meteodata-lab/blob/main/src/meteodatalab/data/field_mappings.yml).
+To match a parameter to a number consult the following page: [eccodes-cosmo-resources](https://github.com/COSMO-ORG/eccodes-cosmo-resources/blob/master/definitions/grib2/localConcepts/edzw/shortName.def).
 
-#### Links
+### Via Python
+
+Make sure the uenv is running in the current shell, then execute:
+
+```
+python internal_use/<filename>
+```
+
+### Via Mars Request
+
+Make sure the uenv is running in the current shell, then execute:
+
+```
+fdb-read <filename> <new_gribfile_name>
+```
+
+## Links
 
 - [Installing the uenv](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+for+ICON#Install-FDB-and-python-environment%3A)
+- [Reading from  FDB](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/1906843/FDB#Reading-from-FDB)
 - [REA-L-CH1](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/829947927/REA-L-CH1)
