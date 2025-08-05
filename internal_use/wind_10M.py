@@ -3,7 +3,7 @@ import time
 
 from config import real_fdb_config
 
-# Request to retrieve the two wind parameters U_10M and V_10M at surface level on the 1st of january 2012 hourly
+# Request to retrieve the two wind parameters U_10M and V_10M at surface level on the 1st of January 2012 hourly
 req = {
     "date": "20120201",
     "time": "0000",
