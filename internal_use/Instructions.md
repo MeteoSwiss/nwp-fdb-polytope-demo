@@ -86,7 +86,7 @@ To check archived data on FDB Realtime, run the following command:
 ```
 uenv run --view=fdb fdb/5.16:v<version> -- fdb-utils list --filter number=0,step=0,time=2100,date=20250802,model=icon-ch1-eps
 ```
-To find out more about the FDB Realtime environement, enter:
+To find out more about the FDB environment that is currently configured, run:
 ```
 uenv run --view=fdb fdb/5.16:v<version> -- fdb-info --all
 ```
