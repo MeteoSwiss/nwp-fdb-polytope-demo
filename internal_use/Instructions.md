@@ -63,7 +63,7 @@ More information on the identification keywords are available at [ECMWF - Identi
 
 ### Parameters
 
-To match a parameter ID to a number consult the following page: [eccodes-cosmo-resources](https://github.com/COSMO-ORG/eccodes-cosmo-resources/blob/master/definitions/grib2/localConcepts/edzw/shortName.def).
+To match a short name to a parameter ID consult the following page: [eccodes-cosmo-resources](https://github.com/COSMO-ORG/eccodes-cosmo-resources/blob/master/definitions/grib2/localConcepts/edzw/shortName.def).
 
 ### Via Python
 
