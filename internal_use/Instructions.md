@@ -2,34 +2,34 @@
 
 ## File Overview
 
-**Python:** Retrieve FDB-Data via python script
+**Python:** Retrieve FDB REA-L-CH1 Data via Python
 - [config.py](config.py): Configuration of the data folder
 - [radiation.py](radiation.py): Retrieve two parameters at surface level across 10 days
 - [wind_10M.py](wind_10M.py): Retrieve two parameters at surface level across a day
 - [wind_multi_levels.py](wind_multi_levels.py): Retrieve two parameters on multiple model levels across a day
 
-**Mars:** Retrieve FDB-Data via mars request
+**Mars:** Retrieve FDB Realtime Data via Mars Request
 - [request_model_level.mars](request_model_level.mars): Retrieve one parameter at surface level
 - [request_surface.mars](request_surface.mars): Retrieve one parameter on multiple model levels
 
 ## Installing the uenv image
-1. When using **uenv** on Balfrin for the first time. Create a repo in the default location by executing the following command.
+1. When using **uenv** on Balfrin for the first time. Create a repo to store the uenv images in the default location `/scratch/mch/<user>/.uenv-images` by executing the following command.
+> **Note**: You will receive an error message if the repository has not yet been created.
 ```
 uenv repo create
 ```
-> **Note**: You will receive an error message if the repository has not yet been created.
-
 2. In order to use the uenv image we need to pull the image using this command.
+> **Note**: The recomended production image is fdb/5.16:v2. Full list of available images is maintained [here](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/801538270/FDB+uenv#List-of-releases).
 ```
 uenv image pull fdb/5.16:v<version>
 ```
 
 ## Running a uenv image
-Run the image as follows:
+Open a termial and run the image as follows:
 ```
 uenv run --view=fdb fdb/5.16:v<version> -- /user-environment/venvs/fdb/bin/python3 internal_use/<filename>
 ```
-This will load the image in memory and unmount it as soon as the application exits.
+This will load the image in memory, execute the python script and unmount it as soon as the application exits.
 
 ## Running a uenv image for development purposes
 Start the image:
@@ -56,21 +56,21 @@ The request is a dictionary containing information on the following typical keyw
 - **type**:       Type of observation, image or field (eg "cf" for control forecast)
 - **levtype**:    Type of horizontal level (eg "ml" for model level)
 - **levelist**:   List of levels only needed for multilevel fields (eg "1/to/20")
-- **param**:      Parameter of a field (eg "50011" for T_2M)
+- **param**:      Parameter ID of a field (eg "50011" for T_2M)
 - **step**:       Timestep (eg "1/to/24/by/1" for hourly steps)
 
-To check the full list of identification keywords go to [ECMWF - Identification keywords](https://confluence.ecmwf.int/display/UDOC/Identification+keywords).
+More information on the identification keywords are available at [ECMWF - Identification keywords](https://confluence.ecmwf.int/display/UDOC/Identification+keywords).
 
 ### Parameters
 
-To match a parameter to a number consult the following page: [eccodes-cosmo-resources](https://github.com/COSMO-ORG/eccodes-cosmo-resources/blob/master/definitions/grib2/localConcepts/edzw/shortName.def).
+To match a parameter ID to a number consult the following page: [eccodes-cosmo-resources](https://github.com/COSMO-ORG/eccodes-cosmo-resources/blob/master/definitions/grib2/localConcepts/edzw/shortName.def).
 
 ### Via Python
 
 Make sure the uenv is running in the current shell, then execute:
 
 ```
-python internal_use/<filename>
+python <path-to-file>
 ```
 
 ### Via Mars Request
@@ -78,7 +78,17 @@ python internal_use/<filename>
 Make sure the uenv is running in the current shell, then execute:
 
 ```
-fdb-read <filename> <new_gribfile_name>
+fdb-read <path-to-mars-request> <gribfile_output>
+```
+
+### How to query available data on Balfrin
+To check archived data on FDB Realtime, run the following command:
+```
+uenv run --view=fdb fdb/5.16:v<version> -- fdb-utils list --filter number=0,step=0,time=2100,date=20250802,model=icon-ch1-eps
+```
+To find out more about the FDB Realtime environement, enter:
+```
+uenv run --view=fdb fdb/5.16:v<version> -- fdb-info --all
 ```
 
 ## Links
