@@ -3,7 +3,7 @@ import time
 
 from config import real_fdb_config
 
-# Request to retrieve the two wind parameters U and V at model levels 74 to 80 on the 2nd of january 2012 hourly
+# Request to retrieve horizontal wind parameters U and V at model levels 74 to 80 on the 2nd of January 2012 hourly
 req = {
     "date": "20120102",
     "time": "0000",
