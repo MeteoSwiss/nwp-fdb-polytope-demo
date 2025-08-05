@@ -3,7 +3,7 @@
 ## File Overview
 
 **Python:** Retrieve REA-L-CH1 Data from FDB with Python
-- [config.py](config.py): Configuration of the data folder
+- [config.py](config.py): Contains the configuration of the FDB instance
 - [radiation.py](radiation.py): Retrieve two parameters at surface level across 10 days
 - [wind_10M.py](wind_10M.py): Retrieve two parameters at surface level across a day
 - [wind_multi_levels.py](wind_multi_levels.py): Retrieve two parameters on multiple model levels across a day
