@@ -20,7 +20,7 @@ req = {
 # Time data extraction
 start = time.time()
 
-# Load data as a stream, otherwise it might be too much data
+# Load data as a stream, otherwise it might not fit in memory
 fs = ekd.from_source("fdb", req, config=real_fdb_config, stream=True)
 
 # Convert each field to a xarray.Dataset and print the available parameters and the date of the dataset.

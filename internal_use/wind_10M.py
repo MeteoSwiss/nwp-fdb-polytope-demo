@@ -3,7 +3,7 @@ import time
 
 from config import real_fdb_config
 
-# Request to retrieve the two wind parameters U_10M and V_10M at surface level on the 1st of January 2012 hourly
+# Request to retrieve horizontal parameters U_10M and V_10M at surface level on the 1st of January 2012, hourly
 req = {
     "date": "20120201",
     "time": "0000",
@@ -20,7 +20,7 @@ req = {
 # Time data extraction
 start = time.time()
 
-# Load data as a stream, otherwise it might be too much data
+# Load data as a stream, otherwise it might not fit in memory
 fs = ekd.from_source("fdb", req, config=real_fdb_config, stream=True)
 
 # Convert each field to a xarray.Dataset and print the available parameters and the date of the dataset.
