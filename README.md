@@ -31,7 +31,7 @@ Also make sure the python extension of VScode is not in [restricted](https://sta
 #### FDB environment for python
 If you would like to develop python examples outside of the juypter notebooks, see https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+for+ICON#How-to-use-it how to use the FDB uenv environment .
 
-## Jupyter Notebooks
+### Jupyter Notebooks
 
 The following notebooks demonstrate how to access ICON model data (ICON-CH1-ENS & ICON-CH2-ENS) through FDB: 
 * [How to access model data with FDB from CSCS](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/FDB/data_retrieve_from_FDB.ipynb)
