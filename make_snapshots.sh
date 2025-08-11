@@ -24,7 +24,7 @@ done
 if [ "${make_snapshots}" = true ] ; then
     mkdir tmp
     for filename in notebooks/*.ipynb; do
-	if grep -E -q 'EmailKey|Bearer' file.txt; then
+	if grep -E -q 'EmailKey|Bearer' "$filename"; then
             echo "Token found in the notebook. Exiting script."
             exit 1
         fi
