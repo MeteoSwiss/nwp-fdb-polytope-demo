@@ -1,9 +1,16 @@
 #!/bin/bash
 
+# Set the FDB image name
+fdb_image="fdb/5.16:v2"
+
 # Pull the fdb uenv image
-uenv image pull fdb/5.16:v2
+uenv image pull "$fdb_image"
 
 root_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+
+# Save image name for wrapper
+echo "$fdb_image" > "$root_dir/.fdb_image"
+
 
 kernel_dir="$HOME/.local/share/jupyter/kernels/"
 if [ ! -d "$kernel_dir" ]; then
