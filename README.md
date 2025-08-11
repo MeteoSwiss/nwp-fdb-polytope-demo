@@ -29,7 +29,7 @@ Ctrl-Shift P -> 'Notebook: Select Notebook Kernel' -> 'Select Another Kernel' ->
 Also make sure the python extension of VScode is not in [restricted](https://stackoverflow.com/questions/64723778/visual-studio-code-using-the-microsoft-python-extension-cannot-execute-code) mode
 
 #### FDB environment for python
-If you would like to develop python examples outside of the juypeter notebooks, see TODO how to use the FDB uenv environment .
+If you would like to develop python examples outside of the juypter notebooks, see https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+for+ICON#How-to-use-it how to use the FDB uenv environment .
 
 ## Jupyter Notebooks
 
