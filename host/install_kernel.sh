@@ -14,3 +14,5 @@ cd "$kernel_dir"
 mkdir -p polytope-demo
 
 sed "s|\"WRAPPER\"|\"$root_dir/uenv-wrapper.sh\"|" ${root_dir}/kernel.json > polytope-demo/kernel.json
+
+echo "'polytope demo' kernel has been installed successfully at: $kernel_dir"
