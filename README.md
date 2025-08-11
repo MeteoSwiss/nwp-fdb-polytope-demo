@@ -42,9 +42,9 @@ Polytope allows to efficiently extract specific features from the same real-time
 Polytope is an HTTP service and therefore access is not restricted to CSCS (it supports access from LabVM and ACPM).
 
 ### Installation
-You can follow the same installation of jupyter kernel as with [FDB](#Installation)
+You can follow the same installation of jupyter kernel as with [FDB](#Installation) (only for usage within CSCS)
 or
-deploy your own python environment and 
+deploy your own python environment (works from anywhere) with
 ```
 poetry install
 ```
