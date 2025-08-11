@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Pull the fdb uenv image
-uenv image pull --build fdb/5.16:1907126596
+uenv image pull fdb/5.16:v2
 
 root_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
