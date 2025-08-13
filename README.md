@@ -52,6 +52,6 @@ poetry install
 ### Jupyter Notebooks
 
 The following notebooks demonstrate various use cases to access model data (ICON-CH1-ENS & ICON-CH2-ENS): 
-* [How to use feature extraction with Polytope](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/polytope_feature_extraction_icon.ipynb)
-* [How to access entire fields with Polytope](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/polytope_retrieve_full_icon_field.ipynb) -> Notice when accessing data from CSCS, using FDB instead will be significantly faster.
+* [How to use feature extraction with Polytope](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/polytope_feature_extraction_icon.ipynb)
+* [How to access entire fields with Polytope](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/polytope_retrieve_full_icon_field.ipynb) -> Notice when accessing data from CSCS, using FDB instead will be significantly faster.
 
