@@ -13,7 +13,7 @@ url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
 
 [tool.poetry.dependencies]
 python = "~3.11"
-meteodata-lab = {version = "*", extras = ["polytope", "regrid"] }
+meteodata-lab = { url = "https://github.com/MeteoSwiss/meteodata-lab/archive/03c5aaedbdde917cab9f0d609d9535ec4146e1c8.zip", extras = ["polytope", "regrid"] }
 pyfdb = { url = "https://github.com/ecmwf/pyfdb/archive/refs/tags/0.0.3.tar.gz" }
 earthkit-plots = "*"
 ipykernel = "^6.29.4"
@@ -30,4 +30,3 @@ column_limit = "120"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
