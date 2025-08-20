@@ -19,6 +19,7 @@ earthkit-plots = "*"
 ipykernel = "^6.29.4"
 #eccodes = "^2.38.3"
 nbformat = "^5.10.4"
+earthkit-geo = "^0.3.0"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]

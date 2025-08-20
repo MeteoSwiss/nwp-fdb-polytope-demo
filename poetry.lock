@@ -964,6 +964,30 @@ url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
 reference = "pypi-mch"
 
 [[package]]
+name = "earthkit-geo"
+version = "0.3.0"
+description = "Geospatial computations"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "earthkit_geo-0.3.0-py3-none-any.whl", hash = "sha256:4ea310b66f734a6dea29d8f44031fefc7bfa75de446409e0c7c8ca318c500659"},
+    {file = "earthkit_geo-0.3.0.tar.gz", hash = "sha256:9f713c670c2b7670f0401525e0eb26829d1fb0d4911e7f4ed3a1f17dc53bb464"},
+]
+
+[package.dependencies]
+cartopy = "*"
+pyproj = "*"
+scipy = "*"
+
+[package.extras]
+test = ["pytest", "pytest-cov"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
+[[package]]
 name = "earthkit-meteo"
 version = "0.4.1"
 description = "Meteorological computations"
@@ -4207,4 +4231,4 @@ reference = "pypi-mch"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "6f204e993cf03904b05ac44d3ccf40e3b07cd89a6e26d248c0e4fc84a3b85f58"
+content-hash = "ad8b8228cda71dc084c7208b72bda148da8f091d41503481c7c4a896bae3b5ef"
