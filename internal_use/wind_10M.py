@@ -5,7 +5,7 @@ from config import real_fdb_config
 
 # Request to retrieve horizontal parameters U_10M and V_10M at surface level on the 1st of January 2012, hourly
 req = {
-    "date": "20120201",
+    "date": "20100921",
     "time": "0000",
     "stream": "enfo",
     "class": "od",

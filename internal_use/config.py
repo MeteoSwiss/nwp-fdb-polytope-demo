@@ -6,7 +6,7 @@ real_fdb_config = dict(
         dict(
             handler="Default",
             roots=[
-                {"path": "/scratch/mch/cosuna/rea-l-ch1_testdata"},
+                {"path": "/store_new/mch/msopr/rea-l-ch1/fdb/spinup"},
             ],
         )
     ],
