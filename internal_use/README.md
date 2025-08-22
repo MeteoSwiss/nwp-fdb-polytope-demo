@@ -12,6 +12,6 @@
 - [request_model_level.mars](request_model_level.mars): Retrieve one parameter at surface level
 - [request_surface.mars](request_surface.mars): Retrieve one parameter on multiple model levels
 
-## Links
+## Instructions
 
 - [FDB for NWP Data Access at CSCS](https://meteoswiss.atlassian.net/wiki/x/poR-Ew)

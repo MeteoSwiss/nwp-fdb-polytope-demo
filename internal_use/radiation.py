@@ -5,7 +5,7 @@ from config import real_fdb_config
 
 # Request to retrieve ASWDIFD_S and ASWDIR_S at surface level between the 1st and 10th of January 2012, hourly
 req = {
-    "date": "20120101/to/20120110",
+    "date": "20100917/to/20100920",
     "time": "0000",
     "stream": "enfo",
     "class": "od",
