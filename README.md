@@ -50,7 +50,7 @@ poetry install
 ```
 2. Install the kernel.
 ```
-poetry run python -m ipykernel install --user --name=<env-name> --display-name "polytope demo"
+poetry run python -m ipykernel install --user --name=polytope-env --display-name "polytope demo"
 ```
 
 ### Jupyter Notebooks
