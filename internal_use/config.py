@@ -1,7 +1,7 @@
 real_fdb_config = dict(
     type="local",
     engine="toc",
-    schema="/scratch/mch/cosuna/rea-l-ch1/schema",
+    schema="/store_new/mch/msopr/rea-l-ch1/fdb/schema",
     spaces=[
         dict(
             handler="Default",

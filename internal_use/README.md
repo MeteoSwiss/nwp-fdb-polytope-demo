@@ -9,8 +9,8 @@
 - [wind_multi_levels.py](wind_multi_levels.py): Retrieve two parameters on multiple model levels across a day
 
 **MARS:** Example MARS requests to retrieve data via the FDB CLI
-- [request_model_level.mars](request_model_level.mars): Retrieve one parameter at surface level
-- [request_surface.mars](request_surface.mars): Retrieve one parameter on multiple model levels
+- [request_surface.mars](request_surface.mars): Retrieve one parameter at surface level
+- [request_model_level.mars](request_model_level.mars): Retrieve one parameter on multiple model levels
 
 ## Instructions
 
