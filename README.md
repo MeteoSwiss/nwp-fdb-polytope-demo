@@ -2,7 +2,7 @@
 
 This repository contains examples for using [FDB](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+for+ICON) and [Polytope](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/327780397/Polytope) to access ICON forecast data and process it using meteodata-lab.
 
-The directory [notebooks](notebooks) contains the Jupyter notebooks and the directory [nwp_polytope_demo](nwp_polytope_demo) contains examples of processing data as a Python service.
+The directory [notebooks](notebooks) contains the Jupyter notebooks.
 
 **Forecasts available in FDB**
 
@@ -29,9 +29,9 @@ Ctrl-Shift P -> 'Notebook: Select Notebook Kernel' -> 'Select Another Kernel' ->
 Also make sure the python extension of VScode is not in [restricted](https://stackoverflow.com/questions/64723778/visual-studio-code-using-the-microsoft-python-extension-cannot-execute-code) mode
 
 #### FDB environment for python
-If you would like to develop python examples outside of the juypeter notebooks, see TODO how to use the FDB uenv environment .
+If you would like to develop python examples outside of the juypter notebooks, see https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+for+ICON#How-to-use-it how to use the FDB uenv environment .
 
-## Jupyter Notebooks
+### Jupyter Notebooks
 
 The following notebook demonstrate how to access ICON model data (ICON-CH1-ENS & ICON-CH2-ENS) through FDB:
 * [How to access model data with FDB from CSCS](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/FDB/data_retrieve_from_FDB.ipynb)

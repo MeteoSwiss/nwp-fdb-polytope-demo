@@ -1,9 +1,16 @@
 #!/bin/bash
 
+# Set the FDB image name
+fdb_image="fdb/5.16:v2"
+
 # Pull the fdb uenv image
-uenv image pull --build fdb/5.16:1907126596
+uenv image pull "$fdb_image"
 
 root_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+
+# Save image name for wrapper
+echo "$fdb_image" > "$root_dir/.fdb_image"
+
 
 kernel_dir="$HOME/.local/share/jupyter/kernels/"
 if [ ! -d "$kernel_dir" ]; then
@@ -14,3 +21,5 @@ cd "$kernel_dir"
 mkdir -p polytope-demo
 
 sed "s|\"WRAPPER\"|\"$root_dir/uenv-wrapper.sh\"|" ${root_dir}/kernel.json > polytope-demo/kernel.json
+
+echo "'polytope demo' kernel has been installed successfully at: $kernel_dir"

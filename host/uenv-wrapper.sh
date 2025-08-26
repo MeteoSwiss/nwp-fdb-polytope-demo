@@ -1,4 +1,6 @@
 #!/bin/bash
-uenv run --view=fdb fdb/5.16:1907126596 -- /user-environment/venvs/fdb/bin/python3.11 "$@"
+image=$(cat "$(dirname "$0")/.fdb_image")
+
+uenv run --view=fdb "$image" -- /user-environment/venvs/fdb/bin/python3.11 "$@"
 
 
