@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "nwp-demo"
+# Keep only Major and Minor version in this configuration,
+# the patch version is calculated when releasing the library
+version = "1.0"
+description = "Demo scripts and notebooks for reading and processing forecast data using Polytope."
+authors = ["MeteoSwiss"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "~3.11"
+meteodata-lab = {extras = ["polytope", "regrid"], branch = "regrid_real"}
+pyfdb = "0.1.2"
+fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git", tag = "v1.1.5"}
+ipykernel = "*"
+earthkit-data = ">=0.16.3"
+earthkit-plots = "*"
+earthkit-geo = "*"
+earthkit-meteo = "*"
+pygribjump = { git = "https://github.com/ecmwf/gribjump.git", tag = "0.10.0" }
+nbconvert = "*"
+pyyaml = "*"
+black = "^25.1.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+pythonpath = "."
+
+[tool.yapf]
+based_on_style = "pep8"
+column_limit = "120"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
