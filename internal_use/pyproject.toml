@@ -9,7 +9,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "~3.11"
-meteodata-lab = {extras = ["polytope", "regrid"], branch = "regrid_real"}
+meteodata-lab = {extras = ["polytope", "regrid"], git = "https://github.com/meteoswiss/meteodata-lab.git", branch = "regrid_real"}
 pyfdb = "0.1.2"
 fdb-utils = { git = "https://github.com/MeteoSwiss/fdb-utils.git", tag = "v1.1.5"}
 ipykernel = "*"
