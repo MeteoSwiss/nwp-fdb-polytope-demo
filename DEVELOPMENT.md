@@ -1,20 +1,10 @@
-### Making Changes
+## Notebook development workflow
 
-When modifying the notebooks, work in the `notebooks` directory.
+Edit only in developer_notebooks/. These notebooks do not contain outputs, which keeps diffs small and reviews easy.
 
-In order to create snapshots based on the current status of the notebooks in the `notebooks/snapshot` directory, run
+notebooks/ contains the executed, user-facing copies (with outputs) and is not intended for code review.
 
-```
-sh make_snapshots.sh
-```
-
-Before submitting, also clear the output of the working version of the notebooks. This makes merges and reviews easier as they do not
-also include the much larger diffs to the output. Jenkins will also ensure that the working notebooks have been cleared before allowing
-to merge a pull request. To clear notebooks and snapshot run
-
-```
-sh make_snapshots.sh -c
-```
+Note: We’ll add automated checks to ensure notebooks/ always reflects developer_notebooks/. For now, reviewers should look only at changes under developer_notebooks/.
 
 ## Polytope Python Service Example
 
