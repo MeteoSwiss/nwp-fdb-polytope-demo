@@ -42,7 +42,7 @@ Polytope allows to efficiently extract specific features from the same real-time
 Polytope is an HTTP service and therefore access is not restricted to CSCS (it supports access from LabVM and ACPM).
 
 ### Installation
-Deploy your own python environment using these commands.
+Deploy your own python environment using the following commands. Alternatively, when working at CSCS, you can use the same [installation](#installation) mentioned above.
 
 1. Install the poetry environment.
 ```
@@ -58,9 +58,9 @@ poetry run python -m ipykernel install --user --name=polytope-env --display-name
 The following notebooks demonstrate various use cases to access model data (ICON-CH1-EPS & ICON-CH2-EPS) via Polytope:
 
 **Feature extraction**:
-* [Polygon country cut-out feature](/home/nen/Documents/OGD/nwp-fdb-polytope-demo/notebooks/Polytope/feature_polygon_country_cut-out.ipynb)
+* [Polygon country cut-out feature](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_polygon_country_cut-out.ipynb)
 
 **Access entire fields:**
-* [Access entire fields](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/polytope_retrieve_full_icon_field.ipynb)
+* [Access entire fields](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/polytope_retrieve_full_icon_field.ipynb)
 
 > Notice when accessing data from CSCS, using FDB instead will be significantly faster.
