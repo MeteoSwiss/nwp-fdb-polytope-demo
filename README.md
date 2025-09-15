@@ -58,9 +58,8 @@ poetry run python -m ipykernel install --user --name=polytope-env --display-name
 The following notebooks demonstrate various use cases to access model data (ICON-CH1-EPS & ICON-CH2-EPS) via Polytope:
 
 **Feature extraction**:
-* [Polygon country cut-out feature](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_polygon_country_cut-out.ipynb)
-
-**Access entire fields:**
-* [Access entire fields](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/polytope_retrieve_full_icon_field.ipynb)
+* [Bouding Box](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_bounding_box.ipynb)
+* [Polygon country cut-out](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_polygon_country_cut-out.ipynb)
+* [Time Series](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_time_series.ipynb)
 
 > Notice when accessing data from CSCS, using FDB instead will be significantly faster.
