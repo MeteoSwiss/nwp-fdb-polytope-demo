@@ -33,7 +33,7 @@ If you would like to develop python examples outside of the juypter notebooks, s
 
 ### Jupyter Notebooks
 
-The following notebook demonstrate how to access ICON model data (ICON-CH1-ENS & ICON-CH2-ENS) through FDB:
+The following notebook demonstrates how to access ICON model data (ICON-CH1-ENS & ICON-CH2-ENS) with FDB:
 * [How to access model data with FDB from CSCS](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/FDB/data_retrieve_from_FDB.ipynb)
 
 ## What is Polytope and Feature Extraction
@@ -61,5 +61,3 @@ The following notebooks demonstrate various use cases to access model data (ICON
 * [Bouding Box](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_bounding_box.ipynb)
 * [Polygon country cut-out](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_polygon_country_cut-out.ipynb)
 * [Time Series](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_time_series.ipynb)
-
-> Notice when accessing data from CSCS, using FDB instead will be significantly faster.

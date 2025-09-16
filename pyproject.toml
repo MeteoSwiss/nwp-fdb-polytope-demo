@@ -13,11 +13,10 @@ url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
 
 [tool.poetry.dependencies]
 python = "~3.11"
-meteodata-lab = { version = "*", extras = ["polytope", "regrid"] }
+meteodata-lab = { version = "^0.6.0", extras = ["polytope", "regrid"] }
 pyfdb = { url = "https://github.com/ecmwf/pyfdb/archive/refs/tags/0.0.3.tar.gz" }
 earthkit-plots = "*"
 ipykernel = "^6.29.4"
-#eccodes = "^2.38.3"
 nbformat = "^5.10.4"
 earthkit-geo = "^0.3.0"
 
