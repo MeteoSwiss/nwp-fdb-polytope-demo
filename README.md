@@ -11,7 +11,7 @@ The directory [notebooks](notebooks) contains the Jupyter notebooks.
 
 ## What is FDB
 
-FDB allows to retrieve any multi-dimensional dataset of the recent real-time ICON NWP forecasts. 
+FDB allows to retrieve any multi-dimensional dataset of the recent real-time ICON NWP forecasts.
 FDB is designed to access full horizontal fields (feature extraction is not supported) and it is only accessible from within CSCS.
 
 ### Installation
@@ -33,25 +33,31 @@ If you would like to develop python examples outside of the juypter notebooks, s
 
 ### Jupyter Notebooks
 
-The following notebooks demonstrate how to access ICON model data (ICON-CH1-ENS & ICON-CH2-ENS) through FDB: 
+The following notebook demonstrates how to access ICON model data (ICON-CH1-ENS & ICON-CH2-ENS) with FDB:
 * [How to access model data with FDB from CSCS](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/FDB/data_retrieve_from_FDB.ipynb)
 
 ## What is Polytope and Feature Extraction
 
-Polytope allows to efficiently extract specific features from the same real-time ICON NWP forecast, such as grid point data, time-series, vertical profiles or polygons. 
+Polytope allows to efficiently extract specific features from the same real-time ICON NWP forecast, such as grid point data, time-series, vertical profiles or polygons.
 Polytope is an HTTP service and therefore access is not restricted to CSCS (it supports access from LabVM and ACPM).
 
 ### Installation
-You can follow the same installation of jupyter kernel as with [FDB](#Installation) (only for usage within CSCS)
-or
-deploy your own python environment (works from anywhere) with
+Deploy your own python environment using the following commands. Alternatively, when working at CSCS, you can use the same [installation](#installation) mentioned above.
+
+1. Install the poetry environment.
 ```
 poetry install
+```
+2. Install the kernel.
+```
+poetry run python -m ipykernel install --user --name=polytope-env --display-name "polytope demo"
 ```
 
 ### Jupyter Notebooks
 
-The following notebooks demonstrate various use cases to access model data (ICON-CH1-ENS & ICON-CH2-ENS): 
-* [How to use feature extraction with Polytope](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/polytope_feature_extraction_icon.ipynb)
-* [How to access entire fields with Polytope](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/polytope_retrieve_full_icon_field.ipynb) -> Notice when accessing data from CSCS, using FDB instead will be significantly faster.
+The following notebooks demonstrate various use cases to access model data (ICON-CH1-EPS & ICON-CH2-EPS) via Polytope:
 
+**Feature extraction**:
+* [Bouding Box](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_bounding_box.ipynb)
+* [Polygon country cut-out](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_polygon_country_cut-out.ipynb)
+* [Time Series](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_time_series.ipynb)
