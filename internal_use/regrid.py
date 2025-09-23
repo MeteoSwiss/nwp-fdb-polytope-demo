@@ -18,7 +18,7 @@ with open(script_dir / "profile_2d.yaml", "r") as file:
     profile_2d = yaml.safe_load(file)
 
 
-mapfile = "/user-environment/env/fdb/share/metkit/paramids.yaml"
+mapfile = "/user-environment/env/rea-l-ch1/share/metkit/paramids.yaml"
 with open(mapfile, "r") as file:
     param_map_ = yaml.safe_load(file)
     param_map = {}
@@ -26,6 +26,18 @@ with open(mapfile, "r") as file:
         if int(key) < 500000:
             continue
         param_map[val[0]] = key
+
+    param_map["clcl"] = 500048
+    param_map["clch"] = 500050
+    param_map["asob_s"] = 500078
+    param_map["athb_s"] = 500080
+    param_map["runoff_g"] = 500066
+    param_map["runoff_s"] = 500068
+    param_map["clcm"] = 500049
+
+
+def var_to_paramid(param_names):
+    return [param_map[param.lower()] for param in param_names]
 
 
 def regrid_dataset(ds, grid_params, x_y_as_dims):
@@ -44,10 +56,6 @@ def regrid_dataset(ds, grid_params, x_y_as_dims):
     return regridded_ds
 
 
-def var_to_paramid(param_names):
-    return [param_map[param.lower()] for param in param_names]
-
-
 def add_icon_grid(array):
     hcoords = icon_grid.load_grid_from_balfrin()(UUID(array.attrs["uuidOfHGrid"]))
 
@@ -63,10 +71,10 @@ requests = {
     "cons": {
         "request": {
             "time": "0000",
-            "stream": "enfo",
-            "class": "od",
-            "expver": "0001",
-            "model": "icon-ch1-eps",
+            "stream": "reanl",
+            "class": "rd",
+            "expver": "r001",
+            "model": "icon-rea-l-ch1",
             "type": "cf",
             "levtype": "sfc",
             "step": "0",
@@ -75,13 +83,29 @@ requests = {
         "steps": None,
         "levels": None,
     },
+    "cons_ml": {
+        "request": {
+            "time": "0000",
+            "stream": "reanl",
+            "class": "rd",
+            "expver": "r001",
+            "model": "icon-rea-l-ch1",
+            "type": "cf",
+            "levtype": "ml",
+            "step": "0",
+            "levelist": "74/to/80",
+        },
+        "vars": ["HHL"],
+        "steps": None,
+        "levels": None,
+    },
     "sfc": {
         "request": {
             "time": "0000",
-            "stream": "enfo",
-            "class": "od",
-            "expver": "0001",
-            "model": "icon-ch1-eps",
+            "stream": "reanl",
+            "class": "rd",
+            "expver": "r001",
+            "model": "icon-rea-l-ch1",
             "type": "cf",
             "levtype": "sfc",
             "step": "0/to/24/by/1",
@@ -92,7 +116,6 @@ requests = {
             "DURSUN",
             "H_SNOW",
             "PMSL",
-            "VMAX_10M",
             "U_10M",
             "V_10M",
             "SNOW_GSP",
@@ -125,13 +148,30 @@ requests = {
         "steps": 25,
         "levels": None,
     },
+    "sfc_nostep0": {
+        "request": {
+            "time": "0000",
+            "stream": "reanl",
+            "class": "rd",
+            "expver": "r001",
+            "model": "icon-rea-l-ch1",
+            "type": "cf",
+            "levtype": "sfc",
+            "step": "1/to/24/by/1",
+        },
+        "vars": [
+            "VMAX_10M",
+        ],
+        "steps": 24,
+        "levels": None,
+    },
     "dp1": {
         "request": {
             "time": "0000",
-            "stream": "enfo",
-            "class": "od",
-            "expver": "0001",
-            "model": "icon-ch1-eps",
+            "stream": "reanl",
+            "class": "rd",
+            "expver": "r001",
+            "model": "icon-rea-l-ch1",
             "type": "cf",
             "levtype": "dp",
             "levelist": ["0", "0.005", "0.02", "0.06", "0.18", "0.54", "1.62", "4.86"],
@@ -144,10 +184,10 @@ requests = {
     "dp2": {
         "request": {
             "time": "0000",
-            "stream": "enfo",
-            "class": "od",
-            "expver": "0001",
-            "model": "icon-ch1-eps",
+            "stream": "reanl",
+            "class": "rd",
+            "expver": "r001",
+            "model": "icon-rea-l-ch1",
             "type": "cf",
             "levtype": "dp",
             "levelist": ["0", "0.01", "0.03", "0.09", "0.27", "0.81", "2.43", "7.29"],
@@ -160,10 +200,10 @@ requests = {
     "10m_sfc": {
         "request": {
             "time": "0000",
-            "stream": "enfo",
-            "class": "od",
-            "expver": "0001",
-            "model": "icon-ch1-eps",
+            "stream": "reanl",
+            "class": "rd",
+            "expver": "r001",
+            "model": "icon-rea-l-ch1",
             "type": "cf",
             "levtype": "sfc",
             "step": "0m/to/1441m/by/10m",
@@ -175,10 +215,10 @@ requests = {
     "10m_avg": {
         "request": {
             "time": "0000",
-            "stream": "enfo",
-            "class": "od",
-            "expver": "0001",
-            "model": "icon-ch1-eps",
+            "stream": "reanl",
+            "class": "rd",
+            "expver": "r001",
+            "model": "icon-rea-l-ch1",
             "type": "cf",
             "levtype": "sfc",
             "step": "0m/to/1441m/by/10m",
@@ -190,10 +230,10 @@ requests = {
     "ml": {
         "request": {
             "time": "0000",
-            "stream": "enfo",
-            "class": "od",
-            "expver": "0001",
-            "model": "icon-ch1-eps",
+            "stream": "reanl",
+            "class": "rd",
+            "expver": "r001",
+            "model": "icon-rea-l-ch1",
             "type": "cf",
             "levtype": "ml",
             "levelist": "74/to/80",
@@ -214,12 +254,11 @@ for key, req_info in requests.items():
     req["param"] = var_to_paramid(req_info["vars"])
 
     # Load data as a stream, otherwise it might not fit in memory
-    fs = ekd.from_source("fdb", req, config=real_fdb_config, stream=True)
+    fs = ekd.from_source("fdb", req, stream=True)
 
     # Convert each field to a xarray.Dataset and print the available parameters and the date of the dataset.
     for f in fs.group_by("date"):
         ds = f.to_xarray(profile="grib", **profile)
-
         for var in ds:
             ds[var] = add_icon_grid(ds[var])
             if key == "10m_avg":
@@ -233,7 +272,7 @@ for key, req_info in requests.items():
 
         out_regrid_target = "swiss,549500,149500,650500,250500,1000,1000"
         swiss_ds = regrid_dataset(ds, out_regrid_target, False)
-
+        swiss_ds = ds
         for var in swiss_ds:
             vals = ds.coords["valid_time"].dt.strftime("%Y%m").values
             assert len(vals) == 1
