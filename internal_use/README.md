@@ -19,7 +19,7 @@
 ### Installation Instructions for regrid.py
 
 ```sh
-uenv start --view=fdb fdb/5.17:v2
+uenv start --view=rea-l-ch1 fdb/5.17:2057590964
 poetry install
 poetry run python regrid.py
 ```
