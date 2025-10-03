@@ -5,12 +5,12 @@ from config import real_fdb_config
 
 # Request to retrieve horizontal parameters U_10M and V_10M at surface level on the 1st of January 2012, hourly
 req = {
-    "date": "20100921",
+    "date": "20100101",
     "time": "0000",
-    "stream": "enfo",
-    "class": "od",
-    "expver": "0001",
-    "model": "icon-ch1-eps",
+    "stream": "reanl",
+    "class": "rd",
+    "expver": "r001",
+    "model": "icon-rea-l-ch1",
     "type": "cf",
     "levtype": "sfc",
     "param": "500027/500029",
