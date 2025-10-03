@@ -3,7 +3,7 @@ import time
 
 from config import real_fdb_config
 
-# Request to retrieve horizontal parameters U_10M and V_10M at surface level on the 1st of January 2012, hourly
+# Request to retrieve horizontal parameters U_10M and V_10M at surface level on the 1st of January 2010, hourly
 req = {
     "date": "20100101",
     "time": "0000",
