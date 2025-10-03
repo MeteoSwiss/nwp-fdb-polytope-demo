@@ -3,7 +3,7 @@ import time
 
 from config import real_fdb_config
 
-# Request to retrieve ASWDIFD_S and ASWDIR_S at surface level between the 1st and 10th of January 2012, hourly
+# Request to retrieve ASWDIFD_S and ASWDIR_S at surface level between the 1st and 10th of January 2010, hourly
 req = {
     "date": "20100101/to/20100110",
     "time": "0000",
