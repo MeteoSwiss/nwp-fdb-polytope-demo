@@ -1,8 +1,6 @@
 import earthkit.data as ekd
 import time
 
-from config import real_fdb_config
-
 # Request to retrieve horizontal wind parameters U and V at model levels 74 to 80 on the 2nd of January 2010, hourly
 req = {
     "date": "20100102",
