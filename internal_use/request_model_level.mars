@@ -1,1 +1,1 @@
-retrieve,date=20250801,time=2100,stream=enfo,class=od,expver=0001,model=icon-ch1-eps,type=pf,levtype=ml,levelist=74/to/80,step=0/to/24/by/1,param=500028,number=2
+retrieve,date=20251006,time=2100,stream=enfo,class=od,expver=0001,model=icon-ch1-eps,type=cf,levtype=ml,levelist=74/to/80,step=0/to/24/by/1,param=500028
