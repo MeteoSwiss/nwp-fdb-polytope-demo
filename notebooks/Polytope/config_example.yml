@@ -1,0 +1,5 @@
+meteoswiss:
+  key: <your_key>
+ecmwf:
+  user_name: <your_user_name>
+  key: <your_key>
