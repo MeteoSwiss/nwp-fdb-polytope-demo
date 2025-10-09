@@ -4,6 +4,7 @@ __pycache__
 .spack-env
 spack.lock
 *.swp
+config.yml
 
 # Folders for local runs.
 tmp/
