@@ -1,5 +1,5 @@
 meteoswiss:
-  key: <mch_key>
+  key: <meteoswiss_key>
 ecmwf:
-  user_name: <ecmwf_user_name>
+  user_email: <ecmwf_user_email>
   key: <ecmwf_key>
