@@ -1,57 +1,110 @@
-#!/bin/bash
-#
-# Creates an HTML snapshot of the current state of the notebooks. Use this script
-# to prepare examples of running the notebooks including the output.
-#
-# To also clear the output of the notebooks to prepare to commiting changes, pass
-# in the -c option.
+#!/usr/bin/env bash
+# Simple notebook helper
+# -s  Make HTML snapshots from current outputs
+# -c  Clear outputs in-place (prepare for commit)
+# TARGET (optional): a folder or a single .ipynb file
+# Defaults to notebooks/FDB and notebooks/Polytope if no TARGET is given.
+
+set -euo pipefail
 
 clear_outputs=false
 make_snapshots=false
 
-while getopts ":cs" option; do
-    case $option in
-        c) # Clear the notebook output
-            clear_outputs=true;;
-        s) # Snapshot the notebooks
-            make_snapshots=true;;
-        \?)
-            echo "Usage: $0 [-c] [-s]"
-            exit 1;;
-    esac
+usage() {
+  cat <<'EOF'
+Usage:
+  notebooks.sh -s [TARGET]    Make HTML snapshots (uses current outputs in the notebooks)
+  notebooks.sh -c [TARGET]    Clear outputs in-place (prepare for commit)
+  notebooks.sh -s -c [TARGET] Do both
+
+TARGET (optional):
+  - Omit to process: notebooks/FDB and notebooks/Polytope
+  - Directory path: process all *.ipynb under it (recursively)
+  - Single file: path/to/notebook.ipynb
+
+Examples:
+  notebooks.sh -s
+  notebooks.sh -c notebooks/Polytope
+  notebooks.sh -s notebooks/Polytope/feature_time_series.ipynb
+EOF
+}
+
+# Parse flags
+while getopts ":csh" opt; do
+  case "$opt" in
+    c) clear_outputs=true ;;
+    s) make_snapshots=true ;;
+    h) usage; exit 0 ;;
+    \?) echo "Unknown option: -$OPTARG"; usage; exit 1 ;;
+  esac
 done
+shift $((OPTIND-1))
 
-if [ "${make_snapshots}" = true ] ; then
-    mkdir tmp
-    for filename in notebooks/**/*.ipynb; do
-	if grep -E -q 'EmailKey|Bearer' "$filename"; then
-            echo "Token found in the notebook. Exiting script."
-            rm -r "$tmp"
-            exit 1
-        fi
+# Resolve target(s)
+ROOT_DIR="$(pwd)"
+DEFAULT_DIRS=("notebooks/FDB" "notebooks/Polytope")
 
-        jupyter nbconvert "${filename}" --clear-output --output ../tmp/test-clear
-        if diff "${filename}" tmp/test-clear.ipynb > /dev/null ; then
-            read -p "${filename} has no output, do you still want to snapshot it? [y/N] " yn
-            case $yn in
-                [yY] )
-                    ;;
-                [nN] )
-                    echo "skipping"
-                    continue;;
-                * )
-                    echo "skipping"
-                    continue;;
-            esac
-        fi
-        jupyter nbconvert "${filename}" --to html --output-dir notebooks/snapshot
-    done
-    rm tmp/test-clear.ipynb
-    rmdir tmp
+TARGET="${1:-}"
+declare -a NOTEBOOKS
+
+collect_from_dir() {
+  local d="$1"
+  [ -d "$d" ] || return 0
+  # shellcheck disable=SC2044
+  for f in $(find "$d" -type f -name "*.ipynb"); do
+    NOTEBOOKS+=("$f")
+  done
+}
+
+if [[ -z "$TARGET" ]]; then
+  for d in "${DEFAULT_DIRS[@]}"; do collect_from_dir "$d"; done
+else
+  if [[ -d "$TARGET" ]]; then
+    collect_from_dir "$TARGET"
+  elif [[ -f "$TARGET" && "$TARGET" == *.ipynb ]]; then
+    NOTEBOOKS+=("$TARGET")
+  else
+    echo "TARGET not found or not a .ipynb: $TARGET"
+    exit 1
+  fi
 fi
 
-if [ "${clear_outputs}" = true ] ; then
-    find notebooks -maxdepth 1 -name *ipynb -execdir \
-        jupyter nbconvert --clear-output '{}' --output './{}' \;
+if [[ ${#NOTEBOOKS[@]} -eq 0 ]]; then
+  echo "No notebooks found."
+  exit 0
 fi
 
+# Choose jupyter runner (prefer Poetry if available)
+JUP="jupyter"
+if command -v poetry >/dev/null 2>&1; then
+  JUP="poetry run jupyter"
+fi
+
+# Actions
+if $make_snapshots; then
+  SNAP_DIR="notebooks/snapshots"
+  mkdir -p "$SNAP_DIR"
+  echo "Making HTML snapshots into: $SNAP_DIR"
+  for nb in "${NOTEBOOKS[@]}"; do
+    # Basic secret check
+    if grep -E -q 'EmailKey|Bearer' "$nb"; then
+      echo "Secret-like token found in: $nb"
+      echo "Aborting snapshots. Clear/obfuscate secrets first."
+      exit 1
+    fi
+    echo "  - $nb"
+    # NOTE: this uses current outputs; it does NOT execute the notebook.
+    # If you need to execute, add: --execute
+    $JUP nbconvert "$nb" --to html --output-dir "$SNAP_DIR" >/dev/null
+  done
+fi
+
+if $clear_outputs; then
+  echo "Clearing outputs in-place"
+  for nb in "${NOTEBOOKS[@]}"; do
+    echo "  - $nb"
+    $JUP nbconvert --to notebook --ClearOutputPreprocessor.enabled=True --inplace "$nb" >/dev/null
+  done
+fi
+
+echo "Done."
