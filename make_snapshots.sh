@@ -13,9 +13,9 @@ make_snapshots=false
 usage() {
   cat <<'EOF'
 Usage:
-  notebooks.sh -s [TARGET]    Make HTML snapshots (uses current outputs in the notebooks)
-  notebooks.sh -c [TARGET]    Clear outputs in-place (prepare for commit)
-  notebooks.sh -s -c [TARGET] Do both
+  make_snapshots.sh -s [TARGET]    Make HTML snapshots (uses current outputs)
+  make_snapshots.sh -c [TARGET]    Clear outputs in-place (prepare for commit)
+  make_snapshots.sh -s -c [TARGET] Do both
 
 TARGET (optional):
   - Omit to process: notebooks/FDB and notebooks/Polytope
@@ -23,9 +23,9 @@ TARGET (optional):
   - Single file: path/to/notebook.ipynb
 
 Examples:
-  notebooks.sh -s
-  notebooks.sh -c notebooks/Polytope
-  notebooks.sh -s notebooks/Polytope/feature_time_series.ipynb
+  ./make_snapshots.sh -s
+  ./make_snapshots.sh -c notebooks/Polytope
+  ./make_snapshots.sh -s notebooks/Polytope/feature_time_series.ipynb
 EOF
 }
 
@@ -40,70 +40,68 @@ while getopts ":csh" opt; do
 done
 shift $((OPTIND-1))
 
-# Resolve target(s)
-ROOT_DIR="$(pwd)"
-DEFAULT_DIRS=("notebooks/FDB" "notebooks/Polytope")
+# Determine script directory
+script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-TARGET="${1:-}"
-declare -a NOTEBOOKS
+# Default notebooks
+default_dirs=("$script_dir/notebooks/FDB" "$script_dir/notebooks/Polytope")
+
+target="${1:-}"
+declare -a notebooks=()
 
 collect_from_dir() {
   local d="$1"
   [ -d "$d" ] || return 0
-  # shellcheck disable=SC2044
-  for f in $(find "$d" -type f -name "*.ipynb"); do
-    NOTEBOOKS+=("$f")
-  done
+  while IFS= read -r f; do
+    notebooks+=("$f")
+  done < <(find "$d" -type f -name "*.ipynb")
 }
 
-if [[ -z "$TARGET" ]]; then
-  for d in "${DEFAULT_DIRS[@]}"; do collect_from_dir "$d"; done
+if [[ -z "$target" ]]; then
+  for d in "${default_dirs[@]}"; do collect_from_dir "$d"; done
 else
-  if [[ -d "$TARGET" ]]; then
-    collect_from_dir "$TARGET"
-  elif [[ -f "$TARGET" && "$TARGET" == *.ipynb ]]; then
-    NOTEBOOKS+=("$TARGET")
+  if [[ -d "$target" ]]; then
+    collect_from_dir "$target"
+  elif [[ -f "$target" && "$target" == *.ipynb ]]; then
+    notebooks+=("$target")
   else
-    echo "TARGET not found or not a .ipynb: $TARGET"
+    echo "TARGET not found or not a .ipynb: $target"
     exit 1
   fi
 fi
 
-if [[ ${#NOTEBOOKS[@]} -eq 0 ]]; then
+if [[ ${#notebooks[@]} -eq 0 ]]; then
   echo "No notebooks found."
   exit 0
 fi
 
 # Choose jupyter runner (prefer Poetry if available)
-JUP="jupyter"
+jup="jupyter"
 if command -v poetry >/dev/null 2>&1; then
-  JUP="poetry run jupyter"
+  jup="poetry run jupyter"
 fi
 
 # Actions
 if $make_snapshots; then
-  SNAP_DIR="notebooks/snapshots"
-  mkdir -p "$SNAP_DIR"
-  echo "Making HTML snapshots into: $SNAP_DIR"
-  for nb in "${NOTEBOOKS[@]}"; do
-    # Basic secret check
+  snap_dir="$script_dir/notebooks/snapshots"
+  mkdir -p "$snap_dir"
+  echo "Making HTML snapshots into: $snap_dir"
+  for nb in "${notebooks[@]}"; do
     if grep -E -q 'EmailKey|Bearer' "$nb"; then
       echo "Secret-like token found in: $nb"
       echo "Aborting snapshots. Clear/obfuscate secrets first."
       exit 1
     fi
     echo "  - $nb"
-    # NOTE: this uses current outputs; it does NOT execute the notebook.
-    # If you need to execute, add: --execute
-    $JUP nbconvert "$nb" --to html --output-dir "$SNAP_DIR" >/dev/null
+    $jup nbconvert "$nb" --to html --output-dir "$snap_dir" >/dev/null
   done
 fi
 
 if $clear_outputs; then
   echo "Clearing outputs in-place"
-  for nb in "${NOTEBOOKS[@]}"; do
+  for nb in "${notebooks[@]}"; do
     echo "  - $nb"
-    $JUP nbconvert --to notebook --ClearOutputPreprocessor.enabled=True --inplace "$nb" >/dev/null
+    $jup nbconvert --to notebook --ClearOutputPreprocessor.enabled=True --inplace "$nb" >/dev/null
   done
 fi
 
