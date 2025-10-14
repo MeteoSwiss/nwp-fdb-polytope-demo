@@ -11,7 +11,7 @@ FDB is designed to access full horizontal fields (feature extraction is not supp
 
 The following notebook demonstrates how to access ICON model data (ICON-CH1-ENS & ICON-CH2-ENS) with FDB:
 * [How to access model data with FDB from CSCS](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/FDB/data_retrieve_from_FDB.ipynb)
-    * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/outputs/notebooks/snapshots/data_retrieve_from_FDB.html)
+    * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/notebooks/snapshots/data_retrieve_from_FDB.html)
 
 ### Installation
 FDB data access requires the FDB libraries. In order to facilitate the use of the notebooks, we provide a jupyter kernel configuration for VSCode that will load the environment with the required libraries:
@@ -41,11 +41,11 @@ The following notebooks demonstrate various use cases to access model data (ICON
 
 **Feature extraction**:
 * [Bouding Box](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_bounding_box.ipynb)
-    * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/outputs/notebooks/snapshots/feature_bounding_box.html)
+    * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/notebooks/snapshots/feature_bounding_box.html)
 * [Polygon country cut-out](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_polygon_country_cut-out.ipynb)
-    * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/outputs/notebooks/snapshots/feature_polygon_country_cut-ou.html)
+    * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/notebooks/snapshots/feature_polygon_country_cut-out.html)
 * [Time Series](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_time_series.ipynb)
-    * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/outputs/notebooks/snapshots/feature_time_series.html)
+    * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/notebooks/snapshots/feature_time_series.html)
 
 ### Installation
 Deploy your own python environment using the following commands. Alternatively, when working at CSCS, you can use the same [installation](#installation) mentioned above.

@@ -28,10 +28,12 @@ Remove all outputs to keep notebooks clean for review.
 # or for one notebook
 ./make_snapshots.sh -c notebooks/Polytope/feature_time_series.ipynb
 ```
+## 4. Update the list of notebooks in the README.md 
+Update the list of notebooks in the README.md so others can easily find and reference the new or modified notebook.
 
 ---
 
-## 4. Commit your changes
+## 5. Commit your changes
 Add both the updated notebooks and their HTML snapshots, then push:
 
 ```bash
