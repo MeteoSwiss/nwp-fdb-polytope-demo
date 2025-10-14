@@ -1769,6 +1769,27 @@ url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
 reference = "pypi-mch"
 
 [[package]]
+name = "kaleido"
+version = "0.2.1"
+description = "Static image export for web-based visualization libraries with zero dependencies"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "kaleido-0.2.1-py2.py3-none-macosx_10_11_x86_64.whl", hash = "sha256:ca6f73e7ff00aaebf2843f73f1d3bacde1930ef5041093fe76b83a15785049a7"},
+    {file = "kaleido-0.2.1-py2.py3-none-macosx_11_0_arm64.whl", hash = "sha256:bb9a5d1f710357d5d432ee240ef6658a6d124c3e610935817b4b42da9c787c05"},
+    {file = "kaleido-0.2.1-py2.py3-none-manylinux1_x86_64.whl", hash = "sha256:aa21cf1bf1c78f8fa50a9f7d45e1003c387bd3d6fe0a767cfbbf344b95bdc3a8"},
+    {file = "kaleido-0.2.1-py2.py3-none-manylinux2014_aarch64.whl", hash = "sha256:845819844c8082c9469d9c17e42621fbf85c2b237ef8a86ec8a8527f98b6512a"},
+    {file = "kaleido-0.2.1-py2.py3-none-win32.whl", hash = "sha256:ecc72635860be616c6b7161807a65c0dbd9b90c6437ac96965831e2e24066552"},
+    {file = "kaleido-0.2.1-py2.py3-none-win_amd64.whl", hash = "sha256:4670985f28913c2d063c5734d125ecc28e40810141bdb0a46f15b76c1d45f23c"},
+]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
+[[package]]
 name = "kiwisolver"
 version = "1.4.9"
 description = "A fast implementation of the Cassowary constraint solver"
@@ -3063,14 +3084,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "polytope-client"
-version = "0.7.7"
+version = "0.7.8"
 description = "A Python and command-line client to communicate with a Polytope API server."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "polytope_client-0.7.7-py3-none-any.whl", hash = "sha256:256269ee3d86b70bc9de22294e2b543c336161dbb9840290a4e6d6d569437d89"},
-    {file = "polytope_client-0.7.7.tar.gz", hash = "sha256:0247735e4aa93f039652c17cb75b4d2775739a208f4ef6b78210055033e40185"},
+    {file = "polytope_client-0.7.8-py3-none-any.whl", hash = "sha256:3aa28cfb47479e06188b1cf4e741bdb16b77b1844b7afe11362d610b94c51f2e"},
+    {file = "polytope_client-0.7.8.tar.gz", hash = "sha256:bd06091645cfaba42ccc99885e8c4bd78d2c2032fd220280c88455c15d5d7c7b"},
 ]
 
 [package.dependencies]
@@ -4552,4 +4573,4 @@ reference = "pypi-mch"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "6efe7e2a906e3b77cd22c3839a4f894a55d8755180f61ed93122e1b9142ea451"
+content-hash = "d1a097d4af540a34e0fabca80c81aed57ae30886bd114bee49441a941714261b"

@@ -1,87 +1,49 @@
-### Making Changes
+#  Notebook Development Workflow
 
-When modifying the notebooks, work in the `notebooks` directory.
+This guide explains how to update and publish notebooks consistently.
 
-In order to create snapshots based on the current status of the notebooks in the `notebooks/snapshot` directory, run
+---
 
-```
-sh make_snapshots.sh
-```
+## 1. Run your notebooks
+Open the `.ipynb` file you changed and **run all cells** so that the outputs are visible.
 
-Before submitting, also clear the output of the working version of the notebooks. This makes merges and reviews easier as they do not
-also include the much larger diffs to the output. Jenkins will also ensure that the working notebooks have been cleared before allowing
-to merge a pull request. To clear notebooks and snapshot run
+---
 
-```
-sh make_snapshots.sh -c
-```
+## 2. Create HTML snapshots
+Generate static HTML versions in `notebooks/snapshots/` for users to view.
 
-## Polytope Python Service Example
-
-The [nwp_polytope_demo](nwp_polytope_demo) directory contains three Python examples of accessing and processing ICON forecast data. You can build the container through the VSCode task `Build demo use-case image` and run it with the following commands from the LabVM or CSCS.
-
-In the instructions below, replace `<COMMAND_HERE>` with one of the following commands:
- - `python -m nwp_polytope_demo.total_precipitation -r 2024022303 -l 1440`
- - `python -m nwp_polytope_demo.wind -r 2024022303 -l 0`
- - `python -m nwp_polytope_demo.timeseries -r 2024022303 -l 1440`
-
-Set the environment variable `MCH_MODEL_DATA_SOURCE` to `FDB` if FDB should be accessed directly rather than via Polytope. This also requires the additional environment variable `FDB5_CONFIG`.
-
-### Configuring FDB
-
-Specify the environment variable `FDB5_CONFIG` with the relevant config of FDB depending on your environment
-
-#### Remote
-```json
-{"type":"remote","engine":"remote","store":"remote","host":"<HOST>","port":"<PORT>"}
+```bash
+./make_snapshots.sh -s
+# or for one notebook
+./make_snapshots.sh -s notebooks/Polytope/feature_time_series.ipynb
 ```
 
-#### Local (if running on balfrin)
-```json
-{"type":"local","engine":"toc","schema":"<SCHEMA>","spaces":[{"handler":"Default","roots":[{"path":"<FDB_ROOT>"}]}]}
+---
+
+## 3. Clear outputs before committing
+Remove all outputs to keep notebooks clean for review.
+
+```bash
+./make_snapshots.sh -c
+# or for one notebook
+./make_snapshots.sh -c notebooks/Polytope/feature_time_series.ipynb
+```
+## 4. Update the list of notebooks in the README.md 
+Update the list of notebooks in the README.md so others can easily find and reference the new or modified notebook.
+
+---
+
+## 5. Commit your changes
+Add both the updated notebooks and their HTML snapshots, then push:
+
+```bash
+git add notebooks/snapshots notebooks/FDB notebooks/Polytope
+git commit -m "Update notebooks and snapshots"
+git push
 ```
 
-### Run container in LabVM
+---
 
-```shell
-mkdir out
-podman run \
-  -e POLYTOPE_USERNAME=admin \
-  -e POLYTOPE_ADDRESS=https://polytope-dev.mchml.cscs.ch \
-  -e POLYTOPE_PASSWORD=************ \
-  -e https_proxy=$https_proxy \
-  -e REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
-  -e SSL_CERT_DIR=/etc/ssl/certs \
-  -v $(pwd)/out:/src/app-root/out --userns=keep-id \
-  --network=host \
-  --rm \
-  numericalweatherpredictions/polytope/demo/use-case:latest \
-  <COMMAND_HERE>
-```
-
-### Run container at CSCS
-
-```shell
-sarus run \
-  -e POLYTOPE_USERNAME=admin \
-  -e POLYTOPE_ADDRESS=https://polytope-dev.mchml.cscs.ch \
-  -e POLYTOPE_PASSWORD=********** \
-  --mount=type=bind,destination=/src/app-root/out,src=<outdir> \
-  container-registry.meteoswiss.ch/numericalweatherpredictions/polytope/demo/use-case:latest \
-  <COMMAND_HERE>
-```
-
-### Run container at AWS
-
-Use the following command to run the container on AWS ECS.
-
-`SPLIT_COMMAND_HERE = "python","-m","wind",...`
-
-```shell
-aws ecs run-task \
-  --cluster polytope-demo \
-  --task-definition polytope-demo \
-  --network-configuration '{ "awsvpcConfiguration": {"subnets":["subnet-098ac0ff2aa40933c","subnet-0c36df0a99fe3b136"],"securityGroups":["sg-0c6a013e82af170f1"],"assignPublicIp":"DISABLED" }}' \
-  --launch-type FARGATE \
-  --overrides '{ "containerOverrides": [{"name": "polytope_demo", "command": [<SPLIT_COMMAND_HERE>]}]}'
-```
+> 💡 **Tip:**  
+> - The script `make_snapshots.sh` can process all notebooks (default) or just a specific folder or file.  
+> - Run `./make_snapshots.sh -h` for help.
