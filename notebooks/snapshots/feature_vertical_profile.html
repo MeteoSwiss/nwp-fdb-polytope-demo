@@ -7511,13 +7511,24 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d8f8370f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/notebooks/snapshots/feature_vertical_profile.html"><img alt="Open Rendered Output" src="https://img.shields.io/badge/Rendered%20Output-Open-blue?logo=link&amp;logoColor=white"/></a></p>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1f7d72cd">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Vertical-Profile-Feature">Vertical Profile Feature<a class="anchor-link" href="#Vertical-Profile-Feature">¶</a></h1><p>The following notebook demonstrates the full workflow to access, process and visualize a vertical profile of ICON-CH1-EPS temperature data.</p>
+<h1 id="Vertical-Profile-Feature:-Vertical-Profile-of-Temperature-at-Zurich-Airport">Vertical Profile Feature: Vertical Profile of Temperature at Zurich Airport<a class="anchor-link" href="#Vertical-Profile-Feature:-Vertical-Profile-of-Temperature-at-Zurich-Airport">¶</a></h1><p>The following notebook demonstrates the full workflow to access, process and visualize a vertical profile of ICON-CH1-EPS temperature data.</p>
 </div>
 </div>
 </div>
@@ -7529,7 +7540,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div style="text-align:center;">
-<img alt="No description has been provided for this image" src="./images/t_2m_vertical_profile.png" style="width:70%;"/>
+<img alt="No description has been provided for this image" src="https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/notebooks/Polytope/images/t_2m_vertical_profile.png" style="width:50%;"/>
 </div>
 </div>
 </div>
@@ -7641,7 +7652,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>('20251014', '0000')</pre>
+<pre>('20251014', '1800')</pre>
 </div>
 </div>
 </div>
@@ -7653,7 +7664,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Define-and-rotate-the-polygon-points">Define and rotate the polygon points<a class="anchor-link" href="#Define-and-rotate-the-polygon-points">¶</a></h2><p>To use the polytope feature, it is necessary to rotate the given data point (here Zurich Airport) using a South Pole rotation with a reference of longitude 10° and latitude of -43°.</p>
+<h2 id="Select-the-geolocation">Select the geolocation<a class="anchor-link" href="#Select-the-geolocation">¶</a></h2><p>We’ll request a vertical profile at Zurich Airport (WGS84 coordinates).</p>
+<p>To use the polytope feature, it is necessary to rotate the given data point (here Zurich Airport) since the data source accessed by Polytope is stored on a rotated grid. By using a South Pole rotation with a reference of longitude 10° and latitude of -43°, we are able to access the desired data point..</p>
 <blockquote>
 <p><strong>IMPORTANT</strong>: The function <code>transform_point()</code> expects first longitude and then latitude.</p>
 </blockquote>
@@ -7722,7 +7734,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Finally, we can define the request. This example fetches <strong>2-m temperature</strong> from <strong>ICON-CH1-EPS</strong> at the <strong>pressure levels</strong> 100 to 850, for the <strong>control forecast</strong>, at the selected run date/time.</p>
+<p>Finally, we can define the request. This example fetches <strong>temperature</strong> from <strong>ICON-CH1-EPS</strong> at the <strong>pressure levels</strong> 100 to 850, for the <strong>control forecast</strong>, at the selected run date/time.</p>
 <ul>
 <li><code>type="pf"</code> — perturbed member (requires <code>number</code>).</li>
 <li><code>type="cf"</code> — control forecast (no <code>number</code>).</li>
@@ -7794,7 +7806,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>2025-10-14 15:50:38 - INFO - Sending request...
+<pre>2025-10-15 11:19:37 - INFO - Sending request...
 {'request': 'class: od\n'
             "date: '20251014'\n"
             "expver: '0001'\n"
@@ -7826,14 +7838,14 @@ a.anchor-link {
             "param: '500014'\n"
             'step: 0\n'
             'stream: enfo\n'
-            "time: '0000'\n"
+            "time: '1800'\n"
             'type: cf\n',
  'verb': 'retrieve'}
-2025-10-14 15:50:39 - INFO - Request accepted. Please poll ./9f997fdd-02c4-4d13-8563-4c1f9b773473 for status
-2025-10-14 15:50:39 - INFO - Checking request status (9f997fdd-02c4-4d13-8563-4c1f9b773473)...
-2025-10-14 15:50:39 - INFO - The current status of the request is 'queued'
-2025-10-14 15:50:39 - INFO - The current status of the request is 'processing'
-2025-10-14 15:50:44 - INFO - The current status of the request is 'processed'
+2025-10-15 11:19:38 - INFO - Request accepted. Please poll ./a2c8ef34-9b2c-4be9-a1e6-b17bcd2896c0 for status
+2025-10-15 11:19:38 - INFO - Checking request status (a2c8ef34-9b2c-4be9-a1e6-b17bcd2896c0)...
+2025-10-15 11:19:38 - INFO - The current status of the request is 'queued'
+2025-10-15 11:19:39 - INFO - The current status of the request is 'processing'
+2025-10-15 11:19:43 - INFO - The current status of the request is 'processed'
                                                                                                                                                                                                                                                                                                                                                    </pre>
 </div>
 </div>
@@ -7855,7 +7867,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">earthkit.plots.interactive</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chart</span>
@@ -7871,6 +7883,7 @@ a.anchor-link {
 <span class="n">chart</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">xaxis1</span><span class="o">=</span><span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Temperature (°C)"</span><span class="p">})</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">yaxis1</span><span class="o">=</span><span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Pressure levels (hPa)"</span><span class="p">})</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">autorange</span><span class="o">=</span><span class="s2">"reversed"</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title_font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span><span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">25</span><span class="p">))</span>
 
 <span class="n">chart</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Vertical Profile at Zurich Airport: Temperature (date=</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s2">, time=</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
 
