@@ -7,6 +7,7 @@ from meteodatalab import icon_grid
 import xarray as xr
 from uuid import UUID
 from pathlib import Path
+import pdb
 
 script_dir = Path(__file__).parent
 # Convert each field to a xarray.Dataset and print the available parameters and the date of the dataset.
@@ -68,37 +69,6 @@ def add_icon_grid(array):
 
 
 requests = {
-    "cons": {
-        "request": {
-            "time": "0000",
-            "stream": "reanl",
-            "class": "rd",
-            "expver": "r001",
-            "model": "icon-rea-l-ch1",
-            "type": "cf",
-            "levtype": "sfc",
-            "step": "0",
-        },
-        "vars": ["HSURF"],
-        "steps": None,
-        "levels": None,
-    },
-    "cons_ml": {
-        "request": {
-            "time": "0000",
-            "stream": "reanl",
-            "class": "rd",
-            "expver": "r001",
-            "model": "icon-rea-l-ch1",
-            "type": "cf",
-            "levtype": "ml",
-            "step": "0",
-            "levelist": "74/to/80",
-        },
-        "vars": ["HHL"],
-        "steps": None,
-        "levels": None,
-    },
     "sfc": {
         "request": {
             "time": "0000",
@@ -111,120 +81,10 @@ requests = {
             "step": "0/to/24/by/1",
         },
         "vars": [
-            "ALB_RAD",
-            "CLCT",
-            "DURSUN",
-            "H_SNOW",
-            "PMSL",
             "U_10M",
             "V_10M",
-            "SNOW_GSP",
-            "GRAU_GSP",
-            "SKT",
-            "T_G",
-            "T_2M",
-            "TD_2M",
-            "TOT_PREC",
-            "PS",
-            "ASOB_S",
-            "ATHD_S",
-            "ATHU_S",
-            "ALHFL_S",
-            "ASHFL_S",
-            "RAIN_GSP",
-            "RUNOFF_G",
-            "W_SNOW",
-            "W_I",
-            "T_G",
-            "TWATER",
-            "CAPE_ML",
-            "CAPE_MU",
-            "HZEROCL",
-            "ASWDIFU_S",
-            #    "WSPD_1h",
-            "ASWDIR_S",
-            "ASWDIFD_S",
         ],
         "steps": 25,
-        "levels": None,
-    },
-    "sfc_nostep0": {
-        "request": {
-            "time": "0000",
-            "stream": "reanl",
-            "class": "rd",
-            "expver": "r001",
-            "model": "icon-rea-l-ch1",
-            "type": "cf",
-            "levtype": "sfc",
-            "step": "1/to/24/by/1",
-        },
-        "vars": [
-            "VMAX_10M",
-        ],
-        "steps": 24,
-        "levels": None,
-    },
-    "dp1": {
-        "request": {
-            "time": "0000",
-            "stream": "reanl",
-            "class": "rd",
-            "expver": "r001",
-            "model": "icon-rea-l-ch1",
-            "type": "cf",
-            "levtype": "dp",
-            "levelist": ["0", "0.005", "0.02", "0.06", "0.18", "0.54", "1.62", "4.86"],
-            "step": "0/to/24/by/1",
-        },
-        "vars": ["T_SO"],
-        "steps": 25,
-        "levels": 8,
-    },
-    "dp2": {
-        "request": {
-            "time": "0000",
-            "stream": "reanl",
-            "class": "rd",
-            "expver": "r001",
-            "model": "icon-rea-l-ch1",
-            "type": "cf",
-            "levtype": "dp",
-            "levelist": ["0", "0.01", "0.03", "0.09", "0.27", "0.81", "2.43", "7.29"],
-            "step": "0/to/24/by/1",
-        },
-        "vars": ["W_SO"],
-        "steps": 25,
-        "levels": 8,
-    },
-    "10m_sfc": {
-        "request": {
-            "time": "0000",
-            "stream": "reanl",
-            "class": "rd",
-            "expver": "r001",
-            "model": "icon-rea-l-ch1",
-            "type": "cf",
-            "levtype": "sfc",
-            "step": "0m/to/1441m/by/10m",
-        },
-        "vars": ["TOT_PREC", "DHAIL_MX", "DBZ_CMAX"],
-        "steps": 145,
-        "levels": None,
-    },
-    "10m_avg": {
-        "request": {
-            "time": "0000",
-            "stream": "reanl",
-            "class": "rd",
-            "expver": "r001",
-            "model": "icon-rea-l-ch1",
-            "type": "cf",
-            "levtype": "sfc",
-            "step": "0m/to/1441m/by/10m",
-        },
-        "vars": ["U_10M_AV", "V_10M_AV"],
-        "steps": 145,
         "levels": None,
     },
     "ml": {
@@ -236,12 +96,12 @@ requests = {
             "model": "icon-rea-l-ch1",
             "type": "cf",
             "levtype": "ml",
-            "levelist": "74/to/80",
+            "levelist": "78/to/80",
             "step": "0/to/24/by/1",
         },
         "vars": ["U", "V"],
         "steps": 25,
-        "levels": 7,
+        "levels": 3,
     },
 }
 
@@ -250,7 +110,7 @@ for key, req_info in requests.items():
     print(f"Processing {key}")
     req = req_info["request"]
 
-    req["date"] = "20100917/to/20100920"
+    req["date"] = "20100917"
     req["param"] = var_to_paramid(req_info["vars"])
 
     # Load data as a stream, otherwise it might not fit in memory
@@ -272,12 +132,10 @@ for key, req_info in requests.items():
 
         out_regrid_target = "swiss,549500,149500,650500,250500,1000,1000"
         swiss_ds = regrid_dataset(ds, out_regrid_target, False)
-        swiss_ds = ds
         for var in swiss_ds:
             vals = ds.coords["valid_time"].dt.strftime("%Y%m").values
             assert len(vals) == 1
             assert all(x == vals[0][0] for x in vals[0])
             valid_time_month = vals[0][0]
-
             filename = f"ds_{var}_steps{req_info['steps']}_{valid_time_month}"
             swiss_ds.earthkit.to_netcdf(filename, mode="a")
