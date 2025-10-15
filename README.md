@@ -47,7 +47,7 @@ The following notebooks demonstrate various use cases to access model data (ICON
 * [Time Series](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_time_series.ipynb)
     * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/notebooks/snapshots/feature_time_series.html)
 
-**Full field extraction**:
+**Full field retrieval**:
 * [Full field](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/full_field.ipynb)
     * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/notebooks/snapshots/full_field.html)
 
