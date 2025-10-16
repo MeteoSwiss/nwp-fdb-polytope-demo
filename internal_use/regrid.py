@@ -135,7 +135,6 @@ requests = {
             "RUNOFF_G",
             "W_SNOW",
             "W_I",
-            "T_G",
             "TWATER",
             "CAPE_ML",
             "CAPE_MU",
@@ -224,7 +223,7 @@ requests = {
             "step": "0m/to/1441m/by/10m",
         },
         "vars": ["U_10M_AV", "V_10M_AV"],
-        "steps": 145,
+        "steps": 144, # steps - 1 because of avarage function
         "levels": None,
     },
     "ml": {
@@ -272,7 +271,6 @@ for key, req_info in requests.items():
 
         out_regrid_target = "swiss,549500,149500,650500,250500,1000,1000"
         swiss_ds = regrid_dataset(ds, out_regrid_target, False)
-        swiss_ds = ds
         for var in swiss_ds:
             vals = ds.coords["valid_time"].dt.strftime("%Y%m").values
             assert len(vals) == 1
