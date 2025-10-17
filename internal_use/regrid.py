@@ -1,13 +1,12 @@
 import earthkit.data as ekd
-
-from config import real_fdb_config
 import yaml
+import xarray as xr
+
 from meteodatalab.operators import regrid
 from meteodatalab import icon_grid
-import xarray as xr
 from uuid import UUID
 from pathlib import Path
-import pdb
+from rasterio.crs import CRS
 
 script_dir = Path(__file__).parent
 # Convert each field to a xarray.Dataset and print the available parameters and the date of the dataset.
@@ -41,8 +40,15 @@ def var_to_paramid(param_names):
     return [param_map[param.lower()] for param in param_names]
 
 
-def regrid_dataset(ds, grid_params, x_y_as_dims):
-    target_grid = regrid.RegularGrid.parse_regrid_operator(grid_params)
+def regrid_dataset(ds, grid_params):
+
+    crs_str, *grid_params = grid_params.split(",")
+    crs = CRS.from_string(crs_str)
+    xmin, ymin, xmax, ymax, dx, dy = map(int, grid_params)
+    nx = (xmax - xmin) / dx + 1
+    ny = (ymax - ymin) / dy + 1
+
+    target_grid = regrid.RegularGrid(crs, int(nx), int(ny), xmin, xmax, ymin, ymax)
 
     regridded_ds = xr.Dataset(
         {var: regrid.iconremap(ds[var], target_grid) for var in ds.data_vars}
@@ -50,9 +56,6 @@ def regrid_dataset(ds, grid_params, x_y_as_dims):
 
     # Add x/y as coordinates
     regridded_ds = regridded_ds.assign_coords(x=target_grid.x, y=target_grid.y)
-
-    #    if not x_y_as_dims:
-    #        return regridded_ds.swap_dims({"y": "lat", "x": "lon"})
 
     return regridded_ds
 
@@ -130,8 +133,8 @@ for key, req_info in requests.items():
         if req_info["steps"] and len(ds.coords["lead_time"]) != req_info["steps"]:
             raise RuntimeError("error finding all steps")
 
-        out_regrid_target = "swiss,549500,149500,650500,250500,1000,1000"
-        swiss_ds = regrid_dataset(ds, out_regrid_target, False)
+        out_regrid_target = "epsg:21781,549500,149500,650500,250500,1000,1000"
+        swiss_ds = regrid_dataset(ds, out_regrid_target)
         for var in swiss_ds:
             vals = ds.coords["valid_time"].dt.strftime("%Y%m").values
             assert len(vals) == 1
