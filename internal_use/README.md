@@ -8,9 +8,9 @@
 - [wind_multi_levels.py](wind_multi_levels.py): Retrieve two parameters on multiple model levels across a day
 - [regrid.py](regrid.py): Retrieve multiple requests and regrid the data
 
-**MARS:** Example MARS requests to retrieve data via the FDB CLI
-- [request_surface.mars](request_surface.mars): Retrieve one parameter at surface level
-- [request_model_level.mars](request_model_level.mars): Retrieve one parameter on multiple model levels
+**MARS:** Example MARS requests to retrieve [Realtime](https://meteoswiss.atlassian.net/wiki/x/gY_XC) data via the FDB CLI
+- [request_surface.mars](request_surface.mars): Retrieve one parameter at surface level of a perturbed forecast
+- [request_model_level.mars](request_model_level.mars): Retrieve one parameter on multiple model levels of a control member forecast
 
 ## Instructions
 - [FDB for NWP Data Access at CSCS](https://meteoswiss.atlassian.net/wiki/x/poR-Ew)
