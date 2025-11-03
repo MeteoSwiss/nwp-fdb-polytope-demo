@@ -31,7 +31,7 @@ To run the scripts or retrieve data via MARS request visit the following page.
 
 ### Installtion for regrid.py
 
-Make sure you navigate to the folder `nwp-fdb-polytope-demo/access_via_cscs` before proceeding with the next steps.
+Make sure you navigate to the folder `nwp-fdb-polytope-demo/examples/FDB/scripts/` before proceeding with the next steps.
 ```sh
 uenv start --view=rea-l-ch1 fdb/5.17:2057590964
 poetry install
