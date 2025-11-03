@@ -10,7 +10,7 @@ FDB is designed to access full horizontal fields (feature extraction is not supp
 ### Jupyter Notebooks
 
 The following notebook demonstrates how to access ICON model data (ICON-CH1-ENS & ICON-CH2-ENS) with FDB:
-* [How to access model data with FDB from CSCS](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/FDB/data_retrieve_from_FDB.ipynb)
+* [How to access model data with FDB from CSCS](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/FDB/data_retrieve_from_FDB.ipynb)
     * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/data_retrieve_from_FDB.html)
 
 ### Installation
