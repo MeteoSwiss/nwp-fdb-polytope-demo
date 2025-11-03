@@ -49,7 +49,7 @@ The following notebooks demonstrate various use cases to access model data (ICON
 * [Trajectory](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_trajectory.ipynb)
     * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_trajectory.html)
 * [Vertical Profile](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_vertical_profile.ipynb)
-    * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/exampless/snapshots/feature_vertical_profile.html)
+    * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_vertical_profile.html)
 
 **Full field retrieval**:
 * [Full field](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/full_field.ipynb)
