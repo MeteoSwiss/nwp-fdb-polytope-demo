@@ -40,7 +40,7 @@ Polytope is an HTTP service and therefore access is not restricted to CSCS (it s
 The following notebooks demonstrate various use cases to access model data (ICON-CH1-EPS & ICON-CH2-EPS) via Polytope:
 
 **Feature extraction**:
-* [Bouding Box](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_bounding_box.ipynb)
+* [Bounding Box](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_bounding_box.ipynb)
     * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/notebooks/snapshots/feature_bounding_box.html)
 * [Polygon country cut-out](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/notebooks/Polytope/feature_polygon_country_cut-out.ipynb)
     * 👉 [Rendered outputs (HTML)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/notebooks/snapshots/feature_polygon_country_cut-out.html)
