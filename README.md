@@ -18,10 +18,10 @@ Polytope is an HTTP service and therefore access is not restricted to CSCS (it s
 
 ## 📓 Notebooks
 
-The following notebook demonstrates how to access ICON model data (ICON-CH1-EPS & ICON-CH2-EPS) with FDB:
+The following notebook demonstrates how to access ICON-CH1-EPS & ICON-CH2-EPS model data with FDB:
 * [How to access model data with FDB from CSCS](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/FDB/realtime/data_retrieve_from_FDB.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/data_retrieve_from_FDB.html)
 
-The following notebooks demonstrate various use cases to access model data (ICON-CH1-EPS & ICON-CH2-EPS) via Polytope:
+The following notebooks demonstrate various use cases to access ICON-CH1-EPS & ICON-CH2-EPS model data via Polytope:
 **Feature extraction**:
 * [Bounding Box](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_bounding_box.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_bounding_box.html)
 * [Polygon country cut-out](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_polygon_country_cut-out.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_polygon_country_cut-out.html)
