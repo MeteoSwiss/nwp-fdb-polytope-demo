@@ -1,10 +1,6 @@
 <h1 align="center">FDB and Polytope model data access and processing</h1>
 <h3 align="center">Jupyter Notebook Examples Using MeteoSwiss NWP Data</h3>
 
-<p align="center">
-  <img src="polytope.png" alt="Polytope Image" width="250" />
-</p>
-
 
 This repository contains examples for using [FDB](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+for+ICON) and [Polytope](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/327780397/Polytope) to access ICON forecast data and process it using meteodata-lab.
 
