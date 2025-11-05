@@ -44,7 +44,7 @@ shift $((OPTIND-1))
 script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # Default notebooks
-default_dirs=("$script_dir/notebooks/FDB" "$script_dir/notebooks/Polytope")
+default_dirs=("$script_dir/examples/FDB" "$script_dir/examples/Polytope")
 
 target="${1:-}"
 declare -a notebooks=()
@@ -83,7 +83,7 @@ fi
 
 # Actions
 if $make_snapshots; then
-  snap_dir="$script_dir/notebooks/snapshots"
+  snap_dir="$script_dir/examples/snapshots"
   mkdir -p "$snap_dir"
   echo "Making HTML snapshots into: $snap_dir"
   for nb in "${notebooks[@]}"; do
