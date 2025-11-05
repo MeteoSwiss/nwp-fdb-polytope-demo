@@ -5,7 +5,9 @@ __pycache__
 spack.lock
 *.swp
 config.yml
+.fdb_image
 
 # Folders for local runs.
 tmp/
 out/
+venv/
