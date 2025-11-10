@@ -36,7 +36,7 @@ To run the scripts or retrieve data via MARS request visit the following page.
 
 Make sure you navigate to the folder `nwp-fdb-polytope-demo/examples/FDB/rea-l-ch1/` before proceeding with the next steps.
 ```sh
-uenv start --view=rea-l-ch1 fdb/5.17:2057590964
+uenv start --view=rea-l-ch1 fdb/5.18:2110858405
 poetry install
 poetry run python regrid.py
 ```
