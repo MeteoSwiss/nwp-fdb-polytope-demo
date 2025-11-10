@@ -81,13 +81,28 @@ requests = {
             "model": "icon-rea-l-ch1",
             "type": "cf",
             "levtype": "sfc",
-            "step": "0/to/24/by/1",
+            "step": "0m/to/1440m/by/10m",
         },
         "vars": [
             "U_10M",
             "V_10M",
         ],
-        "steps": 25,
+        "steps": 145,
+        "levels": None,
+    },
+    "10m_avg": {
+        "request": {
+            "time": "0000",
+            "stream": "reanl",
+            "class": "rd",
+            "expver": "r001",
+            "model": "icon-rea-l-ch1",
+            "type": "cf",
+            "levtype": "sfc",
+            "step": "0m/to/1440m/by/10m",
+        },
+        "vars": ["U_10M_AV", "V_10M_AV"],
+        "steps": 144, # steps - 1 since average of first time step impossible
         "levels": None,
     },
     "ml": {
@@ -124,6 +139,7 @@ for key, req_info in requests.items():
         ds = f.to_xarray(profile="grib", **profile)
         for var in ds:
             ds[var] = add_icon_grid(ds[var])
+
             if key == "10m_avg":
                 # Build 1h averages (still sampling at 10')
                 ds[var] = ds[var].resample(lead_time="1h").mean()
