@@ -1,6 +1,11 @@
 import earthkit.data as ekd
 import time
 
+from uenv_param_map import shortname_to_paramid
+
+# Map short parameter names to ICON parameter IDs
+params = shortname_to_paramid(["U_10M", "V_10M"])
+
 # Request to retrieve horizontal parameters U_10M and V_10M at surface level on the 1st of January 2010, hourly
 req = {
     "date": "20100101",
@@ -11,7 +16,7 @@ req = {
     "model": "icon-rea-l-ch1",
     "type": "cf",
     "levtype": "sfc",
-    "param": "500027/500029",
+    "param": params,
     "step": "0/to/24/by/1",
 }
 
