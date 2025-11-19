@@ -1,6 +1,11 @@
 import earthkit.data as ekd
 import time
 
+from uenv_param_map import shortname_to_paramid
+
+# Map short parameter names to ICON parameter IDs
+params = shortname_to_paramid(["U", "V"])
+
 # Request to retrieve horizontal wind parameters U and V at model levels 74 to 80 on the 2nd of January 2010, hourly
 req = {
     "date": "20100102",
@@ -12,7 +17,7 @@ req = {
     "type": "cf",
     "levtype": "ml",
     "levelist": "74/to/80",
-    "param": "500028/500030",
+    "param": params,
     "step": "0/to/24/by/1",
 }
 
