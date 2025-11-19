@@ -84,7 +84,7 @@ requests = {
             "step": "0m/to/1440m/by/10m",
         },
         "vars": ["U_10M_AV", "V_10M_AV"],
-        "steps": 144, # steps - 1 since average of first time step impossible
+        "steps": 144, # steps - 1 since average of first time step is not available
         "levels": None,
     },
     "ml": {
