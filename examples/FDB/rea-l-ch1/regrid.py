@@ -97,10 +97,10 @@ requests = {
             "type": "cf",
             "levtype": "ml",
             "levelist": "78/to/80",
-            "step": "0/to/24/by/1",
+            "step": "0m/to/1440m/by/10m",
         },
         "vars": ["U", "V"],
-        "steps": 25,
+        "steps": 145,
         "levels": 3,
     },
         "sfc_max": {
@@ -112,12 +112,12 @@ requests = {
             "model": "icon-rea-l-ch1",
             "type": "cf",
             "levtype": "sfc",
-            "step": "1/to/24/by/1",
+            "step": "0m/to/1440m/by/10m",
         },
         "vars": [
             "VMAX_10M",
         ],
-        "steps": 24,
+        "steps": 144,
         "levels": None,
     },
 }
@@ -139,13 +139,12 @@ for key, req_info in requests.items():
         for var in ds:
             ds[var] = add_icon_grid(ds[var])
 
-            # # Example to accumulate 10min data to 1h avarages without regridding
-            # if key == "10m_avg":
-            #     # Build 1h averages (still sampling at 10')
-            #     avg_1h = ds[var].resample(lead_time="1h").mean()
-            #     avg_1h_clean = avg_1h.dropna(dim="lead_time")
-            #     filename = f"ds_{var}_steps{req_info['steps']}_1h_AVG"
-            #     swiss_ds.earthkit.to_netcdf(filename)
+            # Example to accumulate 10min data to 1h avarages without regridding
+            if key == "10m_avg":
+                # Build 1h averages (still sampling at 10')
+                avg_1h = ds[var].resample(lead_time="1h").mean()
+                filename = f"ds_{var}_steps{req_info['steps']}_1h_AVG"
+                avg_1h.earthkit.to_netcdf(filename)
 
 
         if req_info["levels"] and len(ds.coords["z"]) != req_info["levels"]:
