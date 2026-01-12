@@ -7,6 +7,16 @@ description = "Demo scripts and notebooks for reading and processing forecast da
 authors = ["MeteoSwiss"]
 package-mode = false
 
+[[tool.poetry.source]]
+name = "pypi-mch"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+priority = "primary"
+
+[[tool.poetry.source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+priority = "supplemental"
+
 [tool.poetry.dependencies]
 python = "~3.11"
 meteodata-lab = { version = "^0.6.0", extras = ["polytope", "regrid"] }
