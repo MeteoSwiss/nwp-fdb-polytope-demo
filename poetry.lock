@@ -17,6 +17,11 @@ matplotlib = "*"
 numpy = "*"
 scipy = "*"
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "affine"
 version = "2.4.0"
@@ -33,6 +38,11 @@ files = [
 dev = ["coveralls", "flake8", "pydocstyle"]
 test = ["pytest (>=4.6)", "pytest-cov"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "annotated-types"
 version = "0.7.0"
@@ -44,6 +54,11 @@ files = [
     {file = "annotated_types-0.7.0-py3-none-any.whl", hash = "sha256:1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53"},
     {file = "annotated_types-0.7.0.tar.gz", hash = "sha256:aff07c09a53a08bc8cfccb9c85b05f1aa9a2a6f23728d790723543408344ce89"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "appnope"
@@ -58,6 +73,11 @@ files = [
     {file = "appnope-0.1.4.tar.gz", hash = "sha256:1de3860566df9caf38f01f86f65e0e13e379af54f9e4bee1e66b48f2efffd1ee"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "argparse"
 version = "1.4.0"
@@ -69,6 +89,11 @@ files = [
     {file = "argparse-1.4.0-py2.py3-none-any.whl", hash = "sha256:c31647edb69fd3d465a847ea3157d37bed1f95f19760b11a47aa91c04b666314"},
     {file = "argparse-1.4.0.tar.gz", hash = "sha256:62b089a55be1d8949cd2bc7e0df0bddb9e028faefc8c32038cc84862aefdd6e4"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "array-api-compat"
@@ -93,6 +118,11 @@ numpy = ["numpy (>=1.22)"]
 pytorch = ["torch"]
 sparse = ["sparse (>=0.15.1)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "asttokens"
 version = "3.0.0"
@@ -109,6 +139,11 @@ files = [
 astroid = ["astroid (>=2,<4)"]
 test = ["astroid (>=2,<4)", "pytest", "pytest-cov", "pytest-xdist"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "attrs"
 version = "25.4.0"
@@ -120,6 +155,11 @@ files = [
     {file = "attrs-25.4.0-py3-none-any.whl", hash = "sha256:adcf7e2a1fb3b36ac48d97835bb6d8ade15b8dcce26aba8bf1d14847b57a3373"},
     {file = "attrs-25.4.0.tar.gz", hash = "sha256:16d5969b87f0859ef33a48b35d55ac1be6e42ae49d5e853b597db70c35c57e11"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "beautifulsoup4"
@@ -144,6 +184,11 @@ charset-normalizer = ["charset-normalizer"]
 html5lib = ["html5lib"]
 lxml = ["lxml"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "bleach"
 version = "6.3.0"
@@ -162,6 +207,11 @@ webencodings = "*"
 
 [package.extras]
 css = ["tinycss2 (>=1.1.0,<1.5)"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "cartopy"
@@ -206,6 +256,11 @@ speedups = ["fiona", "pykdtree"]
 srtm = ["beautifulsoup4"]
 test = ["coveralls", "pytest (>=5.1.2)", "pytest-cov", "pytest-mpl (>=0.11)", "pytest-xdist"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "certifi"
 version = "2025.10.5"
@@ -217,6 +272,11 @@ files = [
     {file = "certifi-2025.10.5-py3-none-any.whl", hash = "sha256:0f212c2744a9bb6de0c56639a6f68afe01ecd92d91f14ae897c4fe7bbeeef0de"},
     {file = "certifi-2025.10.5.tar.gz", hash = "sha256:47c09d31ccf2acf0be3f701ea53595ee7e0b8fa08801c6624be771df09ae7b43"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "cffi"
@@ -315,6 +375,11 @@ files = [
 [package.dependencies]
 pycparser = {version = "*", markers = "implementation_name != \"PyPy\""}
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "cfgrib"
 version = "0.9.15.1"
@@ -337,6 +402,11 @@ numpy = "*"
 tests = ["dask[array]", "flake8", "pytest", "pytest-cov", "scipy", "xarray (>=0.15)"]
 xarray = ["xarray (>=0.15)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "cftime"
 version = "1.6.5"
@@ -357,29 +427,44 @@ files = [
     {file = "cftime-1.6.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:a3cda6fd12c7fb25eff40a6a857a2bf4d03e8cc71f80485d8ddc65ccbd80f16a"},
     {file = "cftime-1.6.5-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:28cda78d685397ba23d06273b9c916c3938d8d9e6872a537e76b8408a321369b"},
     {file = "cftime-1.6.5-cp311-cp311-win_amd64.whl", hash = "sha256:93ead088e3a216bdeb9368733a0ef89a7451dfc1d2de310c1c0366a56ad60dc8"},
+    {file = "cftime-1.6.5-cp311-cp311-win_arm64.whl", hash = "sha256:3384d69a0a7f3d45bded21a8cbcce66c8ba06c13498eac26c2de41b1b9b6e890"},
     {file = "cftime-1.6.5-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:eef25caed5ebd003a38719bd3ff8847cd52ef2ea56c3ebdb2c9345ba131fc7c5"},
     {file = "cftime-1.6.5-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:c87d2f3b949e45463e559233c69e6a9cf691b2b378c1f7556166adfabbd1c6b0"},
     {file = "cftime-1.6.5-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:82cb413973cc51b55642b3a1ca5b28db5b93a294edbef7dc049c074b478b4647"},
     {file = "cftime-1.6.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:85ba8e7356d239cfe56ef7707ac30feaf67964642ac760a82e507ee3c5db4ac4"},
     {file = "cftime-1.6.5-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:456039af7907a3146689bb80bfd8edabd074c7f3b4eca61f91b9c2670addd7ad"},
     {file = "cftime-1.6.5-cp312-cp312-win_amd64.whl", hash = "sha256:da84534c43699960dc980a9a765c33433c5de1a719a4916748c2d0e97a071e44"},
+    {file = "cftime-1.6.5-cp312-cp312-win_arm64.whl", hash = "sha256:c62cd8db9ea40131eea7d4523691c5d806d3265d31279e4a58574a42c28acd77"},
     {file = "cftime-1.6.5-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:4aba66fd6497711a47c656f3a732c2d1755ad15f80e323c44a8716ebde39ddd5"},
     {file = "cftime-1.6.5-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:89e7cba699242366e67d6fb5aee579440e791063f92a93853610c91647167c0d"},
     {file = "cftime-1.6.5-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:2f1eb43d7a7b919ec99aee709fb62ef87ef1cf0679829ef93d37cc1c725781e9"},
     {file = "cftime-1.6.5-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:e02a1d80ffc33fe469c7db68aa24c4a87f01da0c0c621373e5edadc92964900b"},
     {file = "cftime-1.6.5-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:18ab754805233cdd889614b2b3b86a642f6d51a57a1ec327c48053f3414f87d8"},
     {file = "cftime-1.6.5-cp313-cp313-win_amd64.whl", hash = "sha256:6c27add8f907f4a4cd400e89438f2ea33e2eb5072541a157a4d013b7dbe93f9c"},
+    {file = "cftime-1.6.5-cp313-cp313-win_arm64.whl", hash = "sha256:31d1ff8f6bbd4ca209099d24459ec16dea4fb4c9ab740fbb66dd057ccbd9b1b9"},
     {file = "cftime-1.6.5-cp314-cp314-macosx_10_15_x86_64.whl", hash = "sha256:c69ce3bdae6a322cbb44e9ebc20770d47748002fb9d68846a1e934f1bd5daf0b"},
     {file = "cftime-1.6.5-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:e62e9f2943e014c5ef583245bf2e878398af131c97e64f8cd47c1d7baef5c4e2"},
     {file = "cftime-1.6.5-cp314-cp314-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:7da5fdaa4360d8cb89b71b8ded9314f2246aa34581e8105c94ad58d6102d9e4f"},
     {file = "cftime-1.6.5-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:bff865b4ea4304f2744a1ad2b8149b8328b321dd7a2b9746ef926d229bd7cd49"},
     {file = "cftime-1.6.5-cp314-cp314-musllinux_1_2_x86_64.whl", hash = "sha256:e552c5d1c8a58f25af7521e49237db7ca52ed2953e974fe9f7c4491e95fdd36c"},
     {file = "cftime-1.6.5-cp314-cp314-win_amd64.whl", hash = "sha256:e645b095dc50a38ac454b7e7f0742f639e7d7f6b108ad329358544a6ff8c9ba2"},
+    {file = "cftime-1.6.5-cp314-cp314-win_arm64.whl", hash = "sha256:b9044d7ac82d3d8af189df1032fdc871bbd3f3dd41a6ec79edceb5029b71e6e0"},
+    {file = "cftime-1.6.5-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:9ef56460cb0576e1a9161e1428c9e1a633f809a23fa9d598f313748c1ae5064e"},
+    {file = "cftime-1.6.5-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:4f4873d38b10032f9f3111c547a1d485519ae64eee6a7a2d091f1f8b08e1ba50"},
+    {file = "cftime-1.6.5-cp314-cp314t-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:ccce0f4c9d3f38dd948a117e578b50d0e0db11e2ca9435fb358fd524813e4b61"},
+    {file = "cftime-1.6.5-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:19cbfc5152fb0b34ce03acf9668229af388d7baa63a78f936239cb011ccbe6b1"},
+    {file = "cftime-1.6.5-cp314-cp314t-win_amd64.whl", hash = "sha256:4470cd5ef3c2514566f53efbcbb64dd924fa0584637d90285b2f983bd4ee7d97"},
+    {file = "cftime-1.6.5-cp314-cp314t-win_arm64.whl", hash = "sha256:034c15a67144a0a5590ef150c99f844897618b148b87131ed34fda7072614662"},
     {file = "cftime-1.6.5.tar.gz", hash = "sha256:8225fed6b9b43fb87683ebab52130450fc1730011150d3092096a90e54d1e81e"},
 ]
 
 [package.dependencies]
 numpy = ">=1.21.2"
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "charset-normalizer"
@@ -504,6 +589,11 @@ files = [
     {file = "charset_normalizer-3.4.4.tar.gz", hash = "sha256:94537985111c35f28720e43603b8e7b43a6ecfb2ce1d3058bbe955b73404e21a"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "click"
 version = "8.3.0"
@@ -518,6 +608,11 @@ files = [
 
 [package.dependencies]
 colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "click-plugins"
@@ -537,6 +632,11 @@ click = ">=4.0"
 [package.extras]
 dev = ["coveralls", "pytest (>=3.6)", "pytest-cov", "wheel"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "cligj"
 version = "0.7.2"
@@ -555,6 +655,11 @@ click = ">=4.0"
 [package.extras]
 test = ["pytest-cov"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "cloudpickle"
 version = "3.1.2"
@@ -566,6 +671,11 @@ files = [
     {file = "cloudpickle-3.1.2-py3-none-any.whl", hash = "sha256:9acb47f6afd73f60dc1df93bb801b472f05ff42fa6c84167d25cb206be1fbf4a"},
     {file = "cloudpickle-3.1.2.tar.gz", hash = "sha256:7fda9eb655c9c230dab534f1983763de5835249750e85fbcef43aaa30a9a2414"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "colorama"
@@ -579,6 +689,11 @@ files = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "comm"
@@ -594,6 +709,11 @@ files = [
 
 [package.extras]
 test = ["pytest"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "conflator"
@@ -613,6 +733,11 @@ pydantic = ">2.0"
 pytest = ">8.0"
 pyyaml = ">6.0"
 rich-argparse = ">1.0"
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "contourpy"
@@ -706,6 +831,11 @@ mypy = ["bokeh", "contourpy[bokeh,docs]", "docutils-stubs", "mypy (==1.17.0)", "
 test = ["Pillow", "contourpy[test-no-images]", "matplotlib"]
 test-no-images = ["pytest", "pytest-cov", "pytest-rerunfailures", "pytest-xdist", "wurlitzer"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "covjson-pydantic"
 version = "0.7.0"
@@ -724,6 +854,11 @@ pydantic = ">=2.3,<3"
 [package.extras]
 dev = ["pre-commit"]
 test = ["pytest", "pytest-cov"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "covjsonkit"
@@ -748,6 +883,11 @@ xarray = "*"
 [package.extras]
 geo = ["rasterio", "shapely"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "cycler"
 version = "0.12.1"
@@ -763,6 +903,11 @@ files = [
 [package.extras]
 docs = ["ipython", "matplotlib", "numpydoc", "sphinx"]
 tests = ["pytest", "pytest-cov", "pytest-xdist"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "dask"
@@ -793,6 +938,11 @@ dataframe = ["dask[array]", "pandas (>=2.0)", "pyarrow (>=14.0.1)"]
 diagnostics = ["bokeh (>=3.1.0)", "jinja2 (>=2.10.3)"]
 distributed = ["distributed (==2025.10.0)"]
 test = ["pandas[test]", "pre-commit", "pytest", "pytest-cov", "pytest-mock", "pytest-rerunfailures", "pytest-timeout", "pytest-xdist"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "debugpy"
@@ -834,6 +984,11 @@ files = [
     {file = "debugpy-1.8.17.tar.gz", hash = "sha256:fd723b47a8c08892b1a16b2c6239a8b96637c62a59b94bb5dab4bac592a58a8e"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "decorator"
 version = "5.2.1"
@@ -846,6 +1001,11 @@ files = [
     {file = "decorator-5.2.1.tar.gz", hash = "sha256:65f266143752f734b0a7cc83c46f4618af75b8c5911b00ccb61d0ac9b6da0360"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "defusedxml"
 version = "0.7.1"
@@ -857,6 +1017,11 @@ files = [
     {file = "defusedxml-0.7.1-py2.py3-none-any.whl", hash = "sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61"},
     {file = "defusedxml-0.7.1.tar.gz", hash = "sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "deprecation"
@@ -872,6 +1037,11 @@ files = [
 
 [package.dependencies]
 packaging = "*"
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "docstring-parser"
@@ -889,6 +1059,11 @@ files = [
 dev = ["pre-commit (>=2.16.0) ; python_version >= \"3.9\"", "pydoctor (>=25.4.0)", "pytest"]
 docs = ["pydoctor (>=25.4.0)"]
 test = ["pytest"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "earthkit-data"
@@ -946,6 +1121,11 @@ test = ["earthkit-data-demo-source", "nbconvert", "nbformat", "pyfakefs", "pytes
 wekeo = ["hda (>=2.22)"]
 zarr = ["zarr (>=3)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "earthkit-geo"
 version = "0.3.0"
@@ -966,6 +1146,11 @@ scipy = "*"
 [package.extras]
 test = ["pytest", "pytest-cov"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "earthkit-meteo"
 version = "0.5.0"
@@ -984,6 +1169,11 @@ numpy = "*"
 
 [package.extras]
 test = ["pytest", "pytest-cov"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "earthkit-plots"
@@ -1012,6 +1202,11 @@ pyyaml = "*"
 [package.extras]
 test = ["nbconvert", "nbformat", "pytest", "pytest-cov", "pytest-forked", "pytest-timeout"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "earthkit-plots-default-styles"
 version = "0.1.3"
@@ -1023,6 +1218,11 @@ files = [
     {file = "earthkit_plots_default_styles-0.1.3-py3-none-any.whl", hash = "sha256:676560092a1e2956ec396b9536cd7256d5e7eb893db6e044c127341ee5dc15b8"},
     {file = "earthkit_plots_default_styles-0.1.3.tar.gz", hash = "sha256:a9b9b7bcca0456dc0d678328a02da9000dbded2b6cd7aac3c283bda852fddb9b"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "earthkit-utils"
@@ -1043,6 +1243,11 @@ array-api-compat = "*"
 dev = ["numpy", "pytest", "pytest-cov"]
 docs = ["nbsphinx", "pygments (>=2.6.1)", "sphinx (>=7.3.7)", "sphinx-autoapi", "sphinx-copybutton", "sphinx-issues", "sphinx-rtd-theme", "sphinx-tabs"]
 test = ["nbconvert", "nbformat", "pytest", "pytest-cov", "xarray"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "eccodes"
@@ -1084,6 +1289,11 @@ cffi = "*"
 findlibs = "*"
 numpy = "*"
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "eccodes-cosmo-resources-python"
 version = "2.38.3.1"
@@ -1096,6 +1306,11 @@ files = [
     {file = "eccodes_cosmo_resources_python-2.38.3.1.tar.gz", hash = "sha256:cfdba003bf7405e050bb31d2261cda7b631ccdd0eedbf60c3146c7d95a38e34e"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "entrypoints"
 version = "0.4"
@@ -1107,6 +1322,11 @@ files = [
     {file = "entrypoints-0.4-py3-none-any.whl", hash = "sha256:f174b5ff827504fd3cd97cc3f8649f3693f51538c7e4bdf3ef002c8429d42f9f"},
     {file = "entrypoints-0.4.tar.gz", hash = "sha256:b706eddaa9218a19ebcd67b56818f05bb27589b1ca9e8d797b74affad4ccacd4"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "executing"
@@ -1123,6 +1343,11 @@ files = [
 [package.extras]
 tests = ["asttokens (>=2.1.0)", "coverage", "coverage-enable-subprocess", "ipython", "littleutils", "pytest", "rich ; python_version >= \"3.11\""]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "fastjsonschema"
 version = "2.21.2"
@@ -1138,6 +1363,11 @@ files = [
 [package.extras]
 devel = ["colorama", "json-spec", "jsonschema", "pylint", "pytest", "pytest-benchmark", "pytest-cache", "validictory"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "filelock"
 version = "3.20.0"
@@ -1149,6 +1379,11 @@ files = [
     {file = "filelock-3.20.0-py3-none-any.whl", hash = "sha256:339b4732ffda5cd79b13f4e2711a31b0365ce445d95d243bb996273d072546a2"},
     {file = "filelock-3.20.0.tar.gz", hash = "sha256:711e943b4ec6be42e1d4e6690b48dc175c822967466bb31c0c293f34334c13f4"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "findlibs"
@@ -1164,6 +1399,11 @@ files = [
 
 [package.extras]
 test = ["pyfakefs", "pytest"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "flexcache"
@@ -1183,6 +1423,11 @@ typing-extensions = "*"
 [package.extras]
 test = ["pytest", "pytest-cov", "pytest-mpl", "pytest-subtests"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "flexparser"
 version = "0.4"
@@ -1200,6 +1445,11 @@ typing-extensions = "*"
 
 [package.extras]
 test = ["pytest", "pytest-cov", "pytest-mpl", "pytest-subtests"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "fonttools"
@@ -1282,6 +1532,11 @@ type1 = ["xattr ; sys_platform == \"darwin\""]
 unicode = ["unicodedata2 (>=15.1.0) ; python_version <= \"3.12\""]
 woff = ["brotli (>=1.0.1) ; platform_python_implementation == \"CPython\"", "brotlicffi (>=0.8.0) ; platform_python_implementation != \"CPython\"", "zopfli (>=0.1.4)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "fsspec"
 version = "2025.10.0"
@@ -1322,6 +1577,11 @@ test-downstream = ["aiobotocore (>=2.5.4,<3.0.0)", "dask[dataframe,test]", "moto
 test-full = ["adlfs", "aiohttp (!=4.0.0a0,!=4.0.0a1)", "cloudpickle", "dask", "distributed", "dropbox", "dropboxdrivefs", "fastparquet", "fusepy", "gcsfs", "jinja2", "kerchunk", "libarchive-c", "lz4", "notebook", "numpy", "ocifs", "pandas", "panel", "paramiko", "pyarrow", "pyarrow (>=1)", "pyftpdlib", "pygit2", "pytest", "pytest-asyncio (!=0.22.0)", "pytest-benchmark", "pytest-cov", "pytest-mock", "pytest-recording", "pytest-rerunfailures", "python-snappy", "requests", "smbprotocol", "tqdm", "urllib3", "zarr", "zstandard ; python_version < \"3.14\""]
 tqdm = ["tqdm"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "idna"
 version = "3.11"
@@ -1336,6 +1596,11 @@ files = [
 
 [package.extras]
 all = ["flake8 (>=7.1.1)", "mypy (>=1.11.2)", "pytest (>=8.3.2)", "ruff (>=0.6.2)"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "importlib-metadata"
@@ -1361,6 +1626,11 @@ perf = ["ipython"]
 test = ["flufl.flake8", "importlib_resources (>=1.3) ; python_version < \"3.9\"", "jaraco.test (>=5.4)", "packaging", "pyfakefs", "pytest (>=6,!=8.1.*)", "pytest-perf (>=0.9.2)"]
 type = ["pytest-mypy"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "iniconfig"
 version = "2.3.0"
@@ -1372,6 +1642,11 @@ files = [
     {file = "iniconfig-2.3.0-py3-none-any.whl", hash = "sha256:f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12"},
     {file = "iniconfig-2.3.0.tar.gz", hash = "sha256:c76315c77db068650d49c5b56314774a7804df16fee4402c1f19d6d15d8c4730"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "ipykernel"
@@ -1407,6 +1682,11 @@ pyqt5 = ["pyqt5"]
 pyside6 = ["pyside6"]
 test = ["flaky", "ipyparallel", "pre-commit", "pytest (>=7.0,<9)", "pytest-asyncio (>=0.23.5)", "pytest-cov", "pytest-timeout"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "ipython"
 version = "9.7.0"
@@ -1440,6 +1720,11 @@ matplotlib = ["matplotlib (>3.9)"]
 test = ["packaging (>=20.1.0)", "pytest (>=7.0.0)", "pytest-asyncio (>=1.0.0)", "setuptools (>=61.2)", "testpath (>=0.2)"]
 test-extra = ["curio", "ipykernel (>6.30)", "ipython[matplotlib]", "ipython[test]", "jupyter_ai", "nbclient", "nbformat", "numpy (>=1.27)", "pandas (>2.1)", "trio (>=0.1.0)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "ipython-pygments-lexers"
 version = "1.1.1"
@@ -1454,6 +1739,11 @@ files = [
 
 [package.dependencies]
 pygments = "*"
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "jedi"
@@ -1475,6 +1765,11 @@ docs = ["Jinja2 (==2.11.3)", "MarkupSafe (==1.1.1)", "Pygments (==2.8.1)", "alab
 qa = ["flake8 (==5.0.4)", "mypy (==0.971)", "types-setuptools (==67.2.0.1)"]
 testing = ["Django", "attrs", "colorama", "docopt", "pytest (<9.0.0)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "jinja2"
 version = "3.1.6"
@@ -1492,6 +1787,11 @@ MarkupSafe = ">=2.0"
 
 [package.extras]
 i18n = ["Babel (>=2.7)"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "jsonschema"
@@ -1515,6 +1815,11 @@ rpds-py = ">=0.7.1"
 format = ["fqdn", "idna", "isoduration", "jsonpointer (>1.13)", "rfc3339-validator", "rfc3987", "uri-template", "webcolors (>=1.11)"]
 format-nongpl = ["fqdn", "idna", "isoduration", "jsonpointer (>1.13)", "rfc3339-validator", "rfc3986-validator (>0.1.0)", "rfc3987-syntax (>=1.1.0)", "uri-template", "webcolors (>=24.6.0)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "jsonschema-specifications"
 version = "2025.9.1"
@@ -1529,6 +1834,11 @@ files = [
 
 [package.dependencies]
 referencing = ">=0.31.0"
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "jupyter-client"
@@ -1553,6 +1863,11 @@ traitlets = ">=5.3"
 docs = ["ipykernel", "myst-parser", "pydata-sphinx-theme", "sphinx (>=4)", "sphinx-autodoc-typehints", "sphinxcontrib-github-alt", "sphinxcontrib-spelling"]
 test = ["coverage", "ipykernel (>=6.14)", "mypy", "paramiko ; sys_platform == \"win32\"", "pre-commit", "pytest (<8.2.0)", "pytest-cov", "pytest-jupyter[client] (>=0.4.1)", "pytest-timeout"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "jupyter-core"
 version = "5.9.1"
@@ -1573,6 +1888,11 @@ traitlets = ">=5.3"
 docs = ["intersphinx-registry", "myst-parser", "pydata-sphinx-theme", "sphinx-autodoc-typehints", "sphinxcontrib-spelling", "traitlets"]
 test = ["ipykernel", "pre-commit", "pytest (<9)", "pytest-cov", "pytest-timeout"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "jupyterlab-pygments"
 version = "0.3.0"
@@ -1584,6 +1904,11 @@ files = [
     {file = "jupyterlab_pygments-0.3.0-py3-none-any.whl", hash = "sha256:841a89020971da1d8693f1a99997aefc5dc424bb1b251fd6322462a1b8842780"},
     {file = "jupyterlab_pygments-0.3.0.tar.gz", hash = "sha256:721aca4d9029252b11cfa9d185e5b5af4d54772bb8072f9b7036f4170054d35d"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "kaleido"
@@ -1600,6 +1925,11 @@ files = [
     {file = "kaleido-0.2.1-py2.py3-none-win32.whl", hash = "sha256:ecc72635860be616c6b7161807a65c0dbd9b90c6437ac96965831e2e24066552"},
     {file = "kaleido-0.2.1-py2.py3-none-win_amd64.whl", hash = "sha256:4670985f28913c2d063c5734d125ecc28e40810141bdb0a46f15b76c1d45f23c"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "kiwisolver"
@@ -1712,6 +2042,11 @@ files = [
     {file = "kiwisolver-1.4.9.tar.gz", hash = "sha256:c3b22c26c6fd6811b0ae8363b95ca8ce4ea3c202d3d0975b2914310ceb1bcc4d"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "locket"
 version = "1.0.0"
@@ -1723,6 +2058,11 @@ files = [
     {file = "locket-1.0.0-py2.py3-none-any.whl", hash = "sha256:b6c819a722f7b6bd955b80781788e4a66a55628b858d347536b7e81325a3a5e3"},
     {file = "locket-1.0.0.tar.gz", hash = "sha256:5c0d4c052a8bbbf750e056a8e65ccd309086f4f0f18a2eac306a8dfa4112a632"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "lru-dict"
@@ -1833,6 +2173,11 @@ files = [
 [package.extras]
 test = ["pytest"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "markdown"
 version = "3.10"
@@ -1848,6 +2193,11 @@ files = [
 [package.extras]
 docs = ["mdx_gh_links (>=0.2)", "mkdocs (>=1.6)", "mkdocs-gen-files", "mkdocs-literate-nav", "mkdocs-nature (>=0.6)", "mkdocs-section-index", "mkdocstrings[python]"]
 testing = ["coverage", "pyyaml"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "markdown-it-py"
@@ -1872,6 +2222,11 @@ plugins = ["mdit-py-plugins (>=0.5.0)"]
 profiling = ["gprof2dot"]
 rtd = ["ipykernel", "jupyter_sphinx", "mdit-py-plugins (>=0.5.0)", "myst-parser", "pyyaml", "sphinx", "sphinx-book-theme (>=1.0,<2.0)", "sphinx-copybutton", "sphinx-design"]
 testing = ["coverage", "pytest", "pytest-cov", "pytest-regressions", "requests"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "markupsafe"
@@ -1972,6 +2327,11 @@ files = [
     {file = "markupsafe-3.0.3.tar.gz", hash = "sha256:722695808f4b6457b320fdc131280796bdceb04ab50fe1795cd540799ebe1698"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "matplotlib"
 version = "3.10.7"
@@ -2051,6 +2411,11 @@ python-dateutil = ">=2.7"
 [package.extras]
 dev = ["meson-python (>=0.13.1,<0.17.0)", "pybind11 (>=2.13.2,!=2.13.3)", "setuptools (>=64)", "setuptools_scm (>=7)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "matplotlib-inline"
 version = "0.2.1"
@@ -2069,6 +2434,11 @@ traitlets = "*"
 [package.extras]
 test = ["flake8", "nbdime", "nbval", "notebook", "pytest"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "mdurl"
 version = "0.1.2"
@@ -2081,12 +2451,17 @@ files = [
     {file = "mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "meteodata-lab"
 version = "0.6.0"
 description = "A data post-processing framework on the basis of xarray."
 optional = false
-python-versions = "<3.13,>=3.10"
+python-versions = ">=3.10,<3.13"
 groups = ["main"]
 files = [
     {file = "meteodata_lab-0.6.0-py3-none-any.whl", hash = "sha256:4828f24b4227ce563c2cea5e0500981872633507f260e7efb0df70604a53f5ef"},
@@ -2113,6 +2488,11 @@ xarray = ">=2024"
 polytope = ["polytope-client (>=0.7.4,<0.8.0)"]
 regrid = ["pyproj (>=3.6.1,<4.0.0)", "rasterio (>=1.3.10,<2.0.0)", "scipy (>=1.13,<2.0)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "mistune"
 version = "3.1.4"
@@ -2124,6 +2504,11 @@ files = [
     {file = "mistune-3.1.4-py3-none-any.whl", hash = "sha256:93691da911e5d9d2e23bc54472892aff676df27a75274962ff9edc210364266d"},
     {file = "mistune-3.1.4.tar.gz", hash = "sha256:b5a7f801d389f724ec702840c11d8fc48f2b33519102fc7ee739e8177b672164"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "multiurl"
@@ -2142,6 +2527,11 @@ python-dateutil = "*"
 pytz = "*"
 requests = "*"
 tqdm = "*"
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "narwhals"
@@ -2168,6 +2558,11 @@ pyspark = ["pyspark (>=3.5.0)"]
 pyspark-connect = ["pyspark[connect] (>=3.5.0)"]
 sqlframe = ["sqlframe (>=3.22.0,!=3.39.3)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "nbclient"
 version = "0.10.2"
@@ -2190,6 +2585,11 @@ traitlets = ">=5.4"
 dev = ["pre-commit"]
 docs = ["autodoc-traits", "flaky", "ipykernel (>=6.19.3)", "ipython", "ipywidgets", "mock", "moto", "myst-parser", "nbconvert (>=7.1.0)", "pytest (>=7.0,<8)", "pytest-asyncio", "pytest-cov (>=4.0)", "sphinx (>=1.7)", "sphinx-book-theme", "sphinxcontrib-spelling", "testpath", "xmltodict"]
 test = ["flaky", "ipykernel (>=6.19.3)", "ipython", "ipywidgets", "nbconvert (>=7.1.0)", "pytest (>=7.0,<8)", "pytest-asyncio", "pytest-cov (>=4.0)", "testpath", "xmltodict"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "nbconvert"
@@ -2228,6 +2628,11 @@ serve = ["tornado (>=6.1)"]
 test = ["flaky", "ipykernel", "ipywidgets (>=7.5)", "pytest (>=7)"]
 webpdf = ["playwright"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "nbformat"
 version = "5.10.4"
@@ -2250,6 +2655,11 @@ traitlets = ">=5.1"
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx", "sphinxcontrib-github-alt", "sphinxcontrib-spelling"]
 test = ["pep440", "pre-commit", "pytest", "testpath"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "nest-asyncio"
 version = "1.6.0"
@@ -2261,6 +2671,11 @@ files = [
     {file = "nest_asyncio-1.6.0-py3-none-any.whl", hash = "sha256:87af6efd6b5e897c81050477ef65c62e2b2f35d51703cae01aff2905b1852e1c"},
     {file = "nest_asyncio-1.6.0.tar.gz", hash = "sha256:6f172d5449aca15afd6c646851f4e31e02c598d553a667e38cafa997cfec55fe"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "netcdf4"
@@ -2291,6 +2706,11 @@ numpy = "*"
 [package.extras]
 parallel = ["mpi4py"]
 tests = ["Cython", "packaging", "pytest", "typing-extensions (>=4.15.0)"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "numpy"
@@ -2375,6 +2795,11 @@ files = [
     {file = "numpy-2.3.4-pp311-pypy311_pp73-win_amd64.whl", hash = "sha256:81b3a59793523e552c4a96109dde028aa4448ae06ccac5a76ff6532a85558a7f"},
     {file = "numpy-2.3.4.tar.gz", hash = "sha256:a7d018bfedb375a8d979ac758b120ba846a7fe764911a64465fd87b8729f4a6a"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "orjson"
@@ -2473,6 +2898,11 @@ files = [
     {file = "orjson-3.11.4.tar.gz", hash = "sha256:39485f4ab4c9b30a3943cfe99e1a213c4776fb69e8abd68f66b83d5a0b0fdc6d"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "packaging"
 version = "25.0"
@@ -2484,6 +2914,11 @@ files = [
     {file = "packaging-25.0-py3-none-any.whl", hash = "sha256:29572ef2b1f17581046b3a2227d5c611fb25ec70ca1ba8554b24b0e69331a484"},
     {file = "packaging-25.0.tar.gz", hash = "sha256:d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "pandas"
@@ -2581,6 +3016,11 @@ sql-other = ["SQLAlchemy (>=2.0.0)", "adbc-driver-postgresql (>=0.8.0)", "adbc-d
 test = ["hypothesis (>=6.46.1)", "pytest (>=7.3.2)", "pytest-xdist (>=2.2.0)"]
 xml = ["lxml (>=4.9.2)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "pandocfilters"
 version = "1.5.1"
@@ -2592,6 +3032,11 @@ files = [
     {file = "pandocfilters-1.5.1-py2.py3-none-any.whl", hash = "sha256:93be382804a9cdb0a7267585f157e5d1731bbe5545a85b268d6f5fe6232de2bc"},
     {file = "pandocfilters-1.5.1.tar.gz", hash = "sha256:002b4a555ee4ebc03f8b66307e287fa492e4a77b4ea14d3f934328297bb4939e"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "parso"
@@ -2608,6 +3053,11 @@ files = [
 [package.extras]
 qa = ["flake8 (==5.0.4)", "mypy (==0.971)", "types-setuptools (==67.2.0.1)"]
 testing = ["docopt", "pytest"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "partd"
@@ -2627,6 +3077,11 @@ toolz = "*"
 
 [package.extras]
 complete = ["blosc", "numpy (>=1.20.0)", "pandas (>=1.3)", "pyzmq"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "pdbufr"
@@ -2651,6 +3106,11 @@ dev = ["pdbufr[docs,tests]"]
 docs = ["nbsphinx", "pygments (>=2.6.1)", "sphinx (>=7.3.7)", "sphinx-copybutton", "sphinx-issues", "sphinx-rtd-theme"]
 tests = ["flake8", "nbconvert", "nbformat", "pytest", "pytest-cov", "requests"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "pexpect"
 version = "4.9.0"
@@ -2666,6 +3126,11 @@ files = [
 
 [package.dependencies]
 ptyprocess = ">=0.5"
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "pillow"
@@ -2776,6 +3241,11 @@ test-arrow = ["arro3-compute", "arro3-core", "nanoarrow", "pyarrow"]
 tests = ["check-manifest", "coverage (>=7.4.2)", "defusedxml", "markdown2", "olefile", "packaging", "pyroma (>=5)", "pytest", "pytest-cov", "pytest-timeout", "pytest-xdist", "trove-classifiers (>=2024.10.12)"]
 xmp = ["defusedxml"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "pint"
 version = "0.25.1"
@@ -2810,6 +3280,11 @@ test-mpl = ["pytest-mpl"]
 uncertainties = ["uncertainties (>=3.1.6)"]
 xarray = ["xarray"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "platformdirs"
 version = "4.5.0"
@@ -2826,6 +3301,11 @@ files = [
 docs = ["furo (>=2025.9.25)", "proselint (>=0.14)", "sphinx (>=8.2.3)", "sphinx-autodoc-typehints (>=3.2)"]
 test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=8.4.2)", "pytest-cov (>=7)", "pytest-mock (>=3.15.1)"]
 type = ["mypy (>=1.18.2)"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "plotly"
@@ -2851,6 +3331,11 @@ dev-optional = ["anywidget", "colorcet", "fiona (<=1.9.6) ; python_version <= \"
 express = ["numpy"]
 kaleido = ["kaleido (>=1.1.0)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "pluggy"
 version = "1.6.0"
@@ -2866,6 +3351,11 @@ files = [
 [package.extras]
 dev = ["pre-commit", "tox"]
 testing = ["coverage", "pytest", "pytest-benchmark"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "polytope-client"
@@ -2887,6 +3377,11 @@ pyyaml = "*"
 requests = "*"
 tqdm = "*"
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "prompt-toolkit"
 version = "3.0.52"
@@ -2901,6 +3396,11 @@ files = [
 
 [package.dependencies]
 wcwidth = "*"
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "psutil"
@@ -2935,6 +3435,11 @@ files = [
 dev = ["abi3audit", "black", "check-manifest", "colorama ; os_name == \"nt\"", "coverage", "packaging", "pylint", "pyperf", "pypinfo", "pyreadline ; os_name == \"nt\"", "pytest", "pytest-cov", "pytest-instafail", "pytest-subtests", "pytest-xdist", "pywin32 ; os_name == \"nt\" and platform_python_implementation != \"PyPy\"", "requests", "rstcheck", "ruff", "setuptools", "sphinx", "sphinx_rtd_theme", "toml-sort", "twine", "validate-pyproject[all]", "virtualenv", "vulture", "wheel", "wheel ; os_name == \"nt\" and platform_python_implementation != \"PyPy\"", "wmi ; os_name == \"nt\" and platform_python_implementation != \"PyPy\""]
 test = ["pytest", "pytest-instafail", "pytest-subtests", "pytest-xdist", "pywin32 ; os_name == \"nt\" and platform_python_implementation != \"PyPy\"", "setuptools", "wheel ; os_name == \"nt\" and platform_python_implementation != \"PyPy\"", "wmi ; os_name == \"nt\" and platform_python_implementation != \"PyPy\""]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "ptyprocess"
 version = "0.7.0"
@@ -2947,6 +3452,11 @@ files = [
     {file = "ptyprocess-0.7.0-py2.py3-none-any.whl", hash = "sha256:4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35"},
     {file = "ptyprocess-0.7.0.tar.gz", hash = "sha256:5c5d0a3b48ceee0b48485e0c26037c0acd7d29765ca3fbb5cb3831d347423220"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "pure-eval"
@@ -2963,6 +3473,11 @@ files = [
 [package.extras]
 tests = ["pytest"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "pycparser"
 version = "2.23"
@@ -2975,6 +3490,11 @@ files = [
     {file = "pycparser-2.23-py3-none-any.whl", hash = "sha256:e5c6e8d3fbad53479cab09ac03729e0a9faf2bee3db8208a550daf5af81a5934"},
     {file = "pycparser-2.23.tar.gz", hash = "sha256:78816d4f24add8f10a06d6f05b4d424ad9e96cfebf68a4ddc99c65c0720d00c2"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "pydantic"
@@ -2997,6 +3517,11 @@ typing-inspection = ">=0.4.2"
 [package.extras]
 email = ["email-validator (>=2.0.0)"]
 timezone = ["tzdata ; python_version >= \"3.9\" and platform_system == \"Windows\""]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "pydantic-core"
@@ -3132,6 +3657,11 @@ files = [
 [package.dependencies]
 typing-extensions = ">=4.14.1"
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "pyeccodes"
 version = "0.1.1"
@@ -3145,6 +3675,11 @@ files = [
 
 [package.dependencies]
 numpy = "*"
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "pyfdb"
@@ -3181,6 +3716,11 @@ files = [
 [package.extras]
 windows-terminal = ["colorama (>=0.4.6)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "pyparsing"
 version = "3.2.5"
@@ -3195,6 +3735,11 @@ files = [
 
 [package.extras]
 diagrams = ["jinja2", "railroad-diagrams"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "pyproj"
@@ -3264,6 +3809,11 @@ files = [
 [package.dependencies]
 certifi = "*"
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "pyshp"
 version = "3.0.2.post1"
@@ -3279,6 +3829,11 @@ files = [
 [package.extras]
 dev = ["pre-commit", "pytest", "ruff"]
 test = ["pytest"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "pytest"
@@ -3302,6 +3857,11 @@ pygments = ">=2.7.2"
 [package.extras]
 dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "requests", "setuptools", "xmlschema"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
@@ -3317,6 +3877,11 @@ files = [
 [package.dependencies]
 six = ">=1.5"
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "pytz"
 version = "2025.2"
@@ -3328,6 +3893,11 @@ files = [
     {file = "pytz-2025.2-py2.py3-none-any.whl", hash = "sha256:5ddf76296dd8c44c26eb8f4b6f35488f3ccbf6fbbd7adee0b7262d43f0ec2f00"},
     {file = "pytz-2025.2.tar.gz", hash = "sha256:360b9e3dbb49a209c21ad61809c7fb453643e048b38924c765813546746e81c3"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "pyyaml"
@@ -3411,6 +3981,11 @@ files = [
     {file = "pyyaml-6.0.3-cp39-cp39-win_amd64.whl", hash = "sha256:2e71d11abed7344e42a8849600193d15b6def118602c4c176f748e4583246007"},
     {file = "pyyaml-6.0.3.tar.gz", hash = "sha256:d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "pyzmq"
@@ -3517,6 +4092,11 @@ files = [
 [package.dependencies]
 cffi = {version = "*", markers = "implementation_name == \"pypy\""}
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "rasterio"
 version = "1.4.3"
@@ -3566,6 +4146,11 @@ plot = ["matplotlib"]
 s3 = ["boto3 (>=1.2.4)"]
 test = ["boto3 (>=1.2.4)", "fsspec", "hypothesis", "packaging", "pytest (>=2.8.2)", "pytest-cov (>=2.2.0)", "shapely"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "referencing"
 version = "0.37.0"
@@ -3582,6 +4167,11 @@ files = [
 attrs = ">=22.2.0"
 rpds-py = ">=0.7.0"
 typing-extensions = {version = ">=4.4.0", markers = "python_version < \"3.13\""}
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "requests"
@@ -3605,6 +4195,11 @@ urllib3 = ">=1.21.1,<3"
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "rich"
 version = "14.2.0"
@@ -3624,6 +4219,11 @@ pygments = ">=2.13.0,<3.0.0"
 [package.extras]
 jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "rich-argparse"
 version = "1.7.2"
@@ -3638,6 +4238,11 @@ files = [
 
 [package.dependencies]
 rich = ">=11.0.0"
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "rpds-py"
@@ -3764,6 +4369,11 @@ files = [
     {file = "rpds_py-0.28.0.tar.gz", hash = "sha256:abd4df20485a0983e2ca334a216249b6186d6e3c1627e106651943dbdb791aea"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "scipy"
 version = "1.16.3"
@@ -3843,6 +4453,11 @@ dev = ["cython-lint (>=0.12.2)", "doit (>=0.36.0)", "mypy (==1.10.0)", "pycodest
 doc = ["intersphinx_registry", "jupyterlite-pyodide-kernel", "jupyterlite-sphinx (>=0.19.1)", "jupytext", "linkify-it-py", "matplotlib (>=3.5)", "myst-nb (>=1.2.0)", "numpydoc", "pooch", "pydata-sphinx-theme (>=0.15.2)", "sphinx (>=5.0.0,<8.2.0)", "sphinx-copybutton", "sphinx-design (>=0.4.0)"]
 test = ["Cython", "array-api-strict (>=2.3.1)", "asv", "gmpy2", "hypothesis (>=6.30)", "meson", "mpmath", "ninja ; sys_platform != \"emscripten\"", "pooch", "pytest (>=8.0.0)", "pytest-cov", "pytest-timeout", "pytest-xdist", "scikit-umfpack", "threadpoolctl"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "setuptools"
 version = "80.9.0"
@@ -3863,6 +4478,11 @@ doc = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "pygments-
 enabler = ["pytest-enabler (>=2.2)"]
 test = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "ini2toml[lite] (>=0.14)", "jaraco.develop (>=7.21) ; python_version >= \"3.9\" and sys_platform != \"cygwin\"", "jaraco.envs (>=2.2)", "jaraco.path (>=3.7.2)", "jaraco.test (>=5.5)", "packaging (>=24.2)", "pip (>=19.1)", "pyproject-hooks (!=1.1)", "pytest (>=6,!=8.1.*)", "pytest-home (>=0.5)", "pytest-perf ; sys_platform != \"cygwin\"", "pytest-subprocess", "pytest-timeout", "pytest-xdist (>=3)", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel (>=0.44.0)"]
 type = ["importlib_metadata (>=7.0.2) ; python_version < \"3.10\"", "jaraco.develop (>=7.21) ; sys_platform != \"cygwin\"", "mypy (==1.14.*)", "pytest-mypy"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "shapely"
@@ -3938,17 +4558,27 @@ numpy = ">=1.21"
 docs = ["matplotlib", "numpydoc (==1.1.*)", "sphinx", "sphinx-book-theme", "sphinx-remove-toctrees"]
 test = ["pytest", "pytest-cov", "scipy-doctest"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "six"
 version = "1.17.0"
 description = "Python 2 and 3 compatibility utilities"
 optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 groups = ["main"]
 files = [
     {file = "six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"},
     {file = "six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "soupsieve"
@@ -3961,6 +4591,11 @@ files = [
     {file = "soupsieve-2.8-py3-none-any.whl", hash = "sha256:0cc76456a30e20f5d7f2e14a98a4ae2ee4e5abdc7c5ea0aafe795f344bc7984c"},
     {file = "soupsieve-2.8.tar.gz", hash = "sha256:e2dd4a40a628cb5f28f6d4b0db8800b8f581b65bb380b97de22ba5ca8d72572f"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "stack-data"
@@ -3982,6 +4617,11 @@ pure-eval = "*"
 [package.extras]
 tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "tinycss2"
 version = "1.4.0"
@@ -4001,6 +4641,11 @@ webencodings = ">=0.4"
 doc = ["sphinx", "sphinx_rtd_theme"]
 test = ["pytest", "ruff"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "toolz"
 version = "1.1.0"
@@ -4013,12 +4658,17 @@ files = [
     {file = "toolz-1.1.0.tar.gz", hash = "sha256:27a5c770d068c110d9ed9323f24f1543e83b2f300a687b7891c1a6d56b697b5b"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "tornado"
 version = "6.5.2"
 description = "Tornado is a Python web framework and asynchronous networking library, originally developed at FriendFeed."
 optional = false
-python-versions = ">=3.9"
+python-versions = ">= 3.9"
 groups = ["main"]
 files = [
     {file = "tornado-6.5.2-cp39-abi3-macosx_10_9_universal2.whl", hash = "sha256:2436822940d37cde62771cff8774f4f00b3c8024fe482e16ca8387b8a2724db6"},
@@ -4034,6 +4684,11 @@ files = [
     {file = "tornado-6.5.2-cp39-abi3-win_arm64.whl", hash = "sha256:d6c33dc3672e3a1f3618eb63b7ef4683a7688e7b9e6e8f0d9aa5726360a004af"},
     {file = "tornado-6.5.2.tar.gz", hash = "sha256:ab53c8f9a0fa351e2c0741284e06c7a45da86afb544133201c5cc8578eb076a0"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "tqdm"
@@ -4057,6 +4712,11 @@ notebook = ["ipywidgets (>=6)"]
 slack = ["slack-sdk"]
 telegram = ["requests"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "traitlets"
 version = "5.14.3"
@@ -4073,6 +4733,11 @@ files = [
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx"]
 test = ["argcomplete (>=3.0.3)", "mypy (>=1.7.0)", "pre-commit", "pytest (>=7.0,<8.2)", "pytest-mock", "pytest-mypy-testing"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "typing-extensions"
 version = "4.15.0"
@@ -4084,6 +4749,11 @@ files = [
     {file = "typing_extensions-4.15.0-py3-none-any.whl", hash = "sha256:f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548"},
     {file = "typing_extensions-4.15.0.tar.gz", hash = "sha256:0cea48d173cc12fa28ecabc3b837ea3cf6f38c6d1136f85cbaaf598984861466"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "typing-inspection"
@@ -4100,6 +4770,11 @@ files = [
 [package.dependencies]
 typing-extensions = ">=4.12.0"
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "tzdata"
 version = "2025.2"
@@ -4111,6 +4786,11 @@ files = [
     {file = "tzdata-2025.2-py2.py3-none-any.whl", hash = "sha256:1a403fada01ff9221ca8044d701868fa132215d84beb92242d9acd2147f667a8"},
     {file = "tzdata-2025.2.tar.gz", hash = "sha256:b60a638fcc0daffadf82fe0f57e53d06bdec2f36c4df66280ae79bce6bd6f2b9"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "urllib3"
@@ -4130,6 +4810,11 @@ h2 = ["h2 (>=4,<5)"]
 socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "wcwidth"
 version = "0.2.14"
@@ -4142,6 +4827,11 @@ files = [
     {file = "wcwidth-0.2.14.tar.gz", hash = "sha256:4d478375d31bc5395a3c55c40ccdf3354688364cd61c4f6adacaa9215d0b3605"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "webencodings"
 version = "0.5.1"
@@ -4153,6 +4843,11 @@ files = [
     {file = "webencodings-0.5.1-py2.py3-none-any.whl", hash = "sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78"},
     {file = "webencodings-0.5.1.tar.gz", hash = "sha256:b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "xarray"
@@ -4180,6 +4875,11 @@ parallel = ["dask[complete]"]
 types = ["pandas-stubs", "scipy-stubs", "types-PyYAML", "types-Pygments", "types-colorama", "types-decorator", "types-defusedxml", "types-docutils", "types-networkx", "types-openpyxl", "types-pexpect", "types-psutil", "types-pycurl", "types-python-dateutil", "types-pytz", "types-requests", "types-setuptools"]
 viz = ["cartopy (>=0.23)", "matplotlib", "nc-time-axis", "seaborn"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "zipp"
 version = "3.23.0"
@@ -4200,7 +4900,12 @@ enabler = ["pytest-enabler (>=2.2)"]
 test = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more_itertools", "pytest (>=6,!=8.1.*)", "pytest-ignore-flaky"]
 type = ["pytest-mypy"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "5268af8e7376e08d8c4e2f93a75eebcb25a091e36f61a0d42fee1313368c183f"
+content-hash = "d5af121a59a7ca1696db55f7785e14d6dcd549642ec5aedf6a605e3aeba804f5"
