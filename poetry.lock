@@ -1083,7 +1083,7 @@ test = ["earthkit-data", "pytest", "pytest-cov", "requests"]
 [package.source]
 type = "git"
 url = "https://github.com/ecmwf/earthkit-regrid.git"
-reference = "feature/iconch"
+reference = "develop"
 resolved_reference = "0da1b05db6e4d796feb1d7af51a770008aedcd8f"
 
 [[package]]
@@ -4440,4 +4440,4 @@ reference = "pypi-mch"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "44b2661ce354709c7cd5b842e48dbefe2e74a4f7b715c8ec23f0e59c5458bfb7"
+content-hash = "ce57c0546247cad0f2c65e6932085466f6250b120c1e21b60e6c7a2e9e8d4dea"

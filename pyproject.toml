@@ -28,7 +28,7 @@ pyfdb = { url = "https://github.com/ecmwf/pyfdb/archive/refs/tags/0.0.3.tar.gz" 
 earthkit-utils = { git = "https://github.com/ecmwf/earthkit-utils.git", branch = "develop" }
 earthkit-data  = { git = "https://github.com/ecmwf/earthkit-data.git", branch = "develop" }
 earthkit-plots = { git = "https://github.com/ecmwf/earthkit-plots.git", branch = "feature/sources-redesign" }
-earthkit-regrid = { git = "https://github.com/ecmwf/earthkit-regrid.git", branch = "feature/iconch" }
+earthkit-regrid = { git = "https://github.com/ecmwf/earthkit-regrid.git", branch = "develop" }
 
 # TestPyPI dev builds
 eckit = { version = "1.33.1.dev24", source = "testpypi" }
