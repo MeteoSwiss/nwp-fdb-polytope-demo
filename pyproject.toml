@@ -1,7 +1,5 @@
 [tool.poetry]
 name = "nwp-demo"
-# Keep only Major and Minor version in this configuration,
-# the patch version is calculated when releasing the library
 version = "1.0"
 description = "Demo scripts and notebooks for reading and processing forecast data using Polytope."
 authors = ["MeteoSwiss"]
@@ -16,15 +14,29 @@ priority = "primary"
 name = "pypi"
 priority = "supplemental"
 
+[[tool.poetry.source]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+priority = "supplemental"
+
 [tool.poetry.dependencies]
 python = "~3.11"
-meteodata-lab = { version = "^0.6.0", extras = ["polytope", "regrid"] }
+
 pyfdb = { url = "https://github.com/ecmwf/pyfdb/archive/refs/tags/0.0.3.tar.gz" }
-earthkit-plots = "^0.3.5"
+
+# Replace the PyPI earthkit-plots pin if you want the branch override
+earthkit-utils = { git = "https://github.com/ecmwf/earthkit-utils.git", branch = "develop" }
+earthkit-data  = { git = "https://github.com/ecmwf/earthkit-data.git", branch = "develop" }
+earthkit-plots = { git = "https://github.com/ecmwf/earthkit-plots.git", branch = "feature/sources-redesign" }
+earthkit-regrid = { git = "https://github.com/ecmwf/earthkit-regrid.git", branch = "feature/iconch" }
+
+# TestPyPI dev builds
+eckit = { version = "1.33.1.dev24", source = "testpypi" }
+mirlib = { version = "1.27.11.dev24", source = "testpypi" }
+mir-python = {version = "^1.27.11.dev10", allow-prereleases = true}
+
 ipykernel = "^6.29.4"
 nbformat = "^5.10.4"
-earthkit-geo = "^0.3.0"
-polytope-client = "^0.7.8"
 kaleido = "0.2.1"
 nbconvert = "^7.16.6"
 
