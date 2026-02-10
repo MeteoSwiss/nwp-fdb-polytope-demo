@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>work_with_data_native_grid-2</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>work_with_data_native_grid</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7813,7 +7813,13 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h4><p>Experimental environment set up:</p>
+<h4 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h4><pre><code>poetry install
+</code></pre>
+<pre><code>poetry run python -m ipykernel install --user --name=env-test-1002 --display-name "env-test-1002"
+</code></pre>
+<details>
+<summary> Instructions à la ECMWF </summary>
+<p>Experimental environment set up:</p>
 <pre><code>pip install -i https://test.pypi.org/simple/ eckit==1.33.1.dev24
 uv pip install --no-cache --prerelease allow --upgrade mir-python
 pip install --pre -i https://test.pypi.org/simple/ mirlib==1.27.11.dev24
@@ -7824,6 +7830,7 @@ earthkit-data develop
 earthkit-plots feature/sources-redesign
 earthkit-regrid develop
 </code></pre>
+</details>
 </div>
 </div>
 </div>
@@ -7832,7 +7839,7 @@ earthkit-regrid develop
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">earthkit.data</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ekd</span>
@@ -7856,7 +7863,7 @@ earthkit-regrid develop
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -7977,7 +7984,7 @@ earthkit-regrid develop
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -7992,7 +7999,7 @@ earthkit-regrid develop
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
 <pre>'{"grid":"ICON-CH1"}'</pre>
 </div>
@@ -8015,7 +8022,7 @@ earthkit-regrid develop
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">to_latlon</span><span class="p">()</span>
@@ -8029,7 +8036,7 @@ earthkit-regrid develop
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
 <pre>{'lat': array([50.2413063 , 50.23910904, 50.23666763, ..., 50.05722427,
         50.04892349, 50.04404068], shape=(1147980,)),
@@ -8055,7 +8062,7 @@ earthkit-regrid develop
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">earthkit</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ek</span>
@@ -8079,9 +8086,9 @@ earthkit-regrid develop
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>&lt;earthkit.plots.components.figures.Figure at 0x1545618f8590&gt;</pre>
+<pre>&lt;earthkit.plots.components.figures.Figure at 0x14d7905b7810&gt;</pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
@@ -8108,7 +8115,7 @@ earthkit-regrid develop
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">ds_x</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
@@ -8123,7 +8130,7 @@ earthkit-regrid develop
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -8685,7 +8692,7 @@ Attributes:
     number:       0
     levelist:     0
     Conventions:  CF-1.8
-    institution:  ECMWF</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input class="xr-section-summary-in" disabled="" id="section-e785a796-d3db-4848-bd4a-3d274cd67208" type="checkbox"/><label class="xr-section-summary" for="section-e785a796-d3db-4848-bd4a-3d274cd67208">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span>values</span>: 1147980</li></ul></div></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-3f2fbb02-90dc-4454-a52c-eedd422e31c9" type="checkbox"/><label class="xr-section-summary" for="section-3f2fbb02-90dc-4454-a52c-eedd422e31c9" title="Expand/collapse section">Coordinates: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-c787d775-4774-451d-99c8-0d47973eb0f3" type="checkbox"/><label for="attrs-c787d775-4774-451d-99c8-0d47973eb0f3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-820568fa-cf72-4032-8bdd-48f6c9197438" type="checkbox"/><label for="data-820568fa-cf72-4032-8bdd-48f6c9197438" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-d060990d-3499-47d0-9d45-fd20b62c9454" type="checkbox"/><label for="attrs-d060990d-3499-47d0-9d45-fd20b62c9454" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-bd4e5b99-1e12-4969-a56d-56dfc7810f70" type="checkbox"/><label for="data-bd4e5b99-1e12-4969-a56d-56dfc7810f70" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>long_name :</span></dt><dd>longitude</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-0f537d8b-1e35-40b0-875e-3d147a707aeb" type="checkbox"><label class="xr-section-summary" for="section-0f537d8b-1e35-40b0-875e-3d147a707aeb" title="Expand/collapse section">Data variables: <span>(5)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>h</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-ba694766-c4b4-4384-bbeb-3eac1f05c34c" type="checkbox"/><label for="attrs-ba694766-c4b4-4384-bbeb-3eac1f05c34c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-ceec8548-c8d2-41aa-aa97-be2ef32b9c01" type="checkbox"/><label for="data-ceec8548-c8d2-41aa-aa97-be2ef32b9c01" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>levtype :</span></dt><dd>unknown</dd><dt><span>param :</span></dt><dd>h</dd><dt><span>standard_name :</span></dt><dd>unknown</dd><dt><span>long_name :</span></dt><dd>Geometrical height above ground</dd><dt><span>paramId :</span></dt><dd>3008</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>_earthkit :</span></dt><dd>{'message': b'GRIB\xff\xff\x00\x02\x00\x00\x00\x00\x00\x00\x00\xaf\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x0f\x01\x01\x07\xea\x02\n\x0f\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x07\xea\x02\n\x10\t#\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\xff\xff\x00\x00\x00#\x03\x00\x00\x11\x84L\x00\x00\x00e\x06\x00\x00\x01\x01\x17d=\xa2WIY\xb6D\xd2T\xa3\xcdn+\xc0\x00\x00\x00%\x04\x00\x00\x00\x01\x03\x06\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00e\x00\x00\x00\x00\x00\xc0\x00\x0b\x00\x00\x00\x15\x05\x00\x11\x84L\x00\x00C\x88\x80\x00\x80\n\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777', 'bitsPerValue': 16}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"grid": "ICON-CH1"}</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>lsm</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-cfe1d91a-8d48-4904-81b5-8a47601d5be1" type="checkbox"/><label for="attrs-cfe1d91a-8d48-4904-81b5-8a47601d5be1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-ca186b6f-2f79-45d8-a0cf-9fc99cb5d8d9" type="checkbox"/><label for="data-ca186b6f-2f79-45d8-a0cf-9fc99cb5d8d9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>levtype :</span></dt><dd>sfc</dd><dt><span>param :</span></dt><dd>lsm</dd><dt><span>standard_name :</span></dt><dd>land_binary_mask</dd><dt><span>long_name :</span></dt><dd>Land-sea mask</dd><dt><span>paramId :</span></dt><dd>172</dd><dt><span>units :</span></dt><dd>(0 - 1)</dd><dt><span>_earthkit :</span></dt><dd>{'message': b'GRIB\xff\xff\x02\x02\x00\x00\x00\x00\x00\x00\x00\xaf\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x0f\x01\x01\x07\xea\x02\n\x0f\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x07\xea\x02\n\x10\t#\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\xff\xff\x00\x00\x00#\x03\x00\x00\x11\x84L\x00\x00\x00e\x06\x00\x00\x01\x01\x17d=\xa2WIY\xb6D\xd2T\xa3\xcdn+\xc0\x00\x00\x00%\x04\x00\x00\x00\x01\x00\x00\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xc0\x00\x0b\x00\x00\x00\x15\x05\x00\x11\x84L\x00\x00C\x88\x80\x00\x80\n\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777', 'bitsPerValue': 16}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"grid": "ICON-CH1"}</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>tlat</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-8936e1d9-920d-46f6-ba4b-11484cc86d9f" type="checkbox"/><label for="attrs-8936e1d9-920d-46f6-ba4b-11484cc86d9f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-df72fa54-aa6f-494f-a0cd-9d4de049112e" type="checkbox"/><label for="data-df72fa54-aa6f-494f-a0cd-9d4de049112e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>levtype :</span></dt><dd>sfc</dd><dt><span>param :</span></dt><dd>tlat</dd><dt><span>standard_name :</span></dt><dd>unknown</dd><dt><span>long_name :</span></dt><dd>Latitude on T grid</dd><dt><span>paramId :</span></dt><dd>250003</dd><dt><span>units :</span></dt><dd>Degree N</dd><dt><span>_earthkit :</span></dt><dd>{'message': b'GRIB\xff\xff\x00\x02\x00\x00\x00\x00\x00\x00\x00\xaf\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x0f\x01\x01\x07\xea\x02\n\x0f\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\xff\xff\x00\x00\x00#\x03\x00\x00\x11\x84L\x00\x00\x00e\x06\x00\x00\x01\x01\x17d=\xa2WIY\xb6D\xd2T\xa3\xcdn+\xc0\x00\x00\x00%\x04\x00\x00\x00\x01\xbf\x01\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xc0\x00\x0b\x00\x00\x00\x15\x05\x00\x11\x84L\x00\x00C\x88\x80\x00\x80\n\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777', 'bitsPerValue': 16}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"grid": "ICON-CH1"}</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>tlon</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-ef2ce7fb-8418-4ffc-b6b7-73bf1f7f4312" type="checkbox"/><label for="attrs-ef2ce7fb-8418-4ffc-b6b7-73bf1f7f4312" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-7c0a3614-d267-4367-b633-ff815a4f9859" type="checkbox"/><label for="data-7c0a3614-d267-4367-b633-ff815a4f9859" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>levtype :</span></dt><dd>sfc</dd><dt><span>param :</span></dt><dd>tlon</dd><dt><span>standard_name :</span></dt><dd>unknown</dd><dt><span>long_name :</span></dt><dd>Longitude on T grid</dd><dt><span>paramId :</span></dt><dd>250004</dd><dt><span>units :</span></dt><dd>Degree E</dd><dt><span>_earthkit :</span></dt><dd>{'message': b'GRIB\xff\xff\x00\x02\x00\x00\x00\x00\x00\x00\x00\xaf\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x0f\x01\x01\x07\xea\x02\n\x0f\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\xff\xff\x00\x00\x00#\x03\x00\x00\x11\x84L\x00\x00\x00e\x06\x00\x00\x01\x01\x17d=\xa2WIY\xb6D\xd2T\xa3\xcdn+\xc0\x00\x00\x00%\x04\x00\x00\x00\x01\xbf\x02\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xc0\x00\x0b\x00\x00\x00\x15\x05\x00\x11\x84L\x00\x00C\x88\x80\x00\x80\n\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777', 'bitsPerValue': 16}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"grid": "ICON-CH1"}</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>unknown</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-747c3572-7a58-47ec-81b7-5057b816adbe" type="checkbox"/><label for="attrs-747c3572-7a58-47ec-81b7-5057b816adbe" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-3d84a472-fdd4-4bda-bf78-d6f7efde17b0" type="checkbox"/><label for="data-3d84a472-fdd4-4bda-bf78-d6f7efde17b0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>levtype :</span></dt><dd>sfc</dd><dt><span>param :</span></dt><dd>unknown</dd><dt><span>standard_name :</span></dt><dd>unknown</dd><dt><span>long_name :</span></dt><dd>unknown</dd><dt><span>paramId :</span></dt><dd>0</dd><dt><span>units :</span></dt><dd>unknown</dd><dt><span>_earthkit :</span></dt><dd>{'message': b'GRIB\xff\xff\x02\x02\x00\x00\x00\x00\x00\x00\x00\xaf\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x0f\x01\x01\x07\xea\x02\n\x0f\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x07\xea\x02\n\x10\t#\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\xff\xff\x00\x00\x00#\x03\x00\x00\x11\x84L\x00\x00\x00e\x06\x00\x00\x01\x01\x17d=\xa2WIY\xb6D\xd2T\xa3\xcdn+\xc0\x00\x00\x00%\x04\x00\x00\x00\x01\x03\xc4\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xc0\x00\x0b\x00\x00\x00\x15\x05\x00\x11\x84L\x00\x00C\x88\x80\x00\x80\n\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777', 'bitsPerValue': 16}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"grid": "ICON-CH1"}</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li></ul></div></input></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-89a9aab2-66b4-4139-98ee-d9640c7e2039" type="checkbox"><label class="xr-section-summary" for="section-89a9aab2-66b4-4139-98ee-d9640c7e2039" title="Expand/collapse section">Attributes: <span>(6)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>date :</span></dt><dd>20260210</dd><dt><span>time :</span></dt><dd>1500</dd><dt><span>number :</span></dt><dd>0</dd><dt><span>levelist :</span></dt><dd>0</dd><dt><span>Conventions :</span></dt><dd>CF-1.8</dd><dt><span>institution :</span></dt><dd>ECMWF</dd></dl></div></input></li></ul></div></div>
+    institution:  ECMWF</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input class="xr-section-summary-in" disabled="" id="section-1f8dd04e-5635-47e2-9656-4e6c212b2982" type="checkbox"/><label class="xr-section-summary" for="section-1f8dd04e-5635-47e2-9656-4e6c212b2982">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span>values</span>: 1147980</li></ul></div></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-c9527168-2eae-4ad4-ae72-dcbd607429d7" type="checkbox"/><label class="xr-section-summary" for="section-c9527168-2eae-4ad4-ae72-dcbd607429d7" title="Expand/collapse section">Coordinates: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-eadd708a-089b-451d-9d18-53d7e31cf678" type="checkbox"/><label for="attrs-eadd708a-089b-451d-9d18-53d7e31cf678" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-05725322-9d09-45ac-ad3a-148d0d6d184c" type="checkbox"/><label for="data-05725322-9d09-45ac-ad3a-148d0d6d184c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-f2a17a33-54f5-45f7-9c4f-a15dc74eca9a" type="checkbox"/><label for="attrs-f2a17a33-54f5-45f7-9c4f-a15dc74eca9a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-dd3e6d6f-e1d9-4760-a102-afb5673ee90c" type="checkbox"/><label for="data-dd3e6d6f-e1d9-4760-a102-afb5673ee90c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>long_name :</span></dt><dd>longitude</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-e001ac57-4f24-4c5e-ab2f-f1ae8345ffec" type="checkbox"><label class="xr-section-summary" for="section-e001ac57-4f24-4c5e-ab2f-f1ae8345ffec" title="Expand/collapse section">Data variables: <span>(5)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>h</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-fd1d8e55-71df-480b-85cc-513ad75fbe4b" type="checkbox"/><label for="attrs-fd1d8e55-71df-480b-85cc-513ad75fbe4b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-50b8a91d-e4f1-43dc-95cd-71d7dfc70980" type="checkbox"/><label for="data-50b8a91d-e4f1-43dc-95cd-71d7dfc70980" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>levtype :</span></dt><dd>unknown</dd><dt><span>param :</span></dt><dd>h</dd><dt><span>standard_name :</span></dt><dd>unknown</dd><dt><span>long_name :</span></dt><dd>Geometrical height above ground</dd><dt><span>paramId :</span></dt><dd>3008</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>_earthkit :</span></dt><dd>{'message': b'GRIB\xff\xff\x00\x02\x00\x00\x00\x00\x00\x00\x00\xaf\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x0f\x01\x01\x07\xea\x02\n\x0f\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x07\xea\x02\n\x10\t#\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\xff\xff\x00\x00\x00#\x03\x00\x00\x11\x84L\x00\x00\x00e\x06\x00\x00\x01\x01\x17d=\xa2WIY\xb6D\xd2T\xa3\xcdn+\xc0\x00\x00\x00%\x04\x00\x00\x00\x01\x03\x06\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00e\x00\x00\x00\x00\x00\xc0\x00\x0b\x00\x00\x00\x15\x05\x00\x11\x84L\x00\x00C\x88\x80\x00\x80\n\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777', 'bitsPerValue': 16}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"grid": "ICON-CH1"}</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>lsm</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-c10f34ac-1b04-4a6e-a2d5-2c07d7246498" type="checkbox"/><label for="attrs-c10f34ac-1b04-4a6e-a2d5-2c07d7246498" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-787129b7-10b6-4fa7-8d35-6d1f5ad7f087" type="checkbox"/><label for="data-787129b7-10b6-4fa7-8d35-6d1f5ad7f087" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>levtype :</span></dt><dd>sfc</dd><dt><span>param :</span></dt><dd>lsm</dd><dt><span>standard_name :</span></dt><dd>land_binary_mask</dd><dt><span>long_name :</span></dt><dd>Land-sea mask</dd><dt><span>paramId :</span></dt><dd>172</dd><dt><span>units :</span></dt><dd>(0 - 1)</dd><dt><span>_earthkit :</span></dt><dd>{'message': b'GRIB\xff\xff\x02\x02\x00\x00\x00\x00\x00\x00\x00\xaf\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x0f\x01\x01\x07\xea\x02\n\x0f\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x07\xea\x02\n\x10\t#\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\xff\xff\x00\x00\x00#\x03\x00\x00\x11\x84L\x00\x00\x00e\x06\x00\x00\x01\x01\x17d=\xa2WIY\xb6D\xd2T\xa3\xcdn+\xc0\x00\x00\x00%\x04\x00\x00\x00\x01\x00\x00\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xc0\x00\x0b\x00\x00\x00\x15\x05\x00\x11\x84L\x00\x00C\x88\x80\x00\x80\n\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777', 'bitsPerValue': 16}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"grid": "ICON-CH1"}</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>tlat</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-c414ceb3-fbb8-45ca-95f9-ff7663126442" type="checkbox"/><label for="attrs-c414ceb3-fbb8-45ca-95f9-ff7663126442" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-814d3536-08f6-44ad-99ca-2e0a89447061" type="checkbox"/><label for="data-814d3536-08f6-44ad-99ca-2e0a89447061" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>levtype :</span></dt><dd>sfc</dd><dt><span>param :</span></dt><dd>tlat</dd><dt><span>standard_name :</span></dt><dd>unknown</dd><dt><span>long_name :</span></dt><dd>Latitude on T grid</dd><dt><span>paramId :</span></dt><dd>250003</dd><dt><span>units :</span></dt><dd>Degree N</dd><dt><span>_earthkit :</span></dt><dd>{'message': b'GRIB\xff\xff\x00\x02\x00\x00\x00\x00\x00\x00\x00\xaf\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x0f\x01\x01\x07\xea\x02\n\x0f\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\xff\xff\x00\x00\x00#\x03\x00\x00\x11\x84L\x00\x00\x00e\x06\x00\x00\x01\x01\x17d=\xa2WIY\xb6D\xd2T\xa3\xcdn+\xc0\x00\x00\x00%\x04\x00\x00\x00\x01\xbf\x01\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xc0\x00\x0b\x00\x00\x00\x15\x05\x00\x11\x84L\x00\x00C\x88\x80\x00\x80\n\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777', 'bitsPerValue': 16}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"grid": "ICON-CH1"}</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>tlon</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-7f366324-3090-4356-ae18-5645a8432d3e" type="checkbox"/><label for="attrs-7f366324-3090-4356-ae18-5645a8432d3e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-601148e8-7329-4c1f-b3e8-efc3f7b1a064" type="checkbox"/><label for="data-601148e8-7329-4c1f-b3e8-efc3f7b1a064" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>levtype :</span></dt><dd>sfc</dd><dt><span>param :</span></dt><dd>tlon</dd><dt><span>standard_name :</span></dt><dd>unknown</dd><dt><span>long_name :</span></dt><dd>Longitude on T grid</dd><dt><span>paramId :</span></dt><dd>250004</dd><dt><span>units :</span></dt><dd>Degree E</dd><dt><span>_earthkit :</span></dt><dd>{'message': b'GRIB\xff\xff\x00\x02\x00\x00\x00\x00\x00\x00\x00\xaf\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x0f\x01\x01\x07\xea\x02\n\x0f\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\xff\xff\x00\x00\x00#\x03\x00\x00\x11\x84L\x00\x00\x00e\x06\x00\x00\x01\x01\x17d=\xa2WIY\xb6D\xd2T\xa3\xcdn+\xc0\x00\x00\x00%\x04\x00\x00\x00\x01\xbf\x02\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xc0\x00\x0b\x00\x00\x00\x15\x05\x00\x11\x84L\x00\x00C\x88\x80\x00\x80\n\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777', 'bitsPerValue': 16}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"grid": "ICON-CH1"}</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>unknown</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input class="xr-var-attrs-in" id="attrs-060552db-f38b-4a9b-bf40-dc7659f8a512" type="checkbox"/><label for="attrs-060552db-f38b-4a9b-bf40-dc7659f8a512" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-03bafe2f-9694-4afa-bea4-74551c779dca" type="checkbox"/><label for="data-03bafe2f-9694-4afa-bea4-74551c779dca" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>levtype :</span></dt><dd>sfc</dd><dt><span>param :</span></dt><dd>unknown</dd><dt><span>standard_name :</span></dt><dd>unknown</dd><dt><span>long_name :</span></dt><dd>unknown</dd><dt><span>paramId :</span></dt><dd>0</dd><dt><span>units :</span></dt><dd>unknown</dd><dt><span>_earthkit :</span></dt><dd>{'message': b'GRIB\xff\xff\x02\x02\x00\x00\x00\x00\x00\x00\x00\xaf\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x0f\x01\x01\x07\xea\x02\n\x0f\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x07\xea\x02\n\x10\t#\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\xff\xff\x00\x00\x00#\x03\x00\x00\x11\x84L\x00\x00\x00e\x06\x00\x00\x01\x01\x17d=\xa2WIY\xb6D\xd2T\xa3\xcdn+\xc0\x00\x00\x00%\x04\x00\x00\x00\x01\x03\xc4\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xc0\x00\x0b\x00\x00\x00\x15\x05\x00\x11\x84L\x00\x00C\x88\x80\x00\x80\n\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777', 'bitsPerValue': 16}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"grid": "ICON-CH1"}</dd></dl></div><div class="xr-var-data"><pre>[1147980 values with dtype=float64]</pre></div></li></ul></div></input></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-ea260b85-ab1b-4619-97a4-4f4e87db87cc" type="checkbox"><label class="xr-section-summary" for="section-ea260b85-ab1b-4619-97a4-4f4e87db87cc" title="Expand/collapse section">Attributes: <span>(6)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>date :</span></dt><dd>20260210</dd><dt><span>time :</span></dt><dd>1500</dd><dt><span>number :</span></dt><dd>0</dd><dt><span>levelist :</span></dt><dd>0</dd><dt><span>Conventions :</span></dt><dd>CF-1.8</dd><dt><span>institution :</span></dt><dd>ECMWF</dd></dl></div></input></li></ul></div></div>
 </div>
 </div>
 </div>
@@ -8706,7 +8713,7 @@ Attributes:
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">ek</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">quickplot</span><span class="p">(</span><span class="n">ds_x</span><span class="o">.</span><span class="n">h</span><span class="p">)</span>
@@ -8733,9 +8740,9 @@ consider constructing the plot manually.
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>&lt;earthkit.plots.components.figures.Figure at 0x1545ef97e950&gt;</pre>
+<pre>&lt;earthkit.plots.components.figures.Figure at 0x14d7900fc110&gt;</pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
@@ -8757,33 +8764,16 @@ consider constructing the plot manually.
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=788c406e">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=788c406e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">f_ll</span> <span class="o">=</span> <span class="n">ek</span><span class="o">.</span><span class="n">regrid</span><span class="o">.</span><span class="n">regrid</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>CACHE-MANAGER mir/weights, /tmp/cache does not exist
-CACHE-MANAGER mir/weights, /tmp/cache created
-Cache file /tmp/cache/mir/weights/17/linear/1/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/LL-1x1-50:0:42:17-8a7e2b425604660bff2e007af5cb5ce1.mat does not exist
-Creating cache file /tmp/cache/mir/weights/17/linear/1/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/LL-1x1-50:0:42:17-8a7e2b425604660bff2e007af5cb5ce1.mat
-CacheManager creating file /tmp/cache/mir/weights/17/linear/1/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/LL-1x1-50:0:42:17-8a7e2b425604660bff2e007af5cb5ce1.mat
-</pre>
 </div>
 </div>
 </div>
@@ -8793,7 +8783,7 @@ CacheManager creating file /tmp/cache/mir/weights/17/linear/1/ICON-1147980-17643
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Note that teh gridType is regular_ll</span>
@@ -8808,7 +8798,7 @@ CacheManager creating file /tmp/cache/mir/weights/17/linear/1/ICON-1147980-17643
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -8866,7 +8856,7 @@ CacheManager creating file /tmp/cache/mir/weights/17/linear/1/ICON-1147980-17643
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">f_ll</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">namespace</span><span class="o">=</span><span class="s2">"geography"</span><span class="p">)</span>
@@ -8880,7 +8870,7 @@ CacheManager creating file /tmp/cache/mir/weights/17/linear/1/ICON-1147980-17643
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8904,7 +8894,7 @@ table.ek th {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">ek</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">quickplot</span><span class="p">(</span><span class="n">f_ll</span><span class="p">)</span>
@@ -8918,9 +8908,9 @@ table.ek th {
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>&lt;earthkit.plots.components.figures.Figure at 0x15455ae9e650&gt;</pre>
+<pre>&lt;earthkit.plots.components.figures.Figure at 0x14d78ab38050&gt;</pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
