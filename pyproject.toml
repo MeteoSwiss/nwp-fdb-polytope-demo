@@ -25,9 +25,8 @@ python = "~3.11"
 pyfdb = { url = "https://github.com/ecmwf/pyfdb/archive/refs/tags/0.0.3.tar.gz" }
 
 # Replace the PyPI earthkit-plots pin if you want the branch override
-earthkit-utils = { git = "https://github.com/ecmwf/earthkit-utils.git", branch = "develop" }
-earthkit-data  = { git = "https://github.com/ecmwf/earthkit-data.git", branch = "develop" }
-earthkit-plots = { git = "https://github.com/ecmwf/earthkit-plots.git", branch = "feature/sources-redesign" }
+earthkit-data = "^0.19.0"
+earthkit-plots = "^0.6.0"
 earthkit-regrid = { git = "https://github.com/ecmwf/earthkit-regrid.git", branch = "develop" }
 
 # TestPyPI dev builds
