@@ -24,7 +24,7 @@ from pyproj import CRS, Transformer
 COLLECTION = "mchgj"  # "mchgj" for feature extraction, "mch" for full field
 
 # Request parameters
-PARAM = "T_2M"  # Parameter (e.g., T_2M, U_10M, V_10M, TOT_PREC)
+PARAM = 500011 # Parameter (e.g., T_2M, U_10M, V_10M, TOT_PREC)
 MODEL = "ICON_CH2_EPS"  # ICON_CH1_EPS or ICON_CH2_EPS
 LEVTYPE = "sfc"  # sfc, ml (model level), pl (pressure level)
 FORECAST_TYPE = "pf"  # "pf" (perturbed/ensemble) or "cf" (control)
@@ -57,12 +57,6 @@ def load_config(path: Path = None) -> dict:
 
 def setup_polytope_env(config: dict) -> None:
     """Set environment variables for MeteoSwiss Polytope access."""
-    # HTTP proxy for outbound connections (MeteoSwiss lab network)
-    if "HTTP_PROXY" not in os.environ:
-        os.environ["HTTP_PROXY"] = "http://127.0.0.1:8874"
-    if "HTTPS_PROXY" not in os.environ:
-        os.environ["HTTPS_PROXY"] = "http://127.0.0.1:8874"
-
     # ICON-CSCS Polytope credentials
     os.environ["POLYTOPE_USERNAME"] = config["meteoswiss"]["user"]
     os.environ["POLYTOPE_PASSWORD"] = config["meteoswiss"]["password"]
@@ -117,7 +111,7 @@ def build_request(date: str, time: str, rotated_point: tuple[float, float]) -> d
     }
 
     if FORECAST_TYPE == "pf":
-        request["number"] = "/".join(str(m) for m in range(1, NUM_MEMBERS + 1))
+        request["number"] = f"1/to/{NUM_MEMBERS}"
 
     return request
 
