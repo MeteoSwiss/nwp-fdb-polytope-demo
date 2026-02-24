@@ -1,0 +1,13 @@
+524 2026-02-24 10:24:45 (I) Serving new connection
+524 2026-02-24 10:24:45 (I) Request received: 3.6e-05 second elapsed, 4.8e-05 second cpu
+524 2026-02-24 10:24:45 (I) Gribjump Engine: Built file map: 0.016781 second elapsed, 0.003367 second cpu
+220 2026-02-24 10:24:45 (I) Gribjump Progress: 1 of 1 tasks complete
+524 2026-02-24 10:24:45 (I) Gribjump Engine: All tasks finished: 0.013926 second elapsed, 0.00209 second cpu
+524 2026-02-24 10:24:45 (I) Gribjump Engine: Repackaged results: 4e-06 second elapsed, 0 second cpu
+524 2026-02-24 10:24:45 (I) Engine::extract: 5e-06 second elapsed, 0 second cpu
+524 2026-02-24 10:24:45 (I) Request executed: 0.030755 second elapsed, 0.005457 second cpu
+524 2026-02-24 10:24:45 (I) Request replied: 0.001085 second elapsed, 0.000339 second cpu
+524 2026-02-24 10:24:45 (I) GribJumpUser::processRequest: 2e-06 second elapsed, 0 second cpu
+524 2026-02-24 10:24:45 (I) Connection served: 0.031948 second elapsed, 0.005844 second cpu
+{"process":"gribjump-server","start_time":"2026-02-24T10:24:45Z","end_time":"2026-02-24T10:24:45Z","run_time":0.03192,"action":"extract","count_cancelled_tasks":0,"count_failed_tasks":0,"count_requests":1,"count_tasks":1,"elapsed_build_filemap":0.016779,"elapsed_collect_results":2e-06,"elapsed_execute":0.030753,"elapsed_receive":3.4e-05,"elapsed_reply":0.001083,"elapsed_tasks":0.013924,"request_id":25,"context":"{\"user\": \"mch:admin\", \"id\": \"f5918d6a-cb86-498e-b4be-86690a9a25f1\", \"source\": \"pygribjump\", \"action\": \"pygribjump_extract\", \"pygribjump_version\": \"0.10.2\", \"gribjump_version\": \"0.10.2\", \"hostname\": \"worker-c8c5b8fcb-kghqx\"}"}
+524 2026-02-24 10:24:45 (I) Connection closed: 0.032004 second elapsed, 0.005844 second cpu
