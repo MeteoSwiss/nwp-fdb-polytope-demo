@@ -4,6 +4,7 @@ Minimal benchmarking script for Polytope timeseries feature extraction.
 Uses the polytope client directly to capture request IDs.
 """
 
+import json
 import os
 import tempfile
 import time
@@ -24,7 +25,7 @@ from pyproj import CRS, Transformer
 COLLECTION = "mchgj"  # "mchgj" for feature extraction, "mch" for full field
 
 # Request parameters
-PARAM = 500011 # Parameter (e.g., T_2M, U_10M, V_10M, TOT_PREC)
+PARAM = 500011  # Parameter (e.g., T_2M, U_10M, V_10M, TOT_PREC)
 MODEL = "ICON_CH2_EPS"  # ICON_CH1_EPS or ICON_CH2_EPS
 LEVTYPE = "sfc"  # sfc, ml (model level), pl (pressure level)
 FORECAST_TYPE = "pf"  # "pf" (perturbed/ensemble) or "cf" (control)
@@ -39,6 +40,9 @@ STEP_END = 120  # Last forecast step (120 for CH2, 33 for CH1)
 
 # Ensemble members (ignored if FORECAST_TYPE == "cf")
 NUM_MEMBERS = 20  # 20 for CH2, 10 for CH1
+
+# Gribjump server log file path (local)
+GRIBJUMP_LOG_PATH = None  # e.g., "/var/log/gribjump/server.log"
 
 # =============================================================================
 
@@ -163,23 +167,59 @@ def extract_gribjump_timings(request_id: str | None = None) -> dict:
     """
     Extract timing information from gribjump-server logs.
 
-    TODO: Implement log parsing to extract server-side timings.
-    This requires access to gribjump-server logs at CSCS.
-
-    Expected metrics from JSON log line:
-    - run_time: total server-side time
-    - elapsed_build_filemap: time to build file map
-    - elapsed_tasks: time for extraction tasks
-    - elapsed_execute: total execution time
-    - elapsed_reply: time to send response
+    Parses JSON log lines to find entries matching the request ID.
 
     Args:
-        request_id: Request identifier for log correlation
+        request_id: Request identifier (UUID) for log correlation
 
     Returns:
         Dictionary with timing metrics
     """
-    # TODO: Implement gribjump-server log extraction
+    if GRIBJUMP_LOG_PATH is None:
+        return {}
+
+    if request_id is None:
+        print("  Warning: No request ID available for log correlation")
+        return {}
+
+    log_path = Path(GRIBJUMP_LOG_PATH)
+    if not log_path.exists():
+        print(f"  Warning: Log file not found: {log_path}")
+        return {}
+
+    # Read file and parse JSON lines in reverse (most recent first)
+    with open(log_path) as f:
+        lines = f.readlines()
+
+    for line in reversed(lines):
+        line = line.strip()
+        if not line.startswith("{"):
+            continue
+
+        try:
+            entry = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+
+        # Check if this entry matches our request
+        context_str = entry.get("context", "{}")
+        try:
+            context = json.loads(context_str)
+        except json.JSONDecodeError:
+            context = {}
+
+        if context.get("id") == request_id:
+            return {
+                "run_time": entry.get("run_time"),
+                "elapsed_build_filemap": entry.get("elapsed_build_filemap"),
+                "elapsed_tasks": entry.get("elapsed_tasks"),
+                "elapsed_execute": entry.get("elapsed_execute"),
+                "elapsed_reply": entry.get("elapsed_reply"),
+                "elapsed_receive": entry.get("elapsed_receive"),
+                "count_tasks": entry.get("count_tasks"),
+            }
+
+    print(f"  Warning: No log entry found for request ID {request_id}")
     return {}
 
 
