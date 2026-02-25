@@ -131,7 +131,10 @@ def build_request(
     if forecast_type == "pf":
         request["number"] = f"1/to/{num_members}"
 
-    if "levelist" in config["benchmark"] and config["benchmark"]["levelist"] is not None:
+    if (
+        "levelist" in config["benchmark"]
+        and config["benchmark"]["levelist"] is not None
+    ):
         request["levelist"] = config["benchmark"]["levelist"]
 
     return request
