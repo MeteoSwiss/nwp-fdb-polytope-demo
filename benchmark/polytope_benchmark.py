@@ -131,6 +131,9 @@ def build_request(
     if forecast_type == "pf":
         request["number"] = f"1/to/{num_members}"
 
+    if "levelist" in config["benchmark"] and config["benchmark"]["levelist"] is not None:
+        request["levelist"] = config["benchmark"]["levelist"]
+
     return request
 
 
@@ -229,37 +232,53 @@ def extract_gribjump_timings(
     return {}
 
 
-def main():
-    """Run the Polytope benchmark and print results."""
-    config = load_config()
+def run(config: dict) -> dict:
+    """
+    Run the Polytope benchmark with the given config.
+
+    Returns:
+        Dictionary with results: client_time, request_id, output_size_kb, server_timings
+    """
     setup_polytope_env(config)
+    client = polytope_api.Client(quiet=True)
 
-    client = polytope_api.Client(quiet=False)  # Suppress client logs for cleaner output
     request = build_request(config)
-
-    print("Running Polytope request:")
-    print(request)
-
     client_time, request_id, output_path = run_polytope_request(
         client, config["benchmark"]["collection"], request
     )
 
-    output_size = output_path.stat().st_size / 1024
+    output_size_kb = output_path.stat().st_size / 1024
+    output_path.unlink(missing_ok=True)
+
+    server_timings = {}
+    log_path = config["benchmark"].get("gribjump_log_path")
+    if log_path:
+        server_timings = extract_gribjump_timings(log_path, request_id)
+
+    return {
+        "request": request,
+        "client_time": client_time,
+        "request_id": request_id,
+        "output_size_kb": output_size_kb,
+        "server_timings": server_timings,
+    }
+
+
+def main():
+    """Run the Polytope benchmark and print results."""
+    config = load_config()
+    result = run(config)
+
+    print("Request:")
+    print(result["request"])
     print(f"""
 Results:
-  Client-side time: {client_time:.2f}s
-  Request ID: {request_id}
-  Output file: {output_path}
-  Output size: {output_size:.1f} KB""")
+  Client-side time: {result["client_time"]:.2f}s
+  Request ID: {result["request_id"]}
+  Output size: {result["output_size_kb"]:.1f} KB""")
 
-    server_timings = extract_gribjump_timings(
-        config["benchmark"]["gribjump_log_path"], request_id
-    )
-    if server_timings:
-        print(f"  Server timings: {server_timings}")
-
-    output_path.unlink(missing_ok=True)
-    print(f"\nCleaned up temp file {output_path}")
+    if result["server_timings"]:
+        print(f"  Server timings: {result['server_timings']}")
 
 
 if __name__ == "__main__":
