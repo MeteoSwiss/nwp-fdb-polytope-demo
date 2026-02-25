@@ -7,7 +7,6 @@ request IDs for correlating client-side timings with gribjump-server logs.
 """
 
 import json
-import logging
 import os
 import tempfile
 import time
@@ -17,35 +16,6 @@ from pathlib import Path
 import cartopy.crs as ccrs
 import yaml
 from polytope import api as polytope_api
-
-
-# =============================================================================
-# BENCHMARK CONFIGURATION
-# Modify these values to change what is being measured
-# =============================================================================
-
-# Polytope collection
-COLLECTION = "mchgj"  # "mchgj" for feature extraction, "mch" for full field
-
-# Request parameters
-PARAM = 500011  # Parameter (e.g., T_2M, U_10M, V_10M, TOT_PREC)
-MODEL = "ICON_CH2_EPS"  # ICON_CH1_EPS or ICON_CH2_EPS
-LEVTYPE = "sfc"  # sfc, ml (model level), pl (pressure level)
-FORECAST_TYPE = "pf"  # "pf" (perturbed/ensemble) or "cf" (control)
-
-# Point location (WGS84 coordinates)
-POINT_LON = 8.565074  # Zurich Airport longitude
-POINT_LAT = 47.453928  # Zurich Airport latitude
-
-# Timeseries range
-STEP_START = 0  # First forecast step
-STEP_END = 120  # Last forecast step (120 for CH2, 33 for CH1)
-
-# Ensemble members (ignored if FORECAST_TYPE == "cf")
-NUM_MEMBERS = 20  # 20 for CH2, 10 for CH1
-
-# Gribjump server log file path (local)
-GRIBJUMP_LOG_PATH = "/oprusers/trajond/gribjump-server/logs/log.out"  # e.g., "/var/log/gribjump/server.log"
 
 # Timing metrics to extract from gribjump logs
 TIMING_KEYS = [
@@ -57,8 +27,6 @@ TIMING_KEYS = [
     "elapsed_receive",
     "count_tasks",
 ]
-
-# =============================================================================
 
 
 def load_config() -> dict:
@@ -75,17 +43,19 @@ def load_config() -> dict:
 def setup_polytope_env(config: dict) -> None:
     """Set environment variables for MeteoSwiss Polytope access."""
     # ICON-CSCS Polytope credentials
-    os.environ["POLYTOPE_USERNAME"] = config["meteoswiss"]["user"]
-    os.environ["POLYTOPE_PASSWORD"] = config["meteoswiss"]["password"]
-    os.environ["POLYTOPE_ADDRESS"] = config["meteoswiss"]["endpoint"]
+    os.environ["POLYTOPE_USERNAME"] = config["access"]["user"]
+    os.environ["POLYTOPE_PASSWORD"] = config["access"]["password"]
+    os.environ["POLYTOPE_ADDRESS"] = config["access"]["endpoint"]
 
 
-def get_latest_forecast_time() -> tuple[str, str]:
+def get_latest_forecast_time(
+    model: str,
+) -> tuple[str, str]:
     """Get a valid forecast date/time (FDB holds only the latest day)."""
     now = datetime.now()
     past_time = now - timedelta(hours=12)
     # ICON-CH2-EPS runs every 6 hours, ICON-CH1-EPS every 3 hours
-    cycle_hours = 6 if MODEL == "ICON_CH2_EPS" else 3
+    cycle_hours = 6 if model == "ICON_CH2_EPS" else 3
     rounded_hour = (past_time.hour // cycle_hours) * cycle_hours
     rounded_time = past_time.replace(
         hour=rounded_hour, minute=0, second=0, microsecond=0
@@ -93,7 +63,7 @@ def get_latest_forecast_time() -> tuple[str, str]:
     return rounded_time.strftime("%Y%m%d"), rounded_time.strftime("%H%M")
 
 
-def rotate_point(lon: float, lat: float) -> tuple[float, float]:
+def rotate_points(latlon: list[tuple[float, float]]) -> list[list[float]]:
     """
     Transform WGS84 coordinates to MeteoSwiss rotated grid.
 
@@ -104,36 +74,62 @@ def rotate_point(lon: float, lat: float) -> tuple[float, float]:
     """
     geo_crs = ccrs.PlateCarree()
     rotated_crs = ccrs.RotatedPole(pole_longitude=190, pole_latitude=43)
-    rot_lon, rot_lat = rotated_crs.transform_point(lon, lat, geo_crs)
+    rotated_points = [
+        rotated_crs.transform_point(lon, lat, geo_crs) for lon, lat in latlon
+    ]
     # polytope serializes the request to YAML, which can't handle np.float
-    return float(rot_lon), float(rot_lat)
+    return [[float(rot_lon), float(rot_lat)] for rot_lon, rot_lat in rotated_points]
 
 
-def build_request(date: str, time_str: str, rotated_point: tuple[float, float]) -> dict:
-    """Build a Polytope request dict for timeseries feature extraction."""
-    feature = {
-        "type": "timeseries",
-        "points": [list(rotated_point)],
-        "time_axis": "step",
-        "range": {"start": STEP_START, "end": STEP_END},
-        "axes": ["longitude", "latitude"],
-    }
+def build_request(
+    config: dict,
+) -> dict:
+    """Build a Polytope request dict for feature extraction."""
+
+    points = config["benchmark"]["feature"]["points"]
+    feature_type = config["benchmark"]["feature"]["type"]
+    model = config["benchmark"]["model"]
+    forecast_type = config["benchmark"]["forecast_type"]
+    steps = config["benchmark"]["feature"]["range"]
+    num_members = config["benchmark"]["num_members"]
+    parameter = config["benchmark"]["param"]
+    levtype = config["benchmark"]["levtype"]
+
+    rotated_points = rotate_points(points)
+    date, time_str = get_latest_forecast_time(model)
+
+    if feature_type == "timeseries":
+        feature = {
+            "type": "timeseries",
+            "points": rotated_points,
+            "time_axis": "step",
+            "axes": ["longitude", "latitude"],
+        }
+    elif feature_type == "boundingbox":
+        feature = {
+            "type": "boundingbox",
+            "points": rotated_points,
+            "axes": ["longitude", "latitude"],
+        }
+    else:
+        raise ValueError(f"Unsupported feature type: {feature_type}")
 
     request = {
         "class": "od",
         "stream": "enfo",
         "expver": "0001",
-        "type": FORECAST_TYPE,
+        "type": forecast_type,
         "date": date,
         "time": time_str,
-        "param": PARAM,
-        "levtype": LEVTYPE,
-        "model": MODEL.lower().replace("_", "-"),
+        "param": parameter,
+        "levtype": levtype,
+        "model": model.lower().replace("_", "-"),
+        "step": f"{steps[0]}/to/{steps[1]}",
         "feature": feature,
     }
 
-    if FORECAST_TYPE == "pf":
-        request["number"] = f"1/to/{NUM_MEMBERS}"
+    if forecast_type == "pf":
+        request["number"] = f"1/to/{num_members}"
 
     return request
 
@@ -148,7 +144,7 @@ def get_request_ids(client: polytope_api.Client, collection: str) -> set:
 
 
 def run_polytope_request(
-    client: polytope_api.Client, request: dict
+    client: polytope_api.Client, collection: str, request: dict
 ) -> tuple[float, str | None, Path]:
     """
     Execute the Polytope request and measure client-side time.
@@ -157,7 +153,7 @@ def run_polytope_request(
         Tuple of (elapsed_seconds, request_id, output_path)
     """
     # Get request IDs before
-    before_ids = get_request_ids(client, COLLECTION)
+    before_ids = get_request_ids(client, collection)
 
     # Create temp file for output
     output_file = Path(tempfile.mktemp(suffix=".grib"))
@@ -165,7 +161,7 @@ def run_polytope_request(
     # Run request
     start = time.perf_counter()
     client.retrieve(
-        COLLECTION,
+        collection,
         request,
         output_file=str(output_file),
         pointer=False,
@@ -174,14 +170,16 @@ def run_polytope_request(
     elapsed = time.perf_counter() - start
 
     # Get request IDs after
-    after_ids = get_request_ids(client, COLLECTION)
+    after_ids = get_request_ids(client, collection)
     new_ids = after_ids - before_ids
     request_id = new_ids.pop() if new_ids else None
 
     return elapsed, request_id, output_file
 
 
-def extract_gribjump_timings(request_id: str | None = None) -> dict:
+def extract_gribjump_timings(
+    gribjump_log_path: str, request_id: str | None = None
+) -> dict:
     """
     Extract timing information from gribjump-server logs.
 
@@ -193,14 +191,12 @@ def extract_gribjump_timings(request_id: str | None = None) -> dict:
     Returns:
         Dictionary with timing metrics
     """
-    if GRIBJUMP_LOG_PATH is None:
-        return {}
 
     if request_id is None:
         print("  Warning: No request ID available for log correlation")
         return {}
 
-    log_path = Path(GRIBJUMP_LOG_PATH)
+    log_path = Path(gribjump_log_path)
     if not log_path.exists():
         print(f"  Warning: Log file not found: {log_path}")
         return {}
@@ -235,28 +231,18 @@ def extract_gribjump_timings(request_id: str | None = None) -> dict:
 
 def main():
     """Run the Polytope benchmark and print results."""
-    setup_polytope_env(load_config())
-    client = polytope_api.Client(quiet=True) # Suppress client logs for cleaner output
+    config = load_config()
+    setup_polytope_env(config)
 
-    rotated_point = rotate_point(POINT_LON, POINT_LAT)
-    date, time_str = get_latest_forecast_time()
+    client = polytope_api.Client(quiet=False)  # Suppress client logs for cleaner output
+    request = build_request(config)
 
-    members_info = f"\n  Members: 1-{NUM_MEMBERS}" if FORECAST_TYPE == "pf" else ""
-    print(f"""Benchmark Configuration:
-  Collection: {COLLECTION}
-  Model: {MODEL}
-  Param: {PARAM}
-  Level type: {LEVTYPE}
-  Forecast type: {FORECAST_TYPE}
-  Date/Time: {date} {time_str}
-  Point: ({POINT_LON}, {POINT_LAT}) -> ({rotated_point[0]:.4f}, {rotated_point[1]:.4f})
-  Steps: {STEP_START}-{STEP_END}{members_info}
-""")
+    print("Running Polytope request:")
+    print(request)
 
-    request = build_request(date, time_str, rotated_point)
-
-    print("Running Polytope request...")
-    client_time, request_id, output_path = run_polytope_request(client, request)
+    client_time, request_id, output_path = run_polytope_request(
+        client, config["benchmark"]["collection"], request
+    )
 
     output_size = output_path.stat().st_size / 1024
     print(f"""
@@ -266,7 +252,9 @@ Results:
   Output file: {output_path}
   Output size: {output_size:.1f} KB""")
 
-    server_timings = extract_gribjump_timings(request_id)
+    server_timings = extract_gribjump_timings(
+        config["benchmark"]["gribjump_log_path"], request_id
+    )
     if server_timings:
         print(f"  Server timings: {server_timings}")
 
