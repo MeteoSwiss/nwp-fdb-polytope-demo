@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """
 Minimal benchmarking script for Polytope timeseries feature extraction.
-Uses the polytope client directly to capture request IDs.
+
+Uses the polytope client directly (instead of earthkit-data) to access
+request IDs for correlating client-side timings with gribjump-server logs.
 """
 
 import json
+import logging
 import os
 import tempfile
 import time
@@ -42,20 +45,30 @@ STEP_END = 120  # Last forecast step (120 for CH2, 33 for CH1)
 NUM_MEMBERS = 20  # 20 for CH2, 10 for CH1
 
 # Gribjump server log file path (local)
-GRIBJUMP_LOG_PATH = None  # e.g., "/var/log/gribjump/server.log"
+GRIBJUMP_LOG_PATH = "/oprusers/trajond/gribjump-server/logs/log.out"  # e.g., "/var/log/gribjump/server.log"
+
+# Timing metrics to extract from gribjump logs
+TIMING_KEYS = [
+    "run_time",
+    "elapsed_build_filemap",
+    "elapsed_tasks",
+    "elapsed_execute",
+    "elapsed_reply",
+    "elapsed_receive",
+    "count_tasks",
+]
 
 # =============================================================================
 
 
-def load_config(path: Path = None) -> dict:
+def load_config() -> dict:
     """Load Polytope credentials from config.yml."""
-    if path is None:
-        path = Path(__file__).parent.parent / "examples" / "Polytope" / "config.yml"
+    path = Path("config.yml")
     if not path.exists():
         raise FileNotFoundError(
             f"Missing {path}. Create one based on config_example.yml"
         )
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -91,10 +104,12 @@ def rotate_point(lon: float, lat: float) -> tuple[float, float]:
     """
     geo_crs = ccrs.PlateCarree()
     rotated_crs = ccrs.RotatedPole(pole_longitude=190, pole_latitude=43)
-    return rotated_crs.transform_point(lon, lat, geo_crs)
+    rot_lon, rot_lat = rotated_crs.transform_point(lon, lat, geo_crs)
+    # polytope serializes the request to YAML, which can't handle np.float
+    return float(rot_lon), float(rot_lat)
 
 
-def build_request(date: str, time: str, rotated_point: tuple[float, float]) -> dict:
+def build_request(date: str, time_str: str, rotated_point: tuple[float, float]) -> dict:
     """Build a Polytope request dict for timeseries feature extraction."""
     feature = {
         "type": "timeseries",
@@ -110,7 +125,7 @@ def build_request(date: str, time: str, rotated_point: tuple[float, float]) -> d
         "expver": "0001",
         "type": FORECAST_TYPE,
         "date": date,
-        "time": time,
+        "time": time_str,
         "param": PARAM,
         "levtype": LEVTYPE,
         "model": MODEL.lower().replace("_", "-"),
@@ -128,7 +143,7 @@ def get_request_ids(client: polytope_api.Client, collection: str) -> set:
     try:
         requests = client.list_requests(collection)
         return set(requests) if requests else set()
-    except Exception:
+    except (OSError, ValueError, RuntimeError):
         return set()
 
 
@@ -191,7 +206,7 @@ def extract_gribjump_timings(request_id: str | None = None) -> dict:
         return {}
 
     # Read file and parse JSON lines in reverse (most recent first)
-    with open(log_path) as f:
+    with open(log_path, encoding="utf-8") as f:
         lines = f.readlines()
 
     for line in reversed(lines):
@@ -212,70 +227,51 @@ def extract_gribjump_timings(request_id: str | None = None) -> dict:
             context = {}
 
         if context.get("id") == request_id:
-            return {
-                "run_time": entry.get("run_time"),
-                "elapsed_build_filemap": entry.get("elapsed_build_filemap"),
-                "elapsed_tasks": entry.get("elapsed_tasks"),
-                "elapsed_execute": entry.get("elapsed_execute"),
-                "elapsed_reply": entry.get("elapsed_reply"),
-                "elapsed_receive": entry.get("elapsed_receive"),
-                "count_tasks": entry.get("count_tasks"),
-            }
+            return {key: entry.get(key) for key in TIMING_KEYS}
 
     print(f"  Warning: No log entry found for request ID {request_id}")
     return {}
 
 
 def main():
-    # Setup
-    config = load_config()
-    setup_polytope_env(config)
+    """Run the Polytope benchmark and print results."""
+    setup_polytope_env(load_config())
+    client = polytope_api.Client(quiet=True) # Suppress client logs for cleaner output
 
-    # Create client
-    client = polytope_api.Client()
-
-    # Prepare request
     rotated_point = rotate_point(POINT_LON, POINT_LAT)
     date, time_str = get_latest_forecast_time()
 
-    print("Benchmark Configuration:")
-    print(f"  Collection: {COLLECTION}")
-    print(f"  Model: {MODEL}")
-    print(f"  Param: {PARAM}")
-    print(f"  Level type: {LEVTYPE}")
-    print(f"  Forecast type: {FORECAST_TYPE}")
-    print(f"  Date/Time: {date} {time_str}")
-    print(
-        f"  Point: ({POINT_LON}, {POINT_LAT}) -> ({rotated_point[0]:.4f}, {rotated_point[1]:.4f})"
-    )
-    print(f"  Steps: {STEP_START}-{STEP_END}")
-    if FORECAST_TYPE == "pf":
-        print(f"  Members: 1-{NUM_MEMBERS}")
-    print()
+    members_info = f"\n  Members: 1-{NUM_MEMBERS}" if FORECAST_TYPE == "pf" else ""
+    print(f"""Benchmark Configuration:
+  Collection: {COLLECTION}
+  Model: {MODEL}
+  Param: {PARAM}
+  Level type: {LEVTYPE}
+  Forecast type: {FORECAST_TYPE}
+  Date/Time: {date} {time_str}
+  Point: ({POINT_LON}, {POINT_LAT}) -> ({rotated_point[0]:.4f}, {rotated_point[1]:.4f})
+  Steps: {STEP_START}-{STEP_END}{members_info}
+""")
 
-    # Build and run request
     request = build_request(date, time_str, rotated_point)
 
     print("Running Polytope request...")
     client_time, request_id, output_path = run_polytope_request(client, request)
 
-    print()
-    print("Results:")
-    print(f"  Client-side time: {client_time:.2f}s")
-    print(f"  Request ID: {request_id}")
-    print(f"  Output file: {output_path}")
-    print(f"  Output size: {output_path.stat().st_size / 1024:.1f} KB")
+    output_size = output_path.stat().st_size / 1024
+    print(f"""
+Results:
+  Client-side time: {client_time:.2f}s
+  Request ID: {request_id}
+  Output file: {output_path}
+  Output size: {output_size:.1f} KB""")
 
-    # Server-side timings (placeholder)
     server_timings = extract_gribjump_timings(request_id)
     if server_timings:
         print(f"  Server timings: {server_timings}")
 
-    # Cleanup
-    if output_path.exists():
-        output_path.unlink()
-        print()
-        print(f"Cleaned up temp file {output_path}")
+    output_path.unlink(missing_ok=True)
+    print(f"\nCleaned up temp file {output_path}")
 
 
 if __name__ == "__main__":
