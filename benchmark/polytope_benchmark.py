@@ -11,9 +11,9 @@ import time
 from datetime import datetime, timedelta
 from pathlib import Path
 
+import cartopy.crs as ccrs
 import yaml
 from polytope import api as polytope_api
-from pyproj import CRS, Transformer
 
 
 # =============================================================================
@@ -81,14 +81,17 @@ def get_latest_forecast_time() -> tuple[str, str]:
 
 
 def rotate_point(lon: float, lat: float) -> tuple[float, float]:
-    """Transform WGS84 coordinates to MeteoSwiss rotated grid."""
-    # Rotated pole: lon=190, lat=43 (equivalent to south pole at lon=10, lat=-43)
-    wgs84 = CRS.from_epsg(4326)
-    rotated = CRS.from_proj4(
-        "+proj=ob_tran +o_proj=longlat +o_lon_p=0 +o_lat_p=43 +lon_0=10 +datum=WGS84"
-    )
-    transformer = Transformer.from_crs(wgs84, rotated, always_xy=True)
-    return transformer.transform(lon, lat)
+    """
+    Transform WGS84 coordinates to MeteoSwiss rotated grid.
+
+    The data source accessed by Polytope is stored on a rotated grid.
+    It is necessary to provide Polytope with coordinates in rotated form,
+    using a South Pole rotation with a reference of longitude 10° and
+    latitude -43°.
+    """
+    geo_crs = ccrs.PlateCarree()
+    rotated_crs = ccrs.RotatedPole(pole_longitude=190, pole_latitude=43)
+    return rotated_crs.transform_point(lon, lat, geo_crs)
 
 
 def build_request(date: str, time: str, rotated_point: tuple[float, float]) -> dict:
@@ -272,7 +275,7 @@ def main():
     if output_path.exists():
         output_path.unlink()
         print()
-        print("  (Cleaned up temp file)")
+        print(f"Cleaned up temp file {output_path}")
 
 
 if __name__ == "__main__":
