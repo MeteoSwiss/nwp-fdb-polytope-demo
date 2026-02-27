@@ -2,7 +2,7 @@
 """
 Minimal benchmarking script for Polytope timeseries feature extraction.
 
-Uses the polytope client directly (instead of earthkit-data) to access
+Uses earthkit-data for data retrieval and the polytope client to access
 request IDs for correlating client-side timings with gribjump-server logs.
 """
 
@@ -14,6 +14,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 import cartopy.crs as ccrs
+import earthkit.data as ekd
 import yaml
 from polytope import api as polytope_api
 
@@ -42,7 +43,6 @@ def load_config() -> dict:
 
 def setup_polytope_env(config: dict) -> None:
     """Set environment variables for MeteoSwiss Polytope access."""
-    # ICON-CSCS Polytope credentials
     os.environ["POLYTOPE_USERNAME"] = config["access"]["user"]
     os.environ["POLYTOPE_PASSWORD"] = config["access"]["password"]
     os.environ["POLYTOPE_ADDRESS"] = config["access"]["endpoint"]
@@ -151,27 +151,23 @@ def get_request_ids(client: polytope_api.Client, collection: str) -> set:
 
 def run_polytope_request(
     client: polytope_api.Client, collection: str, request: dict
-) -> tuple[float, str | None, Path]:
+) -> tuple[float, str | None, ekd.FieldList]:
     """
-    Execute the Polytope request and measure client-side time.
+    Execute the Polytope request using earthkit-data and measure client-side time.
 
     Returns:
-        Tuple of (elapsed_seconds, request_id, output_path)
+        Tuple of (elapsed_seconds, request_id, earthkit_data)
     """
     # Get request IDs before
     before_ids = get_request_ids(client, collection)
 
-    # Create temp file for output
-    output_file = Path(tempfile.mktemp(suffix=".grib"))
-
-    # Run request
+    # Run request using earthkit-data
     start = time.perf_counter()
-    client.retrieve(
+    data = ekd.from_source(
+        "polytope",
         collection,
         request,
-        output_file=str(output_file),
-        pointer=False,
-        asynchronous=False,
+        stream=False,
     )
     elapsed = time.perf_counter() - start
 
@@ -180,7 +176,7 @@ def run_polytope_request(
     new_ids = after_ids - before_ids
     request_id = new_ids.pop() if new_ids else None
 
-    return elapsed, request_id, output_file
+    return elapsed, request_id, data
 
 
 def extract_gribjump_timings(
@@ -240,18 +236,24 @@ def run(config: dict) -> dict:
     Run the Polytope benchmark with the given config.
 
     Returns:
-        Dictionary with results: client_time, request_id, output_size_kb, server_timings
+        Dictionary with results: client_time, request_id, num_fields, server_timings
     """
     setup_polytope_env(config)
     client = polytope_api.Client(quiet=True)
 
     request = build_request(config)
-    client_time, request_id, output_path = run_polytope_request(
+    client_time, request_id, data = run_polytope_request(
         client, config["benchmark"]["collection"], request
     )
 
-    output_size_kb = output_path.stat().st_size / 1024
-    output_path.unlink(missing_ok=True)
+    num_fields = len(data)
+
+    # Save to temp file to get output size
+    with tempfile.NamedTemporaryFile(suffix=".grib", delete=False) as f:
+        temp_path = Path(f.name)
+    data.save(temp_path)
+    output_size_kb = temp_path.stat().st_size / 1024
+    temp_path.unlink()
 
     server_timings = {}
     log_path = config["benchmark"].get("gribjump_log_path")
@@ -262,6 +264,7 @@ def run(config: dict) -> dict:
         "request": request,
         "client_time": client_time,
         "request_id": request_id,
+        "num_fields": num_fields,
         "output_size_kb": output_size_kb,
         "server_timings": server_timings,
     }
@@ -278,6 +281,7 @@ def main():
 Results:
   Client-side time: {result["client_time"]:.2f}s
   Request ID: {result["request_id"]}
+  Number of fields: {result["num_fields"]}
   Output size: {result["output_size_kb"]:.1f} KB""")
 
     if result["server_timings"]:
