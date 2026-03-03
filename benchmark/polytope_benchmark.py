@@ -151,7 +151,7 @@ def get_request_ids(client: polytope_api.Client, collection: str) -> set:
 
 def run_polytope_request(
     client: polytope_api.Client, collection: str, request: dict
-) -> tuple[float, str | None, ekd.FieldList]:
+) -> tuple[float, str | None, int]:
     """
     Execute the Polytope request using earthkit-data and measure client-side time.
 
@@ -163,12 +163,12 @@ def run_polytope_request(
 
     # Run request using earthkit-data
     start = time.perf_counter()
-    data = ekd.from_source(
+    ds = ekd.from_source(
         "polytope",
         collection,
         request,
         stream=False,
-    )
+    ).to_xarray()
     elapsed = time.perf_counter() - start
 
     # Get request IDs after
@@ -176,7 +176,7 @@ def run_polytope_request(
     new_ids = after_ids - before_ids
     request_id = new_ids.pop() if new_ids else None
 
-    return elapsed, request_id, data
+    return elapsed, request_id, sum(var.size for var in ds.data_vars.values())
 
 
 def extract_gribjump_timings(
@@ -239,21 +239,12 @@ def run(config: dict) -> dict:
         Dictionary with results: client_time, request_id, num_fields, server_timings
     """
     setup_polytope_env(config)
-    client = polytope_api.Client(quiet=True)
+    client = polytope_api.Client(quiet=False)
 
     request = build_request(config)
-    client_time, request_id, data = run_polytope_request(
+    client_time, request_id, no_values = run_polytope_request(
         client, config["benchmark"]["collection"], request
     )
-
-    num_fields = len(data)
-
-    # Save to temp file to get output size
-    with tempfile.NamedTemporaryFile(suffix=".grib", delete=False) as f:
-        temp_path = Path(f.name)
-    data.save(temp_path)
-    output_size_kb = temp_path.stat().st_size / 1024
-    temp_path.unlink()
 
     server_timings = {}
     log_path = config["benchmark"].get("gribjump_log_path")
@@ -264,8 +255,7 @@ def run(config: dict) -> dict:
         "request": request,
         "client_time": client_time,
         "request_id": request_id,
-        "num_fields": num_fields,
-        "output_size_kb": output_size_kb,
+        "no_values": no_values,
         "server_timings": server_timings,
     }
 
@@ -281,8 +271,7 @@ def main():
 Results:
   Client-side time: {result["client_time"]:.2f}s
   Request ID: {result["request_id"]}
-  Number of fields: {result["num_fields"]}
-  Output size: {result["output_size_kb"]:.1f} KB""")
+  Output size: {result["no_values"]} data points""")
 
     if result["server_timings"]:
         print(f"  Server timings: {result['server_timings']}")
