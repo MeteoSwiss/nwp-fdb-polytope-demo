@@ -49,6 +49,7 @@ mirlib = { version = "1.28.1.dev65", source = "testpypi" }
 mir-python = {version = "1.28.1.dev65", source = "testpypi" }
 eccodeslib = {version = "2.47.1.dev65", source = "testpypi"}
 
+cartopy = "^0.25.0"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]

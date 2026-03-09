@@ -78,7 +78,7 @@ def rotate_points(latlon: list[tuple[float, float]]) -> list[list[float]]:
         rotated_crs.transform_point(lon, lat, geo_crs) for lon, lat in latlon
     ]
     # polytope serializes the request to YAML, which can't handle np.float
-    return [[float(rot_lon), float(rot_lat)] for rot_lon, rot_lat in rotated_points]
+    return [[rot_lon.item(), rot_lat.item()] for rot_lon, rot_lat in rotated_points]
 
 
 def build_request(
@@ -161,6 +161,8 @@ def run_polytope_request(
     # Get request IDs before
     before_ids = get_request_ids(client, collection)
 
+    print(f"running request: {request}")
+
     # Run request using earthkit-data
     start = time.perf_counter()
     ds = ekd.from_source(
@@ -168,6 +170,7 @@ def run_polytope_request(
         collection,
         request,
         stream=False,
+        quiet=True
     ).to_xarray()
     elapsed = time.perf_counter() - start
 
@@ -176,7 +179,12 @@ def run_polytope_request(
     new_ids = after_ids - before_ids
     request_id = new_ids.pop() if new_ids else None
 
-    return elapsed, request_id, sum(var.size for var in ds.data_vars.values())
+    return elapsed, request_id, no_values(ds)
+
+def no_values(ds) -> int:
+    if isinstance(ds, list):
+        return sum(var.size for d in ds for var in d.data_vars.values())
+    return sum(var.size for var in ds.data_vars.values())
 
 
 def extract_gribjump_timings(
@@ -239,7 +247,7 @@ def run(config: dict) -> dict:
         Dictionary with results: client_time, request_id, num_fields, server_timings
     """
     setup_polytope_env(config)
-    client = polytope_api.Client(quiet=False)
+    client = polytope_api.Client(quiet=True)
 
     request = build_request(config)
     client_time, request_id, no_values = run_polytope_request(

@@ -34,11 +34,7 @@ def format_coords(points: list) -> str:
 def main():
     base_config = load_config()
 
-    print(
-        f"{'param':<8} {'levtype':<7} {'levelist':<10} {'feature':<11} {'type':<4} "
-        f"{'members':>7} {'coords':<28} {'time':>7} {'size':>11}"
-    )
-    print("-" * 100)
+    results = []
 
     for param_id, name, levtype, levelist in PARAMS:
         for feature_type, step_range, feature_points in FEATURES:
@@ -51,23 +47,31 @@ def main():
                 config["benchmark"]["feature"]["range"] = step_range
                 config["benchmark"]["feature"]["points"] = feature_points
                 config["benchmark"]["forecast_type"] = forecast_type
+                config["benchmark"]["num_members"] = num_members
 
                 levelist_str = levelist if levelist is not None else "-"
                 coords_str = format_coords(feature_points)
 
                 try:
                     result = run(config)
-                    print(
+                    results.append(
                         f"{name:<8} {levtype:<7} {levelist_str:<10} {feature_type:<11} {forecast_type:<4} "
                         f"{num_members:<7} {coords_str:<28} "
-                        f"{result['client_time']:>6.2f}s {result['output_size_kb']:>8.1f} KB"
+                        f"{result['server_timings']['run_time']:>6.2f}s {result['no_values']:>8} points"
                     )
                 except Exception as e:
-                    print(
+                    results.append(
                         f"{name:<8} {levtype:<7} {levelist_str:<10} {feature_type:<11} {forecast_type:<4} "
                         f"{num_members:>7} {coords_str:<28} ERROR: {e}"
                     )
 
+    print(
+        f"{'param':<8} {'levtype':<7} {'levelist':<10} {'feature':<11} {'type':<4} "
+        f"{'members':>7} {'coords':<28} {'time':>7} {'size':>15}"
+    )
+    print("-" * 105)
+    for line in results:
+        print(line)
 
 if __name__ == "__main__":
     main()
