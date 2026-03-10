@@ -1006,6 +1006,11 @@ test = ["earthkit-data-demo-source", "nbconvert", "nbformat", "pyfakefs", "pytes
 wekeo = ["hda (>=2.22)"]
 zarr = ["zarr (>=3)"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "earthkit-meteo"
 version = "0.6.0"
@@ -1025,6 +1030,11 @@ numpy = "*"
 [package.extras]
 gpu = ["cupy", "torch"]
 test = ["pytest", "pytest-cov"]
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
 
 [[package]]
 name = "earthkit-plots"
@@ -1124,21 +1134,26 @@ dev = ["numpy", "pytest", "pytest-cov"]
 docs = ["nbsphinx", "pygments (>=2.6.1)", "sphinx (>=7.3.7)", "sphinx-autoapi", "sphinx-copybutton", "sphinx-issues", "sphinx-rtd-theme", "sphinx-tabs"]
 test = ["nbconvert", "nbformat", "pytest", "pytest-cov", "pytest-reraise", "xarray"]
 
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
 [[package]]
 name = "eccodes"
-version = "2.45.0"
+version = "2.46.0"
 description = "Python interface to the ecCodes GRIB and BUFR decoder/encoder"
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "eccodes-2.45.0-cp310-cp310-win_amd64.whl", hash = "sha256:de55df976d99c66dc16cd8c0df9049fed16c2fd3a0a00ebb2566778c16f80324"},
-    {file = "eccodes-2.45.0-cp311-cp311-win_amd64.whl", hash = "sha256:99162409c6ff7e1c2a4836ad246c54ffab8157b6a738e4ed856cf236ea0a8c6e"},
-    {file = "eccodes-2.45.0-cp312-cp312-win_amd64.whl", hash = "sha256:b661ce2d0e73ce0724f137606bf6b579fb2eba4db0f5b466b4345170cb4bf5f2"},
-    {file = "eccodes-2.45.0-cp313-cp313-win_amd64.whl", hash = "sha256:2f07d8892cca722cf67528d3f82d25c851f298cb9b9c6de4c79cb8698857a8ef"},
-    {file = "eccodes-2.45.0-cp39-cp39-win_amd64.whl", hash = "sha256:82023a76207dc9452c8d2eba856b88b7c50f25b807884bb093023ee885a36c10"},
-    {file = "eccodes-2.45.0-py3-none-any.whl", hash = "sha256:0ba61dbd2844843f1fd466c8ca24107932cc40088338f6176428cf38c533c08c"},
-    {file = "eccodes-2.45.0.tar.gz", hash = "sha256:08fe1544e6fa597a416bde9a630af4b6e34a021bc3c209f0ece4f7ed5990f992"},
+    {file = "eccodes-2.46.0-cp310-cp310-win_amd64.whl", hash = "sha256:2952f2e88cce4845fe1ee617062d76b7b33970a251689c71fe79ae899096674b"},
+    {file = "eccodes-2.46.0-cp311-cp311-win_amd64.whl", hash = "sha256:e63d6b0c0f9dc6834121e9809c08a802cd9824a2b15221b014a6a41e9c243373"},
+    {file = "eccodes-2.46.0-cp312-cp312-win_amd64.whl", hash = "sha256:21c648d08eb4e7a26373a5a8734a6a58847a7c3d5b5b7d2b75a1229139b7c31f"},
+    {file = "eccodes-2.46.0-cp313-cp313-win_amd64.whl", hash = "sha256:48a35a99913b05960e9a7f99a82d079993cc513d6188853144f89da2aa42085f"},
+    {file = "eccodes-2.46.0-cp39-cp39-win_amd64.whl", hash = "sha256:3df95472e697d3dbdc1116dc5f7582d9dd154cfef606ed7982dd1f4d46a46f77"},
+    {file = "eccodes-2.46.0-py3-none-any.whl", hash = "sha256:9898d0e6126e52f141edc76cdd89aa631925edbe6b1d29ca04540c4fd93ad74c"},
+    {file = "eccodes-2.46.0.tar.gz", hash = "sha256:63fda0f047f97ec62b70aa3e17a7e317c9dccd6708f8918eae617884d8a54aaa"},
 ]
 
 [package.dependencies]
@@ -1147,6 +1162,23 @@ cffi = "*"
 eccodeslib = {version = "*", markers = "platform_system != \"Windows\""}
 findlibs = "*"
 numpy = "*"
+
+[package.source]
+type = "legacy"
+url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
+reference = "pypi-mch"
+
+[[package]]
+name = "eccodes-cosmo-resources-python-internal"
+version = "2.44.0.1"
+description = ""
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "eccodes_cosmo_resources_python_internal-2.44.0.1-py3-none-any.whl", hash = "sha256:1c65f68532bdfec18cdd9df6985412c5318a13685d7e03eaf18c0ebd01a1af9c"},
+    {file = "eccodes_cosmo_resources_python_internal-2.44.0.1.tar.gz", hash = "sha256:b2a106f1e24a6b4a80f12f499bdcfc04d484b265e6c9e84b0d5b473cdc94fceb"},
+]
 
 [package.source]
 type = "legacy"
@@ -4449,4 +4481,4 @@ reference = "pypi-mch"
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "216ee970a4a9643cf1fc3e7fd40c9fb38a3fe7a80556da64e28fa466d7e5b0fe"
+content-hash = "998088bd5b4abeaa996f973d517603faf2872585518466cc23ed1952401ca0e1"
