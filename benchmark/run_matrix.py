@@ -11,7 +11,7 @@ from polytope_benchmark import load_config, run
 PARAMS = [
     (500011, "T_2M", "sfc", None),
     (500028, "U", "ml", "74/to/80"),
-    (500014, "T", "pl", "100/to/900/by/50"),
+    (500035, "QV", "pl", "100/to/900/by/50"),
 ]
 
 # Feature configurations: (type, step_range)
@@ -51,25 +51,34 @@ def main():
 
                 levelist_str = levelist if levelist is not None else "-"
                 coords_str = format_coords(feature_points)
+                steps_str = f"{step_range[0]}-{step_range[1]}"
 
                 try:
                     result = run(config)
                     results.append(
-                        f"{name:<8} {levtype:<7} {levelist_str:<10} {feature_type:<11} {forecast_type:<4} "
-                        f"{num_members:<7} {coords_str:<28} "
-                        f"{result['server_timings']['run_time']:>6.2f}s {result['no_values']:>8} points"
+                        f"{name:<8} "
+                        f"{levtype:<7} {levelist_str:<16} "
+                        f"{feature_type:<11} {coords_str:<28} {steps_str:<8} "
+                        f"{forecast_type:<4} {num_members:<7} "
+                        f"{result['client_time']:10.2f}s {result['server_timings']['run_time']:>10.2f}s {result['no_values']:>8} points"
                     )
                 except Exception as e:
                     results.append(
-                        f"{name:<8} {levtype:<7} {levelist_str:<10} {feature_type:<11} {forecast_type:<4} "
-                        f"{num_members:>7} {coords_str:<28} ERROR: {e}"
+                        f"{name:<8} "
+                        f"{levtype:<7} {levelist_str:<16} "
+                        f"{feature_type:<11} {coords_str:<28} {steps_str:<8} "
+                        f"{forecast_type:<4} {num_members:<7} "
+                        f"ERROR: {e}"
                     )
 
     print(
-        f"{'param':<8} {'levtype':<7} {'levelist':<10} {'feature':<11} {'type':<4} "
-        f"{'members':>7} {'coords':<28} {'time':>7} {'size':>15}"
+        f"{'param':<8} "
+        f"{'levtype':<7} {'levelist':<16} "
+        f"{'feature':<11} {'coords':<28} {'steps':<8} "
+        f"{'type':<4} {'members':>7} "
+        f"{'client-side':>11} {'server-side':>11} {'size':>15}"
     )
-    print("-" * 105)
+    print("-" * 135)
     for line in results:
         print(line)
 

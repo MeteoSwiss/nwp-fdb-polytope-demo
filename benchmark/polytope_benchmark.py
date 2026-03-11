@@ -170,7 +170,7 @@ def run_polytope_request(
         collection,
         request,
         stream=False,
-        quiet=True
+        # quiet=True
     ).to_xarray()
     elapsed = time.perf_counter() - start
 
@@ -179,6 +179,7 @@ def run_polytope_request(
     new_ids = after_ids - before_ids
     request_id = new_ids.pop() if new_ids else None
 
+    # return elapsed, request_id, no_values(ds)
     return elapsed, request_id, no_values(ds)
 
 def no_values(ds) -> int:
@@ -253,6 +254,7 @@ def run(config: dict) -> dict:
     client_time, request_id, no_values = run_polytope_request(
         client, config["benchmark"]["collection"], request
     )
+
 
     server_timings = {}
     log_path = config["benchmark"].get("gribjump_log_path")

@@ -5,19 +5,22 @@ access:
 
 benchmark:
   collection: mchgj  # "mchgj" for feature extraction, "mch" for full field
-  param: 500011  # Parameter ID (e.g., T_2M, U_10M, V_10M, TOT_PREC)
+  param: 500035  # QV
   model: ICON_CH2_EPS  # ICON_CH1_EPS or ICON_CH2_EPS
-  levtype: sfc  # sfc, ml (model level), pl (pressure level)
-  forecast_type: pf  # "pf" (perturbed/ensemble) or "cf" (control)
-  num_members: 20  # Ensemble members (20 for CH2, 10 for CH1), ignored if forecast_type == "cf"
+  levtype: ml  # sfc, ml (model level), pl (pressure level)
+  levelist: 74/to/80
+  forecast_type: cf  # "pf" (perturbed/ensemble) or "cf" (control)
+  num_members: 1  # Ensemble members (20 for CH2, 10 for CH1), ignored if forecast_type == "cf"
 
   feature:
-    type: boundingbox  # "timeseries" or "boundingbox"
+    type: timeseries  # "timeseries" or "boundingbox"
     # WGS84 coordinates: [[lon, lat], ...] - single point for timeseries, two corners for boundingbox
     points:
-      # Switzerland bounding-box
-      - [5.8, 47.81]
-      - [10.5, 45.81]
-    range: [0, 120]  # First and last forecast step 
+      # Zurich Airport
+      - [8.565074, 47.453928]
+      # Switzerland bounding box
+      # - [5.8, 47.81]
+      # - [10.5, 45.81]
+    range: [0, 120]  # First and last forecast step
 
   gribjump_log_path: /oprusers/trajond/gribjump-server/logs/log.out  # or null to disable
