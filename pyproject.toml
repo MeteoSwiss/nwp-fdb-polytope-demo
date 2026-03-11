@@ -30,17 +30,17 @@ earthkit-plots = "^0.6.0"
 earthkit-regrid = { git = "https://github.com/ecmwf/earthkit-regrid.git", branch = "develop" }
 
 # TestPyPI dev builds
-eckit = { version = "1.33.1.dev24", source = "testpypi" }
-eckitlib = { version = "1.33.1.dev24", source = "testpypi" }
-mirlib = { version = "1.27.11.dev24", source = "testpypi" }
-mir-python = {version = "^1.27.11.dev10", allow-prereleases = true}
+eckit = { version = "2.0.3.dev43", source = "testpypi" }
+eckitlib = { version = "2.0.3.dev43", source = "testpypi" }
+mirlib = { version = "1.28.1.dev43", source = "testpypi" }
+mir-python = {version = "^1.27.11.dev26", allow-prereleases = true}
+eccodeslib = {version = "2.47.1.dev43", source = "testpypi"}
 
 ipykernel = "^6.29.4"
 nbformat = "^5.10.4"
 kaleido = "0.2.1"
 nbconvert = "^7.16.6"
 eccodes = "^2.46.0"
-eccodeslib = "^2.46.0.13"
 
 # only available from mch pypi (until officially published by DWD)
 eccodes-cosmo-resources-python-internal = {version = "^2.44.0.1", source = "pypi-mch"}
