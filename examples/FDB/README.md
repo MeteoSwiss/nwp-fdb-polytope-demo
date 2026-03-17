@@ -21,7 +21,7 @@
     - [realtime_request_surface.mars](realtime/realtime_request_surface.mars): Retrieve one parameter at surface level of a perturbed forecast
     - [realtime_request_model_level.mars](realtime/realtime_request_model_level.mars): Retrieve one parameter on multiple model levels of a control member forecast
 
-**Jupyter:** Retrieve from FDB with preprocessing
+**Jupyter:** Retrieve from FDB
 - [data_retrieve_from_FDB.ipynb](realtime/data_retrieve_from_FDB.ipynb)
 
 

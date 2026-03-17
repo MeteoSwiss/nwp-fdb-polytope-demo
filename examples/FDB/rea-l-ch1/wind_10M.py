@@ -1,3 +1,4 @@
+import eccodes  # this is necessary to force using the correct eccodes installation in the uenv
 import earthkit.data as ekd
 import time
 
