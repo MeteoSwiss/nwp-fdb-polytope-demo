@@ -44,6 +44,8 @@ eccodes = "^2.46.0"
 
 # only available from mch pypi (until officially published by DWD)
 eccodes-cosmo-resources-python-internal = {version = "^2.44.0.1", source = "pypi-mch"}
+xarray = "^2026.2.0"
+covjsonkit = "^0.2.13"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]
