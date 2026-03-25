@@ -1,4 +1,4 @@
-import eccodes  # this is necessary to force using the correct eccodes installation in the uenv
+import eccodes  # workaround to make fdb use the correct shared libraries (https://meteoswiss.atlassian.net/browse/APNRZ-998)
 import earthkit.data as ekd
 import time
 
@@ -25,13 +25,13 @@ req = {
 start = time.time()
 
 # Load data as a stream, otherwise it might not fit in memory
-fs = ekd.from_source("fdb", req, stream=True)
+fs = ekd.from_source("fdb", req, stream=True).to_fieldlist()
 
 # Convert each field to a xarray.Dataset and print the available parameters and the date of the dataset.
 for f in fs.group_by("date"):
     ds = f.to_xarray()
     print(ds.data_vars)
-    print(f"Date : {ds.date}")
+    print(f"Date : {f[0].metadata('date')}")
 end = time.time()
 
 # Print total extraction time
