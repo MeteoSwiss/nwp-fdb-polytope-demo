@@ -29,6 +29,7 @@ nbconvert = "*"
 nbformat = "*"
 pyyaml = "*"
 kaleido = "0.2.1"
+covjsonkit = "^0.2.14"
 eccodes = "^2.46.0"
 
 # Earthkit 1.0 release candidates
