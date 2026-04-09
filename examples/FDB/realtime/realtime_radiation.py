@@ -21,6 +21,10 @@ req_time = rounded_time.strftime('%H%M')
 
 print(f"date: {req_date}, time: {req_time}")
 
+# Note: At the moment, for those parameters (500480 & 500481), the timespan keyword means:
+#  "none" : only step 0
+#  "1h"   : only step 1
+#  no timespan keyword : *only steps* >= 2
 req = {
     "date": req_date ,
     "time": req_time,
@@ -31,7 +35,8 @@ req = {
     "type": "cf",
     "levtype": "sfc",
     "param": "500480/500481",
-    "step": "0/to/24/by/1",
+    "step": "2/to/24/by/1",
+    #"timespan": "None",
 }
 
 # Time data extraction

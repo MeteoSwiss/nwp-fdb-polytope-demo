@@ -33,6 +33,7 @@ req = {
     "levelist": "74/to/80",
     "param": "500028/500030",
     "step": "0/to/24/by/1",
+    "timespan": "none",
 }
 
 # Time data extraction

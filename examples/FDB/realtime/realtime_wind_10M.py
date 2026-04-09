@@ -32,6 +32,7 @@ req = {
     "levtype": "sfc",
     "param": "500027/500029",
     "step": "0/to/24/by/1",
+    "timespan": "none",
 }
 
 # Time data extraction
