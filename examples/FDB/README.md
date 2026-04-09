@@ -32,7 +32,7 @@ To run the scripts or retrieve data via MARS request visit the following page.
 > [!NOTE]
 > To execute the script [regrid.py](rea-l-ch1/regrid.py) there is a different set up necessary. See below.
 
-### Installtion for rea-l-ch1/regrid.py
+### Installation for rea-l-ch1/regrid.py
 
 Make sure you navigate to the folder `nwp-fdb-polytope-demo/examples/FDB/rea-l-ch1/` before proceeding with the next steps.
 ```sh
