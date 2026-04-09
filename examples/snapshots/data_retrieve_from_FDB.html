@@ -7901,7 +7901,7 @@ See instruction in <a href="https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>('20260325', '0000')</pre>
+<pre>('20260409', '0000')</pre>
 </div>
 </div>
 </div>
@@ -7939,7 +7939,8 @@ MARS keys are derived from GRIB keys and serve as a base for the FDB index.</p>
     <span class="s1">'levtype'</span><span class="p">:</span> <span class="s1">'sfc'</span><span class="p">,</span>
     <span class="s1">'model'</span><span class="p">:</span> <span class="s1">'ICON-CH1-EPS'</span><span class="p">,</span>
     <span class="s1">'stream'</span><span class="p">:</span> <span class="s1">'enfo'</span><span class="p">,</span>
-    <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'pf'</span>
+    <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'pf'</span><span class="p">,</span>
+    <span class="s1">'timespan'</span><span class="p">:</span> <span class="s1">'fs'</span>  <span class="c1"># stands for from-start</span>
 <span class="p">}</span>
 
 <span class="c1"># Control run (CF)</span>
@@ -7953,7 +7954,8 @@ MARS keys are derived from GRIB keys and serve as a base for the FDB index.</p>
     <span class="s1">'levtype'</span><span class="p">:</span> <span class="s1">'sfc'</span><span class="p">,</span>
     <span class="s1">'model'</span><span class="p">:</span> <span class="s1">'ICON-CH1-EPS'</span><span class="p">,</span>
     <span class="s1">'stream'</span><span class="p">:</span> <span class="s1">'enfo'</span><span class="p">,</span>
-    <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'cf'</span>
+    <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'cf'</span><span class="p">,</span>
+    <span class="s1">'timespan'</span><span class="p">:</span> <span class="s1">'fs'</span>  <span class="c1"># stands for from-start</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -8026,34 +8028,6 @@ MARS keys are derived from GRIB keys and serve as a base for the FDB index.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_cf</span> <span class="o">=</span> <span class="n">ekd</span><span class="o">.</span><span class="n">from_source</span><span class="p">(</span><span class="s2">"fdb"</span><span class="p">,</span> <span class="n">request_cf</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data_cf</span><span class="o">.</span><span class="n">available_types</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>['fieldlist', 'pandas', 'xarray', 'numpy', 'array']
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -8065,31 +8039,17 @@ MARS keys are derived from GRIB keys and serve as a base for the FDB index.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">ds_pf</span> <span class="o">=</span> <span class="n">data_pf</span><span class="o">.</span><span class="n">to_fieldlist</span><span class="p">()</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
-<span class="n">ds_cf</span> <span class="o">=</span> <span class="n">data_cf</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
+<span class="n">ds_cf</span> <span class="o">=</span> <span class="n">data_cf</span><span class="o">.</span><span class="n">to_fieldlist</span><span class="p">()</span><span class="o">.</span><span class="n">to_xarray</span><span class="p">()</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-</pre>
 </div>
 </div>
 </div>
@@ -8105,401 +8065,17 @@ GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 <span class="n">ds</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"TOT_PREC"</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">ds_cf</span><span class="p">[</span><span class="s2">"TOT_PREC"</span><span class="p">],</span> <span class="n">ds_pf</span><span class="p">[</span><span class="s2">"TOT_PREC"</span><span class="p">]],</span> <span class="n">dim</span><span class="o">=</span><span class="s2">"eps"</span><span class="p">)}</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -0.297956 (calculated from 'longitudeOfFirstGridPointInDegrees'=353.140000, 'longitudeOfLastGridPointInDegrees'=4.830000, 'Ni'=1170, 'iScansPositively'=1)
-</pre>
 </div>
 </div>
 </div>
@@ -8520,7 +8096,7 @@ GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">ds</span><span class="p">[</span><span class="s2">"TOT_PREC"</span><span class="p">]</span>
@@ -8534,7 +8110,7 @@ GribToSpec: inconsistent increment: 'iDirectionIncrementInDegrees'=0.010000 ~= -
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -9078,109 +8654,111 @@ dl.xr-attrs {
   filter: drop-shadow(1px 1px 5px var(--xr-font-color2));
   stroke-width: 0.8px;
 }
-</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'TOT_PREC' (eps: 2, step: 34, latitude: 786, longitude: 1170,
-                              member: 10)&gt; Size: 5GB
-array([[[[[0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          ...,
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00]],
+</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'TOT_PREC' (eps: 2, step: 34, values: 1147980, member: 10)&gt; Size: 6GB
+array([[[[0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         ...,
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ]],
 
-         [[0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
+        [[0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
 ...
-           2.27734375e+00, 7.25000000e+00, 2.01367188e+00],
-          [1.59960938e+00, 1.52343750e+00, 3.59179688e+00, ...,
-           3.00976562e+00, 6.84765625e+00, 2.51562500e+00],
-          [1.74023438e+00, 1.80078125e+00, 4.39648438e+00, ...,
-           3.57226562e+00, 8.52734375e+00, 2.77343750e+00]],
+         [0.890625  , 0.09277344, 0.47460938, ..., 0.52001953,
+          0.52539062, 0.54101562],
+         [0.875     , 0.09667969, 0.52734375, ..., 0.55126953,
+          0.50976562, 0.52734375],
+         [0.93457031, 0.12695312, 0.57128906, ..., 0.68896484,
+          0.52246094, 0.57226562]],
 
-         [[1.46484375e-01, 5.07812500e-02, 6.64062500e-02, ...,
-           1.58203125e-01, 6.87500000e-01, 2.34375000e-02],
-          [8.39843750e-02, 1.56250000e-02, 2.34375000e-02, ...,
-           5.07812500e-02, 4.25781250e-01, 1.95312500e-02],
-          [5.66406250e-02, 1.17187500e-02, 1.56250000e-02, ...,
-           3.71093750e-02, 3.24218750e-01, 1.75781250e-02],
-          ...,
-          [1.75390625e+00, 1.40234375e+00, 2.91601562e+00, ...,
-           2.39453125e+00, 7.62109375e+00, 2.16406250e+00],
-          [1.26953125e+00, 1.11718750e+00, 2.34960938e+00, ...,
-           2.25585938e+00, 5.51171875e+00, 1.70703125e+00],
-          [1.16210938e+00, 9.17968750e-01, 1.98046875e+00, ...,
-           2.15625000e+00, 4.96484375e+00, 1.46875000e+00]]]]],
-      shape=(2, 34, 786, 1170, 10))
+        [[0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         ...,
+         [0.90039062, 0.09863281, 0.47851562, ..., 0.57958984,
+          0.5390625 , 0.55175781],
+         [0.88476562, 0.1015625 , 0.53027344, ..., 0.60742188,
+          0.52148438, 0.53613281],
+         [0.94628906, 0.13183594, 0.57421875, ..., 0.74462891,
+          0.53515625, 0.58105469]]]], shape=(2, 34, 1147980, 10))
 Coordinates:
-  * step       (step) timedelta64[us] 272B 00:00:00 01:00:00 ... 1 days 09:00:00
-  * latitude   (latitude) float64 6kB 3.39 3.38 3.37 3.36 ... -4.44 -4.45 -4.46
-  * longitude  (longitude) float64 9kB -6.86 -6.85 -6.84 ... 4.81 4.82 4.83
+  * step       (step) timedelta64[ns] 272B 00:00:00 01:00:00 ... 1 days 09:00:00
+    latitude   (values) float64 9MB 50.24 50.24 50.24 ... 50.06 50.05 50.04
+    longitude  (values) float64 9MB 17.71 17.69 17.7 17.7 ... 12.81 12.81 12.8
   * member     (member) &lt;U2 80B '1' '10' '2' '3' '4' '5' '6' '7' '8' '9'
-Dimensions without coordinates: eps
+Dimensions without coordinates: eps, values
 Attributes:
     standard_name:  unknown
     long_name:      Total Precipitation (Accumulation)
     units:          kilogram / meter ** 2
     level_type:     surface
-    _earthkit:      {'message': b"GRIB\xff\xff\x00\x02\x00\x00\x00\x00\x00\x0...
-    ek_grid_spec:   {"area": [3.39, -6.86, -4.46, 4.83], "grid": [0.01, 0.01]}</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-obj-name">'TOT_PREC'</div><ul class="xr-dim-list"><li><span>eps</span>: 2</li><li><span class="xr-has-index">step</span>: 34</li><li><span class="xr-has-index">latitude</span>: 786</li><li><span class="xr-has-index">longitude</span>: 1170</li><li><span class="xr-has-index">member</span>: 10</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input checked="" class="xr-array-in" id="section-854db1d4-02f4-47f9-9257-8b9d63abb298" type="checkbox"/><label for="section-854db1d4-02f4-47f9-9257-8b9d63abb298" title="Show/hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>0.0 0.0 0.0 0.0 0.0 0.0 0.0 ... 5.453 2.715 4.115 2.156 4.965 1.469</span></div><div class="xr-array-data"><pre>array([[[[[0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          ...,
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00]],
+    _earthkit:      {'message': b'GRIB\xff\xff\x00\x02\x00\x00\x00\x00\x00\x0...
+    ek_grid_spec:   {"grid": "ICON-CH1"}</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-obj-name">'TOT_PREC'</div><ul class="xr-dim-list"><li><span>eps</span>: 2</li><li><span class="xr-has-index">step</span>: 34</li><li><span>values</span>: 1147980</li><li><span class="xr-has-index">member</span>: 10</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input checked="" class="xr-array-in" id="section-e481814a-ae09-4aa7-8bd6-1baaff8fba2b" type="checkbox"/><label for="section-e481814a-ae09-4aa7-8bd6-1baaff8fba2b" title="Show/hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>0.0 0.0 0.0 0.0 0.0 0.0 ... 0.7773 0.08105 0.7451 0.7446 0.5352 0.5811</span></div><div class="xr-array-data"><pre>array([[[[0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         ...,
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ]],
 
-         [[0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
-          [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, ...,
-           0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
+        [[0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
 ...
-           2.27734375e+00, 7.25000000e+00, 2.01367188e+00],
-          [1.59960938e+00, 1.52343750e+00, 3.59179688e+00, ...,
-           3.00976562e+00, 6.84765625e+00, 2.51562500e+00],
-          [1.74023438e+00, 1.80078125e+00, 4.39648438e+00, ...,
-           3.57226562e+00, 8.52734375e+00, 2.77343750e+00]],
+         [0.890625  , 0.09277344, 0.47460938, ..., 0.52001953,
+          0.52539062, 0.54101562],
+         [0.875     , 0.09667969, 0.52734375, ..., 0.55126953,
+          0.50976562, 0.52734375],
+         [0.93457031, 0.12695312, 0.57128906, ..., 0.68896484,
+          0.52246094, 0.57226562]],
 
-         [[1.46484375e-01, 5.07812500e-02, 6.64062500e-02, ...,
-           1.58203125e-01, 6.87500000e-01, 2.34375000e-02],
-          [8.39843750e-02, 1.56250000e-02, 2.34375000e-02, ...,
-           5.07812500e-02, 4.25781250e-01, 1.95312500e-02],
-          [5.66406250e-02, 1.17187500e-02, 1.56250000e-02, ...,
-           3.71093750e-02, 3.24218750e-01, 1.75781250e-02],
-          ...,
-          [1.75390625e+00, 1.40234375e+00, 2.91601562e+00, ...,
-           2.39453125e+00, 7.62109375e+00, 2.16406250e+00],
-          [1.26953125e+00, 1.11718750e+00, 2.34960938e+00, ...,
-           2.25585938e+00, 5.51171875e+00, 1.70703125e+00],
-          [1.16210938e+00, 9.17968750e-01, 1.98046875e+00, ...,
-           2.15625000e+00, 4.96484375e+00, 1.46875000e+00]]]]],
-      shape=(2, 34, 786, 1170, 10))</pre></div></div></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-df40eb3e-7882-46b7-90f1-686dea4f8896" type="checkbox"><label class="xr-section-summary" for="section-df40eb3e-7882-46b7-90f1-686dea4f8896" title="Expand/collapse section">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">step</span></div><div class="xr-var-dims">(step)</div><div class="xr-var-dtype">timedelta64[us]</div><div class="xr-var-preview xr-preview">00:00:00 ... 1 days 09:00:00</div><input class="xr-var-attrs-in" id="attrs-e52b057b-0537-4fef-95d2-fb3cff24d199" type="checkbox"/><label for="attrs-e52b057b-0537-4fef-95d2-fb3cff24d199" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-5f7456fd-114c-4cdb-bba6-c4bc14f9ec2a" type="checkbox"/><label for="data-5f7456fd-114c-4cdb-bba6-c4bc14f9ec2a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>standard_name :</span></dt><dd>forecast_period</dd><dt><span>long_name :</span></dt><dd>time since forecast_reference_time</dd></dl></div><div class="xr-var-data"><pre>array([           0,   3600000000,   7200000000,  10800000000,  14400000000,
-        18000000000,  21600000000,  25200000000,  28800000000,  32400000000,
-        36000000000,  39600000000,  43200000000,  46800000000,  50400000000,
-        54000000000,  57600000000,  61200000000,  64800000000,  68400000000,
-        72000000000,  75600000000,  79200000000,  82800000000,  86400000000,
-        90000000000,  93600000000,  97200000000, 100800000000, 104400000000,
-       108000000000, 111600000000, 115200000000, 118800000000],
-      dtype='timedelta64[us]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">latitude</span></div><div class="xr-var-dims">(latitude)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">3.39 3.38 3.37 ... -4.45 -4.46</div><input class="xr-var-attrs-in" id="attrs-ff192a0b-cf66-47c8-bdc9-9375263094bd" type="checkbox"/><label for="attrs-ff192a0b-cf66-47c8-bdc9-9375263094bd" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-4eb4b50a-eefb-4676-bff2-aad47821ab73" type="checkbox"/><label for="data-4eb4b50a-eefb-4676-bff2-aad47821ab73" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd></dl></div><div class="xr-var-data"><pre>array([ 3.39,  3.38,  3.37, ..., -4.44, -4.45, -4.46], shape=(786,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">longitude</span></div><div class="xr-var-dims">(longitude)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-6.86 -6.85 -6.84 ... 4.82 4.83</div><input class="xr-var-attrs-in" id="attrs-13312bee-bdaa-47b8-ba99-9dc1cd1b03a5" type="checkbox"/><label for="attrs-13312bee-bdaa-47b8-ba99-9dc1cd1b03a5" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-c98f23b8-db4c-4442-a9df-98aa3c80854c" type="checkbox"/><label for="data-c98f23b8-db4c-4442-a9df-98aa3c80854c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>long_name :</span></dt><dd>longitude</dd></dl></div><div class="xr-var-data"><pre>array([-6.86, -6.85, -6.84, ...,  4.81,  4.82,  4.83], shape=(1170,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">member</span></div><div class="xr-var-dims">(member)</div><div class="xr-var-dtype">&lt;U2</div><div class="xr-var-preview xr-preview">'1' '10' '2' '3' ... '7' '8' '9'</div><input class="xr-var-attrs-in" disabled="" id="attrs-f80286f1-df60-453c-bee3-004fcc363baa" type="checkbox"/><label for="attrs-f80286f1-df60-453c-bee3-004fcc363baa" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-e6a9154e-b5de-453e-a2f2-dd22ba49cee3" type="checkbox"/><label for="data-e6a9154e-b5de-453e-a2f2-dd22ba49cee3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['1', '10', '2', '3', '4', '5', '6', '7', '8', '9'], dtype='&lt;U2')</pre></div></li></ul></div></input></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-663ad595-f9d4-4e15-bd05-38e8fb849c98" type="checkbox"><label class="xr-section-summary" for="section-663ad595-f9d4-4e15-bd05-38e8fb849c98" title="Expand/collapse section">Attributes: <span>(6)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>standard_name :</span></dt><dd>unknown</dd><dt><span>long_name :</span></dt><dd>Total Precipitation (Accumulation)</dd><dt><span>units :</span></dt><dd>kilogram / meter ** 2</dd><dt><span>level_type :</span></dt><dd>surface</dd><dt><span>_earthkit :</span></dt><dd>{'message': b"GRIB\xff\xff\x00\x02\x00\x00\x00\x00\x00\x00\x00\xf8\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x13\x01\x01\x07\xea\x03\x19\x00\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x07\xea\x03\x19\x01\n5\x00\x00\x00\x00\x00\x00\x00\x02\x7f\x00\x01\x00\x00\xff\xff\x00\x00\x00T\x03\x00\x00\x0e\x08D\x00\x00\x00\x01\x06\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x00\x00\x04\x92\x00\x00\x03\x12\x00\x00\x00\x00\xff\xff\xff\xff\x80D\r\xe0\x15\x0c} 0\x003\xba0\x00I\xb30\x00\x00'\x10\x00\x00'\x10@\x82\x90 \xc0\x00\x98\x96\x80\x00\x00\x00\x00\x00\x00\x00=\x04\x00\x00\x00\x0b\x014\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xc0\x00\x0b\x07\xea\x03\x19\x00\x00\x00\x01\x00\x00\x00\x00\x01\x02\x00\x00\x00\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x15\x05\x00\x0e\x08D\x00\x00\x00\x00\x00\x00\x80\x0b\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777", 'grid_spec': '{"area": [3.39, -6.86, -4.46, 4.83], "grid": [0.01, 0.01]}'}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"area": [3.39, -6.86, -4.46, 4.83], "grid": [0.01, 0.01]}</dd></dl></div></input></li></ul></div></div>
+        [[0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         [0.        , 0.        , 0.        , ..., 0.        ,
+          0.        , 0.        ],
+         ...,
+         [0.90039062, 0.09863281, 0.47851562, ..., 0.57958984,
+          0.5390625 , 0.55175781],
+         [0.88476562, 0.1015625 , 0.53027344, ..., 0.60742188,
+          0.52148438, 0.53613281],
+         [0.94628906, 0.13183594, 0.57421875, ..., 0.74462891,
+          0.53515625, 0.58105469]]]], shape=(2, 34, 1147980, 10))</pre></div></div></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-c1694fed-91cd-4a57-beaf-74885942da4f" type="checkbox"><label class="xr-section-summary" for="section-c1694fed-91cd-4a57-beaf-74885942da4f" title="Expand/collapse section">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">step</span></div><div class="xr-var-dims">(step)</div><div class="xr-var-dtype">timedelta64[ns]</div><div class="xr-var-preview xr-preview">00:00:00 ... 1 days 09:00:00</div><input class="xr-var-attrs-in" id="attrs-5ba75782-126b-4976-9d1f-16e59d25c891" type="checkbox"/><label for="attrs-5ba75782-126b-4976-9d1f-16e59d25c891" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-658ef0e2-c1b1-4a0f-b576-9164f6aaf562" type="checkbox"/><label for="data-658ef0e2-c1b1-4a0f-b576-9164f6aaf562" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>standard_name :</span></dt><dd>forecast_period</dd><dt><span>long_name :</span></dt><dd>time since forecast_reference_time</dd></dl></div><div class="xr-var-data"><pre>array([              0,   3600000000000,   7200000000000,  10800000000000,
+        14400000000000,  18000000000000,  21600000000000,  25200000000000,
+        28800000000000,  32400000000000,  36000000000000,  39600000000000,
+        43200000000000,  46800000000000,  50400000000000,  54000000000000,
+        57600000000000,  61200000000000,  64800000000000,  68400000000000,
+        72000000000000,  75600000000000,  79200000000000,  82800000000000,
+        86400000000000,  90000000000000,  93600000000000,  97200000000000,
+       100800000000000, 104400000000000, 108000000000000, 111600000000000,
+       115200000000000, 118800000000000], dtype='timedelta64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">50.24 50.24 50.24 ... 50.05 50.04</div><input class="xr-var-attrs-in" id="attrs-bd716e98-fe3d-491e-8a57-fd1e362df496" type="checkbox"/><label for="attrs-bd716e98-fe3d-491e-8a57-fd1e362df496" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-8091230d-4030-4c41-8a39-bbd971c87575" type="checkbox"/><label for="data-8091230d-4030-4c41-8a39-bbd971c87575" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd></dl></div><div class="xr-var-data"><pre>array([50.2413063 , 50.23910904, 50.23666763, ..., 50.05722427,
+       50.04892349, 50.04404068], shape=(1147980,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(values)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">17.71 17.69 17.7 ... 12.81 12.8</div><input class="xr-var-attrs-in" id="attrs-3d51367e-097c-4fef-8ccd-deefae1f7fe1" type="checkbox"/><label for="attrs-3d51367e-097c-4fef-8ccd-deefae1f7fe1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-1d6b39bf-fe92-4de5-a059-d868cfccd896" type="checkbox"/><label for="data-1d6b39bf-fe92-4de5-a059-d868cfccd896" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>long_name :</span></dt><dd>longitude</dd></dl></div><div class="xr-var-data"><pre>array([17.71068347, 17.68919909, 17.70238268, ..., 12.80589831,
+       12.80931628, 12.80199206], shape=(1147980,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">member</span></div><div class="xr-var-dims">(member)</div><div class="xr-var-dtype">&lt;U2</div><div class="xr-var-preview xr-preview">'1' '10' '2' '3' ... '7' '8' '9'</div><input class="xr-var-attrs-in" disabled="" id="attrs-febb5350-4e3c-47a8-adc9-f16c6474c021" type="checkbox"/><label for="attrs-febb5350-4e3c-47a8-adc9-f16c6474c021" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use xlink:href="#icon-file-text2"></use></svg></label><input class="xr-var-data-in" id="data-fbb49de2-a727-47c4-bef0-dd5046642116" type="checkbox"/><label for="data-fbb49de2-a727-47c4-bef0-dd5046642116" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use xlink:href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['1', '10', '2', '3', '4', '5', '6', '7', '8', '9'], dtype='&lt;U2')</pre></div></li></ul></div></input></li><li class="xr-section-item"><input checked="" class="xr-section-summary-in" id="section-7d5890c7-b23d-4080-a180-d1dffce7a9f1" type="checkbox"><label class="xr-section-summary" for="section-7d5890c7-b23d-4080-a180-d1dffce7a9f1" title="Expand/collapse section">Attributes: <span>(6)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>standard_name :</span></dt><dd>unknown</dd><dt><span>long_name :</span></dt><dd>Total Precipitation (Accumulation)</dd><dt><span>units :</span></dt><dd>kilogram / meter ** 2</dd><dt><span>level_type :</span></dt><dd>surface</dd><dt><span>_earthkit :</span></dt><dd>{'message': b'GRIB\xff\xff\x00\x02\x00\x00\x00\x00\x00\x00\x00\xc7\x00\x00\x00\x15\x01\x00\xd7\x00\xff\x0f\x01\x01\x07\xea\x04\t\x00\x00\x00\x01\x05\x00\x00\x00\x1e\x02\x00\xfd\x00\x07\xea\x04\t\x01\x08(\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x00\x00\xff\xff\x00\x00\x00#\x03\x00\x00\x11\x84L\x00\x00\x00e\x06\x00\x00\x01\x01\x17d=\xa2WIY\xb6D\xd2T\xa3\xcdn+\xc0\x00\x00\x00=\x04\x00\x00\x00\x0b\x014\x04\x00\x8d\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xff\xff\xff\xff\xff\xff\xc0\x00\x0b\x07\xea\x04\t\x00\x00\x00\x01\x00\x00\x00\x00\x01\x02\x00\x00\x00\x00\x00\xff\x00\x00\x00\x00\x00\x00\x00\x15\x05\x00\x11\x84L\x00\x00\x00\x00\x00\x00\x80\n\x00\x00\x00\x00\x00\x00\x00\x06\x06\xff\x00\x00\x00\x05\x077777', 'grid_spec': '{"grid": "ICON-CH1"}'}</dd><dt><span>ek_grid_spec :</span></dt><dd>{"grid": "ICON-CH1"}</dd></dl></div></input></li></ul></div></div>
 </div>
 </div>
 </div>
@@ -9190,7 +8768,7 @@ Attributes:
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">ds</span><span class="p">[</span><span class="s2">"TOT_PREC"</span><span class="p">]</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">3</span>  <span class="c1"># GB</span>
@@ -9204,9 +8782,9 @@ Attributes:
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>4.659157991409302</pre>
+<pre>5.816119909286499</pre>
 </div>
 </div>
 </div>
