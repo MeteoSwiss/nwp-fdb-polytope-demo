@@ -33,11 +33,11 @@ covjsonkit = "^0.2.14"
 eccodes = "^2.46.0"
 
 # Earthkit 1.0 release candidates
-earthkit-utils = { git = "https://github.com/ecmwf/earthkit-utils", tag = "release/1.0.0rc0" }
-earthkit-data = { git = "https://github.com/ecmwf/earthkit-data", tag = "release/1.0.0rc0" }
-earthkit-geo = { git = "https://github.com/ecmwf/earthkit-geo", tag = "release/1.0.0rc0" }
-earthkit-meteo = { git = "https://github.com/ecmwf/earthkit-meteo", tag = "release/1.0.0rc0" }
-earthkit-plots = { git = "https://github.com/ecmwf/earthkit-plots", tag = "release/1.0.0rc0" }
+earthkit-utils = { git = "https://github.com/ecmwf/earthkit-utils", branch = "release/1.0.0rc0" }
+earthkit-data = { git = "https://github.com/ecmwf/earthkit-data", branch = "release/1.0.0rc0" }
+earthkit-geo = { git = "https://github.com/ecmwf/earthkit-geo", branch = "release/1.0.0rc0" }
+earthkit-meteo = { git = "https://github.com/ecmwf/earthkit-meteo", branch = "release/1.0.0rc0" }
+earthkit-plots = { git = "https://github.com/ecmwf/earthkit-plots", branch = "release/1.0.0rc0" }
 
 # MCH internal pypi (until officially published by DWD)
 eccodes-cosmo-resources-python-internal = {version = "^2.44.0.1", source = "pypi-mch"}
