@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Set the FDB image name
-fdb_image="fdb/5.18:v1"
+fdb_image="fdb/5.19:2411156978"
 
 # Pull the fdb uenv image
-uenv image pull "$fdb_image"
+uenv image pull "build::$fdb_image"
 
 root_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
