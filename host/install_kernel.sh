@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the FDB image name
-fdb_image="fdb/5.19:2411156978"
+fdb_image="fdb/5.19:2468623461"
 
 # Pull the fdb uenv image
 uenv image pull "build::$fdb_image"

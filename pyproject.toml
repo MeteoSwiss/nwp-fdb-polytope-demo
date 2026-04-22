@@ -14,11 +14,6 @@ priority = "primary"
 name = "pypi"
 priority = "supplemental"
 
-[[tool.poetry.source]]
-name = "testpypi"
-url = "https://test.pypi.org/simple/"
-priority = "supplemental"
-
 [tool.poetry.dependencies]
 python = "~3.11"
 pyfdb = "0.1.3"
@@ -30,24 +25,23 @@ nbformat = "*"
 pyyaml = "*"
 kaleido = "0.2.1"
 covjsonkit = "^0.2.14"
-eccodes = "^2.46.0"
 
 # Earthkit 1.0 release candidates
-earthkit-utils = { git = "https://github.com/ecmwf/earthkit-utils", branch = "release/1.0.0rc0" }
-earthkit-data = { git = "https://github.com/ecmwf/earthkit-data", branch = "release/1.0.0rc0" }
-earthkit-geo = { git = "https://github.com/ecmwf/earthkit-geo", branch = "release/1.0.0rc0" }
-earthkit-meteo = { git = "https://github.com/ecmwf/earthkit-meteo", branch = "release/1.0.0rc0" }
-earthkit-plots = { git = "https://github.com/ecmwf/earthkit-plots", branch = "release/1.0.0rc0" }
+earthkit-utils = "~1.0.0rc1"
+earthkit-data = {version = "~1.0.0rc2", extras = ["all"]}
+earthkit-geo = {version = "~1.0.0rc3", extras = ["all"]}
+earthkit-meteo = {version = "~1.0.0rc1", extras = ["all"]}
+earthkit-plots = "~1.0.0rc2"
 
 # MCH internal pypi (until officially published by DWD)
 eccodes-cosmo-resources-python-internal = {version = "^2.44.0.1", source = "pypi-mch"}
 
-# TestPyPI dev builds
-eckit = { version = "2.0.3.dev65", source = "testpypi" }
-eckitlib = { version = "2.0.3.dev65", source = "testpypi" }
-mirlib = { version = "1.28.1.dev65", source = "testpypi" }
-mir-python = {version = "1.28.1.dev65", source = "testpypi" }
-eccodeslib = {version = "2.47.1.dev65", source = "testpypi"}
+eckit = "~2.0.6.17"
+eckitlib = "~2.0.6.17"
+mir-python = "~1.28.1.17"
+mirlib = "~1.28.1.17"
+eccodes = "~2.44.0"
+eccodeslib =  "2.46.2.17"
 
 
 [tool.pytest.ini_options]
