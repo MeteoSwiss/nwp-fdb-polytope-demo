@@ -32,7 +32,7 @@ TIMING_KEYS = [
 
 def load_config() -> dict:
     """Load Polytope credentials from config.yml."""
-    path = Path("config.yml")
+    path = Path(__file__).parent / "config.yml"
     if not path.exists():
         raise FileNotFoundError(
             f"Missing {path}. Create one based on config_example.yml"
@@ -63,24 +63,6 @@ def get_latest_forecast_time(
     return rounded_time.strftime("%Y%m%d"), rounded_time.strftime("%H%M")
 
 
-def rotate_points(latlon: list[tuple[float, float]]) -> list[list[float]]:
-    """
-    Transform WGS84 coordinates to MeteoSwiss rotated grid.
-
-    The data source accessed by Polytope is stored on a rotated grid.
-    It is necessary to provide Polytope with coordinates in rotated form,
-    using a South Pole rotation with a reference of longitude 10° and
-    latitude -43°.
-    """
-    geo_crs = ccrs.PlateCarree()
-    rotated_crs = ccrs.RotatedPole(pole_longitude=190, pole_latitude=43)
-    rotated_points = [
-        rotated_crs.transform_point(lon, lat, geo_crs) for lon, lat in latlon
-    ]
-    # polytope serializes the request to YAML, which can't handle np.float
-    return [[rot_lon.item(), rot_lat.item()] for rot_lon, rot_lat in rotated_points]
-
-
 def build_request(
     config: dict,
 ) -> dict:
@@ -95,20 +77,19 @@ def build_request(
     parameter = config["benchmark"]["param"]
     levtype = config["benchmark"]["levtype"]
 
-    rotated_points = rotate_points(points)
     date, time_str = get_latest_forecast_time(model)
 
     if feature_type == "timeseries":
         feature = {
             "type": "timeseries",
-            "points": rotated_points,
+            "points": points,
             "time_axis": "step",
             "axes": ["longitude", "latitude"],
         }
     elif feature_type == "boundingbox":
         feature = {
             "type": "boundingbox",
-            "points": rotated_points,
+            "points": points,
             "axes": ["longitude", "latitude"],
         }
     else:
@@ -126,6 +107,7 @@ def build_request(
         "model": model.lower().replace("_", "-"),
         "step": f"{steps[0]}/to/{steps[1]}",
         "feature": feature,
+        "timespan": "none"
     }
 
     if forecast_type == "pf":
@@ -190,7 +172,7 @@ def no_values(ds) -> int:
 
 def extract_gribjump_timings(
     gribjump_log_path: str, request_id: str | None = None
-) -> dict:
+) -> tuple[dict, dict]:
     """
     Extract timing information from gribjump-server logs.
 
@@ -200,19 +182,20 @@ def extract_gribjump_timings(
         request_id: Request identifier (UUID) for log correlation
 
     Returns:
-        Dictionary with timing metrics
+        Tuple of (extract_timings, axes_timings)
     """
 
     if request_id is None:
         print("  Warning: No request ID available for log correlation")
-        return {}
+        return {}, {}
 
     log_path = Path(gribjump_log_path)
     if not log_path.exists():
         print(f"  Warning: Log file not found: {log_path}")
-        return {}
+        return {}, {}
 
     # Read file and parse JSON lines in reverse (most recent first)
+    axes_timings, extract_timings = None, None
     with open(log_path, encoding="utf-8") as f:
         lines = f.readlines()
 
@@ -223,21 +206,22 @@ def extract_gribjump_timings(
 
         try:
             entry = json.loads(line)
-        except json.JSONDecodeError:
+        except (json.JSONDecodeError, TypeError):
             continue
 
         # Check if this entry matches our request
-        context_str = entry.get("context", "{}")
-        try:
-            context = json.loads(context_str)
-        except json.JSONDecodeError:
-            context = {}
-
+        context = entry.get("context", {})
         if context.get("id") == request_id:
-            return {key: entry.get(key) for key in TIMING_KEYS}
+            if context.get("action") == "pygribjump_axes":
+                axes_timings = {key: entry.get(key) for key in TIMING_KEYS}
+            elif context.get("action") == "pygribjump_extract":
+                extract_timings = {key: entry.get(key) for key in TIMING_KEYS}
+
+            if axes_timings and extract_timings:
+                return axes_timings, extract_timings
 
     print(f"  Warning: No log entry found for request ID {request_id}")
-    return {}
+    return {}, {}
 
 
 def run(config: dict) -> dict:
@@ -255,18 +239,20 @@ def run(config: dict) -> dict:
         client, config["benchmark"]["collection"], request
     )
 
-
-    server_timings = {}
+    axes_timings, extract_timings = {}, {}
     log_path = config["benchmark"].get("gribjump_log_path")
     if log_path:
-        server_timings = extract_gribjump_timings(log_path, request_id)
+        axes_timings, extract_timings = extract_gribjump_timings(log_path, request_id)
 
     return {
         "request": request,
         "client_time": client_time,
         "request_id": request_id,
         "no_values": no_values,
-        "server_timings": server_timings,
+        "server_timings": {
+            "axes": axes_timings,
+            "extract": extract_timings
+        },
     }
 
 

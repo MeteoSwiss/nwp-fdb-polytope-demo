@@ -23,18 +23,17 @@ FEATURES = [
 # Forecast types
 FORECAST_TYPES = [("cf", 1), ("pf", 20)]
 
+HEADERS = [
+    "param", "levtype", "levelist", "feature", "coords",
+    "steps", "type", "members", "client-side", "GJ axes", "GJ extract", "size",
+]
 
-def format_coords(points: list) -> str:
-    """Format coordinates for display."""
-    if len(points) == 1:
-        return f"({points[0][0]:.2f},{points[0][1]:.2f})"
-    return f"({points[0][0]:.1f},{points[0][1]:.1f})-({points[1][0]:.1f},{points[1][1]:.1f})"
 
 
 def main():
     base_config = load_config()
 
-    results = []
+    rows = []
 
     for param_id, name, levtype, levelist in PARAMS:
         for feature_type, step_range, feature_points in FEATURES:
@@ -52,35 +51,43 @@ def main():
                 levelist_str = levelist if levelist is not None else "-"
                 coords_str = format_coords(feature_points)
                 steps_str = f"{step_range[0]}-{step_range[1]}"
+                prefix = [name, levtype, levelist_str, feature_type, coords_str, steps_str, forecast_type, str(num_members)]
 
                 try:
                     result = run(config)
-                    results.append(
-                        f"{name:<8} "
-                        f"{levtype:<7} {levelist_str:<16} "
-                        f"{feature_type:<11} {coords_str:<28} {steps_str:<8} "
-                        f"{forecast_type:<4} {num_members:<7} "
-                        f"{result['client_time']:10.2f}s {result['server_timings']['run_time']:>10.2f}s {result['no_values']:>8} points"
-                    )
+                    rows.append(prefix + [
+                        f"{result['client_time']:.2f}s",
+                        f"{result['server_timings']['axes']['run_time']:.2f}s",
+                        f"{result['server_timings']['extract']['run_time']:.2f}s",
+                        f"{result['no_values']} points",
+                    ])
                 except Exception as e:
-                    results.append(
-                        f"{name:<8} "
-                        f"{levtype:<7} {levelist_str:<16} "
-                        f"{feature_type:<11} {coords_str:<28} {steps_str:<8} "
-                        f"{forecast_type:<4} {num_members:<7} "
-                        f"ERROR: {e}"
-                    )
+                    rows.append(prefix + ["ERROR", "ERROR", "ERROR", str(e)])
 
-    print(
-        f"{'param':<8} "
-        f"{'levtype':<7} {'levelist':<16} "
-        f"{'feature':<11} {'coords':<28} {'steps':<8} "
-        f"{'type':<4} {'members':>7} "
-        f"{'client-side':>11} {'server-side':>11} {'size':>15}"
-    )
-    print("-" * 135)
-    for line in results:
-        print(line)
+    print(format_markdown_table(rows))
+    
+
+def format_markdown_table(rows: list[list[str]]) -> str:
+    """Format rows as a markdown table, computing column widths from content."""
+    col_widths = [
+        max(len(HEADERS[i]), max(len(row[i]) for row in rows))
+        for i in range(len(HEADERS))
+    ]
+
+    def format_row(values: list[str]) -> str:
+        cells = (f" {v:<{col_widths[i]}} " for i, v in enumerate(values))
+        return "|" + "|".join(cells) + "|"
+
+    separator = "|" + "|".join(f" {'-' * col_widths[i]} " for i in range(len(HEADERS))) + "|"
+
+    lines = [format_row(HEADERS), separator] + [format_row(row) for row in rows]
+    return "\n".join(lines)
+
+def format_coords(points: list) -> str:
+    """Format coordinates for display."""
+    if len(points) == 1:
+        return f"({points[0][0]:.2f},{points[0][1]:.2f})"
+    return f"({points[0][0]:.1f},{points[0][1]:.1f})-({points[1][0]:.1f},{points[1][1]:.1f})"
 
 if __name__ == "__main__":
     main()
