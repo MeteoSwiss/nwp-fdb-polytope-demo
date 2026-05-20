@@ -24,7 +24,7 @@ nbconvert = "*"
 nbformat = "*"
 pyyaml = "*"
 kaleido = "0.2.1"
-covjsonkit = "^0.2.14"
+covjsonkit = "^0.2.19"
 
 # Earthkit 1.0 release candidates
 earthkit-utils = "~1.0.0rc1"
