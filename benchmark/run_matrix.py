@@ -57,8 +57,8 @@ def main():
                     result = run(config)
                     rows.append(prefix + [
                         f"{result['client_time']:.2f}s",
-                        f"{result['server_timings']['axes']['run_time']:.2f}s",
-                        f"{result['server_timings']['extract']['run_time']:.2f}s",
+                        f"{result['server_timings']['axes'].get('run_time', 0):.2f}s",
+                        f"{result['server_timings']['extract'].get('run_time', 0):.2f}s",
                         f"{result['no_values']} points",
                     ])
                 except Exception as e:
