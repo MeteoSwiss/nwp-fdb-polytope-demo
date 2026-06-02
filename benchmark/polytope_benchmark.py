@@ -2,32 +2,21 @@
 """
 Minimal benchmarking script for Polytope timeseries feature extraction.
 
-Uses earthkit-data for data retrieval and the polytope client to access
-request IDs for correlating client-side timings with gribjump-server logs.
+Uses earthkit-data for data retrieval and queries CloudWatch Logs for
+server-side timing breakdown (GribJump setup, Polytope, CovJSON phases).
 """
 
 import json
 import os
-import tempfile
+import re
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
 
-import cartopy.crs as ccrs
+import boto3
 import earthkit.data as ekd
 import yaml
 from polytope import api as polytope_api
-
-# Timing metrics to extract from gribjump logs
-TIMING_KEYS = [
-    "run_time",
-    "elapsed_build_filemap",
-    "elapsed_tasks",
-    "elapsed_execute",
-    "elapsed_reply",
-    "elapsed_receive",
-    "count_tasks",
-]
 
 
 def load_config() -> dict:
@@ -122,47 +111,47 @@ def build_request(
     return request
 
 
-def get_request_ids(client: polytope_api.Client, collection: str) -> set:
-    """Get current request IDs for the collection."""
-    try:
-        requests = client.list_requests(collection)
-        return set(requests) if requests else set()
-    except (OSError, ValueError, RuntimeError):
-        return set()
-
-
 def run_polytope_request(
     client: polytope_api.Client, collection: str, request: dict
 ) -> tuple[float, str | None, int]:
     """
-    Execute the Polytope request using earthkit-data and measure client-side time.
+    Execute the Polytope request and measure client-side time.
+
+    Uses polytope client directly to get the request ID from the result filename,
+    then loads data with earthkit-data for xarray conversion.
 
     Returns:
-        Tuple of (elapsed_seconds, request_id, earthkit_data)
+        Tuple of (elapsed_seconds, request_id, num_values)
     """
-    # Get request IDs before
-    before_ids = get_request_ids(client, collection)
-
     print(f"running request: {request}")
 
-    # Run request using earthkit-data
+    # Convert request dict to YAML string for polytope client
+    request_str = yaml.dump(request)
+
+    # Run request using polytope client directly (returns list of file paths)
     start = time.perf_counter()
-    ds = ekd.from_source(
-        "polytope",
-        collection,
-        request,
-        stream=False,
-        # quiet=True
-    ).to_xarray()
+    result_files = client.retrieve(collection, request_str)
     elapsed = time.perf_counter() - start
 
-    # Get request IDs after
-    after_ids = get_request_ids(client, collection)
-    new_ids = after_ids - before_ids
-    request_id = new_ids.pop() if new_ids else None
+    # Extract request ID from filename (e.g., "d77b7629-6fbe-43e8-b1b8-e3cb65d42166.covjson")
+    request_id = None
+    if result_files:
+        filename = Path(result_files[0]).stem
+        # Validate it looks like a UUID (36 chars with 4 dashes)
+        if len(filename) == 36 and filename.count("-") == 4:
+            request_id = filename
 
-    # return elapsed, request_id, no_values(ds)
-    return elapsed, request_id, no_values(ds)
+    # Load data using earthkit-data (handles CovJSON format)
+    num_vals = 0
+    if result_files:
+        ds = ekd.from_source("file", result_files[0]).to_xarray()
+        num_vals = no_values(ds)
+
+    # Clean up downloaded files
+    for f in result_files:
+        Path(f).unlink(missing_ok=True)
+
+    return elapsed, request_id, num_vals
 
 def no_values(ds) -> int:
     if isinstance(ds, list):
@@ -170,58 +159,71 @@ def no_values(ds) -> int:
     return sum(var.size for var in ds.data_vars.values())
 
 
-def extract_gribjump_timings(
-    gribjump_log_path: str, request_id: str | None = None
-) -> tuple[dict, dict]:
+def extract_cloudwatch_timings(
+    request_id: str,
+    aws_profile: str,
+    aws_region: str = "eu-central-2",
+    log_group: str = "polytope-server-logs",
+    max_wait_seconds: int = 30,
+) -> dict:
     """
-    Extract timing information from gribjump-server logs.
-
-    Parses JSON log lines to find entries matching the request ID.
+    Query CloudWatch Logs for polytope-server timing.
 
     Args:
         request_id: Request identifier (UUID) for log correlation
+        aws_profile: AWS SSO profile name
+        aws_region: AWS region
+        log_group: CloudWatch log group name
+        max_wait_seconds: Max time to wait for logs to appear
 
     Returns:
-        Tuple of (extract_timings, axes_timings)
+        Dict with keys: gribjump_setup, polytope, covjson (floats in seconds)
     """
+    session = boto3.Session(profile_name=aws_profile, region_name=aws_region)
+    client = session.client("logs")
 
-    if request_id is None:
-        print("  Warning: No request ID available for log correlation")
-        return {}, {}
+    patterns = {
+        "gribjump_setup": re.compile(r"Gribjump/setup time taken: ([0-9.]+)"),
+        "polytope": re.compile(r"Polytope time taken: ([0-9.]+)"),
+        "covjson": re.compile(r"Covjsonkit time taken: ([0-9.]+)"),
+    }
+    timings = {}
 
-    log_path = Path(gribjump_log_path)
-    if not log_path.exists():
-        print(f"  Warning: Log file not found: {log_path}")
-        return {}, {}
+    start_time = int((time.time() - 300) * 1000)  # last 5 minutes
+    wait_interval = 2
+    elapsed = 0
 
-    # Read file and parse JSON lines in reverse (most recent first)
-    axes_timings, extract_timings = None, None
-    with open(log_path, encoding="utf-8") as f:
-        lines = f.readlines()
+    while elapsed < max_wait_seconds:
+        response = client.filter_log_events(
+            logGroupName=log_group,
+            startTime=start_time,
+            filterPattern=f'"{request_id}"',
+        )
 
-    for line in reversed(lines):
-        line = line.strip()
-        if not line.startswith("{"):
-            continue
+        for event in response.get("events", []):
+            message = event.get("message", "")
+            try:
+                log_entry = json.loads(message)
+                body = log_entry.get("body", "")
+            except (json.JSONDecodeError, TypeError):
+                body = message
 
-        try:
-            entry = json.loads(line)
-        except (json.JSONDecodeError, TypeError):
-            continue
+            for key, pattern in patterns.items():
+                if key not in timings:
+                    match = pattern.search(body)
+                    if match:
+                        timings[key] = float(match.group(1))
 
-        # Check if this entry matches our request
-        context = entry.get("context", {})
-        if context.get("id") == request_id:
-            if context.get("action") == "pygribjump_axes":
-                axes_timings = {key: entry.get(key) for key in TIMING_KEYS}
-            elif context.get("action") == "pygribjump_extract":
-                extract_timings = {key: entry.get(key) for key in TIMING_KEYS}
+        if len(timings) == len(patterns):
+            return timings
 
-            if axes_timings and extract_timings:
-                return axes_timings, extract_timings
+        time.sleep(wait_interval)
+        elapsed += wait_interval
 
-    print(f"  Warning: No log entry found for request ID {request_id}")
-    return {}, {}
+    if not timings:
+        print(f"  Warning: No CloudWatch logs found for request {request_id}")
+
+    return timings
 
 
 def run(config: dict) -> dict:
@@ -239,20 +241,21 @@ def run(config: dict) -> dict:
         client, config["benchmark"]["collection"], request
     )
 
-    axes_timings, extract_timings = {}, {}
-    log_path = config["benchmark"].get("gribjump_log_path")
-    if log_path:
-        axes_timings, extract_timings = extract_gribjump_timings(log_path, request_id)
+    server_timings = {}
+    aws_profile = config["benchmark"].get("aws_profile")
+    if aws_profile and request_id:
+        server_timings = extract_cloudwatch_timings(
+            request_id,
+            aws_profile=aws_profile,
+            aws_region=config["benchmark"].get("aws_region", "eu-central-2"),
+        )
 
     return {
         "request": request,
         "client_time": client_time,
         "request_id": request_id,
         "no_values": no_values,
-        "server_timings": {
-            "axes": axes_timings,
-            "extract": extract_timings
-        },
+        "server_timings": server_timings,
     }
 
 
@@ -270,7 +273,10 @@ Results:
   Output size: {result["no_values"]} data points""")
 
     if result["server_timings"]:
-        print(f"  Server timings: {result['server_timings']}")
+        st = result["server_timings"]
+        print(f"  GribJump setup: {st.get('gribjump_setup', 0):.2f}s")
+        print(f"  Polytope:       {st.get('polytope', 0):.2f}s")
+        print(f"  CovJSON:        {st.get('covjson', 0):.2f}s")
 
 
 if __name__ == "__main__":
