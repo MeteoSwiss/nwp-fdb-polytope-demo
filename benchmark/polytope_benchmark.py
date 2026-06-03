@@ -6,9 +6,11 @@ Uses earthkit-data for data retrieval and queries CloudWatch Logs for
 server-side timing breakdown (GribJump setup, Polytope, CovJSON phases).
 """
 
+import gc
 import json
 import os
 import re
+import tempfile
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -16,7 +18,6 @@ from pathlib import Path
 import boto3
 import earthkit.data as ekd
 import yaml
-from polytope import api as polytope_api
 
 
 def load_config() -> dict:
@@ -96,7 +97,7 @@ def build_request(
         "model": model.lower().replace("_", "-"),
         "step": f"{steps[0]}/to/{steps[1]}",
         "feature": feature,
-        "timespan": "none"
+        "timespan": "none",
     }
 
     if forecast_type == "pf":
@@ -112,7 +113,7 @@ def build_request(
 
 
 def run_polytope_request(
-    client: polytope_api.Client, collection: str, request: dict
+    collection: str, request: dict
 ) -> tuple[float, str | None, int]:
     """
     Execute the Polytope request and measure client-side time.
@@ -123,35 +124,42 @@ def run_polytope_request(
     Returns:
         Tuple of (elapsed_seconds, request_id, num_values)
     """
-    print(f"running request: {request}")
+    ekd.settings.set("cache-policy", "off")
+    _, log_file = tempfile.mkstemp(suffix=".log")
 
-    # Convert request dict to YAML string for polytope client
-    request_str = yaml.dump(request)
-
-    # Run request using polytope client directly (returns list of file paths)
+    # Run request using earthkit-data
     start = time.perf_counter()
-    result_files = client.retrieve(collection, request_str)
+    ds = ekd.from_source(
+        "polytope",
+        collection,
+        request,
+        stream=False,
+        log_file=log_file,
+        log_level="INFO",
+        # quiet=True
+    ).to_xarray()
     elapsed = time.perf_counter() - start
 
-    # Extract request ID from filename (e.g., "d77b7629-6fbe-43e8-b1b8-e3cb65d42166.covjson")
-    request_id = None
-    if result_files:
-        filename = Path(result_files[0]).stem
-        # Validate it looks like a UUID (36 chars with 4 dashes)
-        if len(filename) == 36 and filename.count("-") == 4:
-            request_id = filename
+    def find_first_poll_id(file_path):
+        """Return the captured ID from the first matching line, or None."""
+        pattern = re.compile(r"Please poll .*/([a-f0-9-]+) for status")
+        with open(file_path) as f:
+            for line in f:
+                match = pattern.search(line)
+                if match:
+                    return match.group(1)
+        return None
 
-    # Load data using earthkit-data (handles CovJSON format)
-    num_vals = 0
-    if result_files:
-        ds = ekd.from_source("file", result_files[0]).to_xarray()
-        num_vals = no_values(ds)
+    request_id = find_first_poll_id(log_file)
 
-    # Clean up downloaded files
-    for f in result_files:
-        Path(f).unlink(missing_ok=True)
+    values = no_values(ds)
 
-    return elapsed, request_id, num_vals
+    # Cleanup
+    del ds
+    gc.collect()
+
+    return elapsed, request_id, values
+
 
 def no_values(ds) -> int:
     if isinstance(ds, list):
@@ -234,11 +242,10 @@ def run(config: dict) -> dict:
         Dictionary with results: client_time, request_id, num_fields, server_timings
     """
     setup_polytope_env(config)
-    client = polytope_api.Client(quiet=True)
 
     request = build_request(config)
     client_time, request_id, no_values = run_polytope_request(
-        client, config["benchmark"]["collection"], request
+        config["benchmark"]["collection"], request
     )
 
     server_timings = {}
