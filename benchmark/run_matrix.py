@@ -25,7 +25,7 @@ FORECAST_TYPES = [("cf", 1), ("pf", 20)]
 
 HEADERS = [
     "param", "levtype", "levelist", "feature", "coords",
-    "steps", "type", "members", "client-side", "GJ axes", "GJ extract", "size",
+    "steps", "type", "members", "client-side", "GJ setup", "Polytope", "CovJSON", "size",
 ]
 
 
@@ -55,14 +55,16 @@ def main():
 
                 try:
                     result = run(config)
+                    st = result["server_timings"]
                     rows.append(prefix + [
                         f"{result['client_time']:.2f}s",
-                        f"{result['server_timings']['axes'].get('run_time', 0):.2f}s",
-                        f"{result['server_timings']['extract'].get('run_time', 0):.2f}s",
+                        f"{st.get('gribjump_setup', 0):.2f}s",
+                        f"{st.get('polytope', 0):.2f}s",
+                        f"{st.get('covjson', 0):.2f}s",
                         f"{result['no_values']} points",
                     ])
                 except Exception as e:
-                    rows.append(prefix + ["ERROR", "ERROR", "ERROR", str(e)])
+                    rows.append(prefix + ["ERROR", "ERROR", "ERROR", "ERROR", str(e)])
 
     print(format_markdown_table(rows))
     

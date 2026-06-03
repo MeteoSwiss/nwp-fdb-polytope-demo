@@ -49,6 +49,7 @@ eccodes = "~2.44.0"
 eccodeslib =  "2.46.2.17"
 
 cartopy = "^0.25.0"
+boto3 = "^1.43.19"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]
