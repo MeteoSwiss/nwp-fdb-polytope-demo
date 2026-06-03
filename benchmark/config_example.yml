@@ -23,4 +23,5 @@ benchmark:
       # - [10.5, 45.81]
     range: [0, 120]  # First and last forecast step
 
-  gribjump_log_path: /oprusers/trajond/gribjump-server/logs/log.out  # or null to disable
+  aws_profile: aws-polytope-depl  # AWS SSO profile for CloudWatch access, or null to disable
+  aws_region: eu-central-2        # optional, defaults to eu-central-2
