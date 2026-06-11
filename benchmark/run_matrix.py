@@ -17,7 +17,7 @@ PARAMS = [
 # Feature configurations: (type, step_range)
 FEATURES = [
     ("boundingbox", [0, 1], [[5.8, 47.81], [10.5, 45.81]]),
-    ("timeseries", [0, 120], [[8.565074, 47.453928]]),
+    ("timeseries", [0, 33], [[8.565074, 47.453928]]),
 ]
 
 # Forecast types
@@ -25,7 +25,7 @@ FORECAST_TYPES = [("cf", 1), ("pf", 20)]
 
 HEADERS = [
     "param", "levtype", "levelist", "feature", "coords",
-    "steps", "type", "members", "client-side", "GJ setup", "Polytope", "CovJSON", "size",
+    "steps", "type", "members", "request_id", "client-side", "GJ setup", "Polytope", "CovJSON", "size",
 ]
 
 
@@ -56,7 +56,9 @@ def main():
                 try:
                     result = run(config)
                     st = result["server_timings"]
+                    req_id = result.get("request_id") or "-"
                     rows.append(prefix + [
+                        req_id[:8] if len(req_id) > 8 else req_id,  # truncate UUID
                         f"{result['client_time']:.2f}s",
                         f"{st.get('gribjump_setup', 0):.2f}s",
                         f"{st.get('polytope', 0):.2f}s",
@@ -64,7 +66,7 @@ def main():
                         f"{result['no_values']} points",
                     ])
                 except Exception as e:
-                    rows.append(prefix + ["ERROR", "ERROR", "ERROR", "ERROR", str(e)])
+                    rows.append(prefix + ["-", "ERROR", "ERROR", "ERROR", "ERROR", str(e)])
 
     print(format_markdown_table(rows))
     

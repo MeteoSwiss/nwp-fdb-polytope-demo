@@ -200,15 +200,29 @@ def extract_cloudwatch_timings(
     start_time = int((time.time() - 300) * 1000)  # last 5 minutes
     wait_interval = 2
     elapsed = 0
+    filter_pattern = f'"{request_id}"'
 
     while elapsed < max_wait_seconds:
-        response = client.filter_log_events(
-            logGroupName=log_group,
-            startTime=start_time,
-            filterPattern=f'"{request_id}"',
-        )
+        # Paginate through results (CloudWatch may return empty pages)
+        events = []
+        next_token = None
+        for _ in range(20):  # max pages per retry
+            kwargs = {
+                "logGroupName": log_group,
+                "startTime": start_time,
+                "filterPattern": filter_pattern,
+            }
+            if next_token:
+                kwargs["nextToken"] = next_token
 
-        for event in response.get("events", []):
+            response = client.filter_log_events(**kwargs)
+            events.extend(response.get("events", []))
+            next_token = response.get("nextToken")
+
+            if not next_token or events:
+                break
+
+        for event in events:
             message = event.get("message", "")
             try:
                 log_entry = json.loads(message)
@@ -232,6 +246,103 @@ def extract_cloudwatch_timings(
         print(f"  Warning: No CloudWatch logs found for request {request_id}")
 
     return timings
+
+
+def trace_request(
+    request_id: str,
+    aws_profile: str,
+    aws_region: str = "eu-central-2",
+    log_group: str = "polytope-server-logs",
+) -> None:
+    """
+    Print detailed timeline for a request, similar to trace_request.sh.
+
+    Args:
+        request_id: Request identifier (UUID) for log correlation
+        aws_profile: AWS SSO profile name
+        aws_region: AWS region
+        log_group: CloudWatch log group name
+    """
+    from datetime import datetime as dt
+
+    session = boto3.Session(profile_name=aws_profile, region_name=aws_region)
+    client = session.client("logs")
+
+    start_time = int((time.time() - 86400) * 1000)  # last 24 hours
+    filter_pattern = f'"{request_id}"'
+
+    # Paginate through results (CloudWatch may return empty pages before finding matches)
+    events = []
+    next_token = None
+    max_pages = 50
+
+    for _ in range(max_pages):
+        kwargs = {
+            "logGroupName": log_group,
+            "startTime": start_time,
+            "filterPattern": filter_pattern,
+        }
+        if next_token:
+            kwargs["nextToken"] = next_token
+
+        response = client.filter_log_events(**kwargs)
+        events.extend(response.get("events", []))
+        next_token = response.get("nextToken")
+
+        if not next_token or events:
+            break
+    if not events:
+        print(f"No logs found for request {request_id}")
+        return
+
+    # Header
+    print(f"\n=== REQUEST LIFECYCLE FOR {request_id} ===\n")
+    print(f"{'TIME':<15} | {'SERVICE':<10} | {'TRACE_ID':<14} | MESSAGE")
+    print("-" * 15 + "-+-" + "-" * 10 + "-+-" + "-" * 14 + "-+-" + "-" * 40)
+
+    # Parse and display events
+    timings = {}
+    patterns = {
+        "gribjump_setup": re.compile(r"Gribjump/setup time taken: ([0-9.]+)"),
+        "polytope": re.compile(r"Polytope time taken: ([0-9.]+)"),
+        "covjson": re.compile(r"Covjsonkit time taken: ([0-9.]+)"),
+    }
+
+    for event in sorted(events, key=lambda e: e["timestamp"]):
+        ts = event["timestamp"]
+        msg = event.get("message", "")
+        time_str = dt.fromtimestamp(ts / 1000).strftime("%H:%M:%S.%f")[:-3]
+
+        try:
+            log_entry = json.loads(msg)
+            service = log_entry.get("resource", {}).get("service.name", "unknown")
+            body = log_entry.get("body", "")
+            trace_id = log_entry.get("trace_id", "null")
+        except (json.JSONDecodeError, TypeError):
+            service = "unknown"
+            body = msg
+            trace_id = "null"
+
+        # Truncate body for display
+        body_display = body[:60] + "..." if len(body) > 60 else body
+        print(f"{time_str:<15} | {service:<10} | {trace_id[:12]:<14} | {body_display}")
+
+        # Extract timings
+        for key, pattern in patterns.items():
+            if key not in timings:
+                match = pattern.search(body)
+                if match:
+                    timings[key] = float(match.group(1))
+
+    # Print timing summary
+    if timings:
+        print("\n=== TIMING BREAKDOWN ===")
+        if "gribjump_setup" in timings:
+            print(f"GribJump setup: {timings['gribjump_setup']:.2f}s")
+        if "polytope" in timings:
+            print(f"Polytope:       {timings['polytope']:.2f}s")
+        if "covjson" in timings:
+            print(f"CovJSON:        {timings['covjson']:.2f}s")
 
 
 def run(config: dict) -> dict:
@@ -268,7 +379,30 @@ def run(config: dict) -> dict:
 
 def main():
     """Run the Polytope benchmark and print results."""
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Polytope benchmark and request tracing")
+    parser.add_argument(
+        "--trace",
+        metavar="REQUEST_ID",
+        help="Trace a specific request ID (show detailed CloudWatch timeline)",
+    )
+    args = parser.parse_args()
+
     config = load_config()
+
+    if args.trace:
+        aws_profile = config["benchmark"].get("aws_profile")
+        if not aws_profile:
+            print("Error: aws_profile must be set in config.yml to trace requests")
+            return
+        trace_request(
+            args.trace,
+            aws_profile=aws_profile,
+            aws_region=config["benchmark"].get("aws_region", "eu-central-2"),
+        )
+        return
+
     result = run(config)
 
     print("Request:")
