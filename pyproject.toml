@@ -27,11 +27,11 @@ kaleido = "0.2.1"
 covjsonkit = "^0.2.19"
 
 # Earthkit 1.0 release candidates
-earthkit-utils = "~1.0.0rc1"
-earthkit-data = {version = "~1.0.0rc2", extras = ["all"]}
-earthkit-geo = {version = "~1.0.0rc3", extras = ["all"]}
-earthkit-meteo = {version = "~1.0.0rc1", extras = ["all"]}
-earthkit-plots = "~1.0.0rc2"
+earthkit-utils = "~1.0.0rc2"
+earthkit-data = {version = "~1.0.0rc12", extras = ["all"]}
+earthkit-geo = {version = "~1.0.0rc8", extras = ["all"]}
+earthkit-meteo = {version = "~1.0.0rc3", extras = ["all"]}
+earthkit-plots = "~1.0.0rc9"
 
 # MCH internal pypi (until officially published by DWD)
 eccodes-cosmo-resources-python-internal = {version = "^2.44.0.1", source = "pypi-mch"}
