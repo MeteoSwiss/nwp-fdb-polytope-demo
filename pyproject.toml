@@ -34,7 +34,7 @@ earthkit-meteo = {version = "~1.0.0rc3", extras = ["all"]}
 earthkit-plots = "~1.0.0rc9"
 
 # MCH internal pypi (until officially published by DWD)
-eccodes-cosmo-resources-python-internal = {version = "^2.44.0.1", source = "pypi-mch"}
+eccodes-cosmo-resources-python = {version = "^2.44.0.1"}
 
 eckit = "~2.0.6.17"
 eckitlib = "~2.0.6.17"
