@@ -1666,7 +1666,7 @@ reference = "pypi-mch"
 
 [[package]]
 name = "fdb-utils"
-version = "1.5.4"
+version = "1.5.9"
 description = "Python library for users and admins of FDB."
 optional = false
 python-versions = ">=3.11"
@@ -1685,8 +1685,8 @@ typer = "^0.16"
 [package.source]
 type = "git"
 url = "https://github.com/MeteoSwiss/fdb-utils.git"
-reference = "main"
-resolved_reference = "b8c82a2a59b40257ce02e142ebaf25830f32f16b"
+reference = "1.5.9"
+resolved_reference = "880155beef802d25383721a9c260653c4e3e9062"
 
 [[package]]
 name = "filelock"
@@ -5805,4 +5805,4 @@ reference = "pypi-mch"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.15"
-content-hash = "ca877c5a470c490eb99c945369229c77a779e3ef9c822b4f93f6f70a1e9703de"
+content-hash = "a740bd5ca3b57aa4726990c2b16e889fba97a1c48484bd5bddfe2c881639497e"
