@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Set the FDB image name
-fdb_image="fdb/5.19:v2"
+fdb_image="fdb/5.21:2665041689"
 
 # Pull the fdb uenv image
-uenv image pull "$fdb_image"
+uenv image pull build::"$fdb_image"
 
 root_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
@@ -18,8 +18,8 @@ if [ ! -d "$kernel_dir" ]; then
 fi
 cd "$kernel_dir"
 
-mkdir -p polytope-demo
+mkdir -p polytope-demo-1007
 
-sed "s|\"WRAPPER\"|\"$root_dir/uenv-wrapper.sh\"|" ${root_dir}/kernel.json > polytope-demo/kernel.json
+sed "s|\"WRAPPER\"|\"$root_dir/uenv-wrapper.sh\"|" ${root_dir}/kernel.json > polytope-demo-1007/kernel.json
 
 echo "'polytope demo' kernel has been installed successfully at: $kernel_dir"
