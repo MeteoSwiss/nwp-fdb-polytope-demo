@@ -1,0 +1,11 @@
+default:
+  - test:
+    - notebooks_execution:
+        pythonContainerRun:
+          pythonVersion: '3.11'
+          installDependencies: false
+          packageManager: ''
+          commands: |-
+            poetry install
+            poetry run python -m ipykernel install --user --name=polytope-env --display-name "polytope demo"
+            poetry run python ci/check_notebooks.py
