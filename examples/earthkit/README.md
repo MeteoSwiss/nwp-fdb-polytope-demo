@@ -20,7 +20,6 @@ No Python environment is required beforehand. The notebook installs the required
 ## Files
 
 * `earthkit_onboarding_meteoswiss.ipynb` – onboarding notebook.
-* `icon-ch2-eps-202607131200-100-t_2m-ctrl.grib2` – sample MeteoSwiss ICON forecast used throughout the notebook.
 * `definitions.edzw-2.47.0-1.tar.bz2` – temporary ecCodes definitions required for some MeteoSwiss ICON metadata until the earthkit 1.x compatible definitions are publicly available.
 
 For more information about earthkit, see:
