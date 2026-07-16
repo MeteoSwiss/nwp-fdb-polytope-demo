@@ -13,10 +13,7 @@ The notebook covers:
 
 ## Getting started
 
-The notebook can be run:
-
-* in **Google Colab**.
-* locally in Jupyter or VS Code;
+The notebook can be run in **Google Colab**. You need a Google Account to run it.
 
 No Python environment is required beforehand. The notebook installs the required packages during execution.
 
