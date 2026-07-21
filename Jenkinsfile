@@ -43,7 +43,7 @@ pipeline {
                     withVault(
                         configuration: [
                             vaultUrl: Globals.VAULT_URL,
-                            vaultCredentialId: "${solution}-vault-approle",
+                            vaultCredentialId: "polytope-vault-approle",
                             engineVersion: 2
                         ],
                         vaultSecrets: [[
