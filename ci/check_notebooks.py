@@ -3,7 +3,6 @@
 import logging
 import os
 import sys
-import tempfile
 from pathlib import Path
 
 import nbformat
@@ -16,14 +15,10 @@ KERNEL_NAME = "polytope-env"
 ROOT_DIR = Path(__file__).resolve().parent.parent
 POLYTOPE_DIR = ROOT_DIR / "examples" / "Polytope"
 
-SKIP_NOTEBOOKS = {"data_retrieve_from_FDB.ipynb"}  # Requires CSCS uenv
-
-# Cells to skip in specific notebooks (by cell source substring)
-SKIP_CELLS = {
-    "feature_time_series.ipynb": [
-        'config["ecmwf"]',  # Skip all ECMWF-related cells
-    ]
-}
+# In this notebook, blank the first cell that touches ECMWF config and every cell
+# after it — CI has no ECMWF credentials.
+SKIP_FROM_NOTEBOOK = "feature_time_series.ipynb"
+SKIP_FROM_PATTERN = 'config["ecmwf"]'
 
 
 def create_config_file(config_path: Path) -> None:
@@ -41,39 +36,23 @@ def create_config_file(config_path: Path) -> None:
         yaml.dump(config, f)
 
 
-def should_skip_cell(notebook_name: str, cell_source: str) -> bool:
-    """Check if a cell should be skipped based on SKIP_CELLS config."""
-    if notebook_name not in SKIP_CELLS:
-        return False
-    return any(pattern in cell_source for pattern in SKIP_CELLS[notebook_name])
-
-
-def run_notebook(notebook_path: Path, config_dir: Path) -> bool:
+def run_notebook(notebook_path: Path) -> bool:
     """Execute a notebook; return True if successful."""
     logger.info(f"Running: {notebook_path.name}")
 
     with open(notebook_path) as f:
         nb = nbformat.read(f, as_version=4)
 
-    # Mark cells to skip (ECMWF cells in time_series)
     skip_remaining = False
     for cell in nb.cells:
-        if cell.cell_type == "code":
-            if should_skip_cell(notebook_path.name, cell.source):
-                skip_remaining = True  # Skip this and all following cells
-            if skip_remaining:
-                cell.source = "# SKIPPED BY CI\npass"
-                logger.info(f"  Skipping cell (ECMWF)")
+        if cell.cell_type != "code":
+            continue
+        if notebook_path.name == SKIP_FROM_NOTEBOOK and SKIP_FROM_PATTERN in cell.source:
+            skip_remaining = True
+        if skip_remaining:
+            cell.source = "# SKIPPED BY CI\npass"
 
     ep = ExecutePreprocessor(timeout=600, kernel_name=KERNEL_NAME)
-
-    # Symlink config into notebook directory
-    config_link = notebook_path.parent / "config.yml"
-    created_link = False
-    if not config_link.exists():
-        config_link.symlink_to(config_dir / "config.yml")
-        created_link = True
-
     try:
         ep.preprocess(nb, {"metadata": {"path": notebook_path.parent}})
         logger.info(f"PASS: {notebook_path.name}")
@@ -81,9 +60,6 @@ def run_notebook(notebook_path: Path, config_dir: Path) -> bool:
     except CellExecutionError:
         logger.exception(f"FAIL: {notebook_path.name}")
         return False
-    finally:
-        if created_link and config_link.is_symlink():
-            config_link.unlink()
 
 
 def main() -> int:
@@ -93,24 +69,27 @@ def main() -> int:
         logger.error("Missing required env var: POLYTOPE_USER_KEY")
         return 1
 
-    with tempfile.TemporaryDirectory() as tmpdir:
-        config_dir = Path(tmpdir)
-        create_config_file(config_dir / "config.yml")
+    notebooks = sorted(POLYTOPE_DIR.glob("*.ipynb"))
+    logger.info(f"Found {len(notebooks)} notebooks")
 
-        notebooks = sorted(
-            p for p in POLYTOPE_DIR.glob("*.ipynb")
-            if p.name not in SKIP_NOTEBOOKS
-        )
-        logger.info(f"Found {len(notebooks)} notebooks")
+    # The notebooks read config.yml from their own directory; provide it once.
+    config_path = POLYTOPE_DIR / "config.yml"
+    created_config = not config_path.exists()
+    if created_config:
+        create_config_file(config_path)
 
-        failed = [nb for nb in notebooks if not run_notebook(nb, config_dir)]
+    try:
+        failed = [nb for nb in notebooks if not run_notebook(nb)]
+    finally:
+        if created_config:
+            config_path.unlink(missing_ok=True)
 
-        if failed:
-            logger.error(f"{len(failed)} notebook(s) failed: {[f.name for f in failed]}")
-            return 1
+    if failed:
+        logger.error(f"{len(failed)} notebook(s) failed: {[f.name for f in failed]}")
+        return 1
 
-        logger.info("All notebooks passed!")
-        return 0
+    logger.info("All notebooks passed!")
+    return 0
 
 
 if __name__ == "__main__":
