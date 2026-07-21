@@ -5,6 +5,9 @@ default:
           pythonVersion: '3.11'
           installDependencies: false
           packageManager: ''
+          env:
+            # Forward the Vault-injected key from the Jenkins shell into the container
+            POLYTOPE_USER_KEY: ${env.POLYTOPE_USER_KEY}
           commands: |-
             poetry install
             poetry run python -m ipykernel install --user --name=polytope-env --display-name "polytope demo"
