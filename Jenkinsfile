@@ -47,8 +47,7 @@ pipeline {
                             engineVersion: 2
                         ],
                         vaultSecrets: [[
-                            path: "mch/${solution}/${solution}-ci-secrets",
-                            secretValues: [
+                            path: "mch/polytope/polytope-prod-secrets", engineVersion: 2, secretValues: [
                                 [envVar: 'POLYTOPE_USER_KEY', vaultKey: 'polytope-user-key']
                             ]
                         ]]
