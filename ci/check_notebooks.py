@@ -26,6 +26,7 @@ def create_config_file(config_path: Path) -> None:
     config = {
         "meteoswiss": {
             "key": os.environ.get("POLYTOPE_USER_KEY", ""),
+            "address": os.environ.get("POLYTOPE_ADDRESS", ""),
         },
         "ecmwf": {
             "user_email": "",  # Intentionally empty - ECMWF cells skipped
@@ -67,6 +68,10 @@ def main() -> int:
 
     if not os.environ.get("POLYTOPE_USER_KEY"):
         logger.error("Missing required env var: POLYTOPE_USER_KEY")
+        return 1
+
+    if not os.environ.get("POLYTOPE_ADDRESS"):
+        logger.error("Missing required env var: POLYTOPE_ADDRESS")
         return 1
 
     notebooks = sorted(POLYTOPE_DIR.glob("*.ipynb"))
