@@ -24,7 +24,9 @@ CAT_DATA_UNAVAILABLE = "DATA_UNAVAILABLE"
 CAT_AUTH = "AUTH"
 CAT_NOTEBOOK_ERROR = "NOTEBOOK_ERROR"
 
+# Matches ANSI colour escapes (e.g. "\x1b[31m") that Jupyter embeds in tracebacks.
 ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
+# Captures the two counts from gribjump's "Matched 0 fields but 121 were requested".
 FIELDS_RE = re.compile(r"Matched (\d+) fields but (\d+) were requested")
 
 # Overall build outcomes. UNSTABLE means the only failures were environmental
@@ -108,14 +110,18 @@ def run_notebook(notebook_path: Path) -> NotebookResult:
     logger.info(f"Running: {name}")
 
     with open(notebook_path) as f:
+        # Read as nbformat v4 (the current schema) whatever version is on disk.
         nb = nbformat.read(f, as_version=4)
 
     ep = ExecutePreprocessor(timeout=600, kernel_name=KERNEL_NAME)
     try:
+        # Run in the notebook's own directory so its relative reads (config.yml) work.
         ep.preprocess(nb, {"metadata": {"path": notebook_path.parent}})
         logger.info(f"PASS: {name}")
         return NotebookResult(name, passed=True)
     except CellExecutionError as e:
+        # ename is the error's class name (e.g. "HTTPResponseError"),
+        # evalue its message text.
         ename = strip_ansi(getattr(e, "ename", ""))
         evalue = strip_ansi(getattr(e, "evalue", "") or str(e))
         category = classify_failure(ename, evalue)
@@ -139,7 +145,8 @@ def main() -> int:
     notebooks = sorted(POLYTOPE_DIR.glob("*.ipynb"))
     logger.info(f"Found {len(notebooks)} notebooks")
 
-    # The notebooks read config.yml from their own directory; provide it once.
+    # The notebooks read config.yml from their own directory. Create it only if
+    # missing (and remove only what we created) so a local config.yml is kept.
     config_path = POLYTOPE_DIR / "config.yml"
     do_create_config = not config_path.exists()
     if do_create_config:
