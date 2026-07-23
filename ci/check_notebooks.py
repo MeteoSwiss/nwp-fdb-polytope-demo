@@ -80,10 +80,10 @@ def summarize_error(evalue: str) -> str:
             return ln
     return lines[-1] if lines else text
 
-# In this notebook, blank the first cell that touches ECMWF config and every cell
-# after it — CI has no ECMWF credentials.
-SKIP_FROM_NOTEBOOK = "feature_time_series.ipynb"
-SKIP_FROM_PATTERN = 'config["ecmwf"]'
+
+# Env vars the notebooks need, injected from Vault by the pipeline. The ECMWF
+# credentials let feature_time_series.ipynb reach the IFS data on polytope.ecmwf.int.
+REQUIRED_ENV = ["POLYTOPE_USER_KEY", "POLYTOPE_ADDRESS", "ECMWF_USER_EMAIL", "ECMWF_KEY"]
 
 
 def create_config_file(config_path: Path) -> None:
@@ -94,8 +94,8 @@ def create_config_file(config_path: Path) -> None:
             "address": os.environ.get("POLYTOPE_ADDRESS", ""),
         },
         "ecmwf": {
-            "user_email": "",  # Intentionally empty - ECMWF cells skipped
-            "key": "",
+            "user_email": os.environ.get("ECMWF_USER_EMAIL", ""),
+            "key": os.environ.get("ECMWF_KEY", ""),
         },
     }
     with open(config_path, "w") as f:
@@ -109,15 +109,6 @@ def run_notebook(notebook_path: Path) -> NotebookResult:
 
     with open(notebook_path) as f:
         nb = nbformat.read(f, as_version=4)
-
-    skip_remaining = False
-    for cell in nb.cells:
-        if cell.cell_type != "code":
-            continue
-        if name == SKIP_FROM_NOTEBOOK and SKIP_FROM_PATTERN in cell.source:
-            skip_remaining = True
-        if skip_remaining:
-            cell.source = "# SKIPPED BY CI\npass"
 
     ep = ExecutePreprocessor(timeout=600, kernel_name=KERNEL_NAME)
     try:
@@ -140,12 +131,9 @@ def main() -> int:
     level = os.environ.get("LOG_LEVEL", "INFO").upper()
     logging.basicConfig(level=level, format="%(asctime)s [%(levelname)s] %(message)s")
 
-    if not os.environ.get("POLYTOPE_USER_KEY"):
-        logger.error("Missing required env var: POLYTOPE_USER_KEY")
-        return 1
-
-    if not os.environ.get("POLYTOPE_ADDRESS"):
-        logger.error("Missing required env var: POLYTOPE_ADDRESS")
+    missing = [var for var in REQUIRED_ENV if not os.environ.get(var)]
+    if missing:
+        logger.error("Missing required env var(s): %s", ", ".join(missing))
         return 1
 
     notebooks = sorted(POLYTOPE_DIR.glob("*.ipynb"))
@@ -153,14 +141,14 @@ def main() -> int:
 
     # The notebooks read config.yml from their own directory; provide it once.
     config_path = POLYTOPE_DIR / "config.yml"
-    created_config = not config_path.exists()
-    if created_config:
+    do_create_config = not config_path.exists()
+    if do_create_config:
         create_config_file(config_path)
 
     try:
         results = [run_notebook(nb) for nb in notebooks]
     finally:
-        if created_config:
+        if do_create_config:
             config_path.unlink(missing_ok=True)
 
     failed = [r for r in results if not r.passed]

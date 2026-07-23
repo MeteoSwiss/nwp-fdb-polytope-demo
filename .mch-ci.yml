@@ -9,6 +9,8 @@ default:
             # Forward the Vault-injected keys from the Jenkins shell into the container
             POLYTOPE_USER_KEY: ${env.POLYTOPE_USER_KEY}
             POLYTOPE_ADDRESS: ${env.POLYTOPE_ADDRESS}
+            ECMWF_USER_EMAIL: ${env.ECMWF_USER_EMAIL}
+            ECMWF_KEY: ${env.ECMWF_KEY}
           commands: |-
             poetry install
             poetry run python -m ipykernel install --user --name=polytope-env --display-name "polytope demo"

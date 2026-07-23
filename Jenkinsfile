@@ -49,7 +49,9 @@ pipeline {
                         vaultSecrets: [[
                             path: "mch/polytope/polytope-prod-secrets", engineVersion: 2, secretValues: [
                                 [envVar: 'POLYTOPE_USER_KEY', vaultKey: 'polytope-validation-user-key'],
-                                [envVar: 'POLYTOPE_ADDRESS', vaultKey: 'polytope-validation-url']
+                                [envVar: 'POLYTOPE_ADDRESS', vaultKey: 'polytope-validation-url'],
+                                [envVar: 'ECMWF_USER_EMAIL', vaultKey: 'ecmwf-validation-user-email'],
+                                [envVar: 'ECMWF_KEY', vaultKey: 'ecmwf-validation-key']
                             ]
                         ]]
                     ) {
