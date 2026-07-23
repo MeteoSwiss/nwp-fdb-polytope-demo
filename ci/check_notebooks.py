@@ -66,8 +66,11 @@ def classify_failure(ename: str, evalue: str) -> str:
 
 
 def summarize_error(evalue: str) -> str:
-    """Extract the one line worth reading from a (possibly huge) error value."""
-    text = strip_ansi(evalue).strip()
+    """Extract the one line worth reading from a (possibly huge) error value.
+
+    Assumes the caller has already run the value through strip_ansi.
+    """
+    text = evalue.strip()
     m = FIELDS_RE.search(text)
     if m:
         return f"{m.group(1)}/{m.group(2)} fields matched"
@@ -122,7 +125,7 @@ def run_notebook(notebook_path: Path) -> NotebookResult:
         logger.info(f"PASS: {name}")
         return NotebookResult(name, passed=True)
     except CellExecutionError as e:
-        ename = strip_ansi(getattr(e, "ename", "") or "")
+        ename = strip_ansi(getattr(e, "ename", ""))
         evalue = strip_ansi(getattr(e, "evalue", "") or str(e))
         category = classify_failure(ename, evalue)
         detail = summarize_error(evalue)
@@ -160,13 +163,13 @@ def main() -> int:
         if created_config:
             config_path.unlink(missing_ok=True)
 
-    log_summary(results)
-    return report_status(results)
-
-
-def report_status(results: list[NotebookResult]) -> int:
-    """Decide the overall outcome, persist it for Jenkins, and return an exit code."""
     failed = [r for r in results if not r.passed]
+    log_summary(results, failed)
+    return report_status(failed)
+
+
+def report_status(failed: list[NotebookResult]) -> int:
+    """Decide the overall outcome, persist it for Jenkins, and return an exit code."""
     hard = [r for r in failed if r.category != CAT_DATA_UNAVAILABLE]
 
     if hard:
@@ -186,9 +189,8 @@ def report_status(results: list[NotebookResult]) -> int:
     return EXIT_CODE[status]
 
 
-def log_summary(results: list[NotebookResult]) -> None:
+def log_summary(results: list[NotebookResult], failed: list[NotebookResult]) -> None:
     """Emit a one-glance table keyed by failure cause."""
-    failed = [r for r in results if not r.passed]
     name_width = max((len(r.name) for r in results), default=0)
 
     logger.info("=== Notebook validation summary ===")
@@ -202,8 +204,8 @@ def log_summary(results: list[NotebookResult]) -> None:
     categories = {r.category for r in failed}
     if len(categories) == 1:
         # All failures share a cause — call it out so triage is instant.
-        tally += f" — all {categories.pop()}"
-    logger.info(tally) if not failed else logger.error(tally)
+        tally += f" — all {next(iter(categories))}"
+    (logger.error if failed else logger.info)(tally)
 
 
 if __name__ == "__main__":

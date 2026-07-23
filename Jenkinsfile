@@ -56,13 +56,14 @@ pipeline {
                         // mchbuild collapses every non-zero exit to 1, so we can't
                         // tell an orange run from a red one by exit code. check_notebooks.py
                         // writes the authoritative outcome to validation_status.txt instead.
-                        sh 'rm -f validation_status.txt'
+                        def statusFile = 'validation_status.txt'
+                        sh "rm -f ${statusFile}"
                         def exitCode = sh(
                             script: '.venv-mchbuild/bin/mchbuild test.notebooks_execution',
                             returnStatus: true
                         )
-                        def status = fileExists('validation_status.txt')
-                            ? readFile('validation_status.txt').trim()
+                        def status = fileExists(statusFile)
+                            ? readFile(statusFile).trim()
                             : 'FAILURE'
                         echo "Notebook validation outcome: ${status}"
 
