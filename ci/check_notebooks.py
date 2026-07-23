@@ -27,6 +27,20 @@ CAT_NOTEBOOK_ERROR = "NOTEBOOK_ERROR"
 ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
 FIELDS_RE = re.compile(r"Matched (\d+) fields but (\d+) were requested")
 
+# Overall build outcomes. UNSTABLE means the only failures were environmental
+# (forecast not yet in FDB) — an orange pipeline, not a red one.
+STATUS_SUCCESS = "SUCCESS"
+STATUS_UNSTABLE = "UNSTABLE"
+STATUS_FAILURE = "FAILURE"
+
+# Local exit codes. Jenkins ignores these (mchbuild collapses every non-zero
+# exit to 1); it reads STATUS_FILE instead. They still make local runs legible.
+EXIT_CODE = {STATUS_SUCCESS: 0, STATUS_FAILURE: 1, STATUS_UNSTABLE: 2}
+
+# Written to the workspace root so the Jenkinsfile can map the run onto
+# SUCCESS / UNSTABLE / FAILURE regardless of the mchbuild exit code.
+STATUS_FILE = ROOT_DIR / "validation_status.txt"
+
 
 @dataclass
 class NotebookResult:
@@ -147,9 +161,29 @@ def main() -> int:
             config_path.unlink(missing_ok=True)
 
     log_summary(results)
+    return report_status(results)
 
+
+def report_status(results: list[NotebookResult]) -> int:
+    """Decide the overall outcome, persist it for Jenkins, and return an exit code."""
     failed = [r for r in results if not r.passed]
-    return 1 if failed else 0
+    hard = [r for r in failed if r.category != CAT_DATA_UNAVAILABLE]
+
+    if hard:
+        status = STATUS_FAILURE
+    elif failed:
+        status = STATUS_UNSTABLE
+    else:
+        status = STATUS_SUCCESS
+
+    STATUS_FILE.write_text(status + "\n")
+
+    if status == STATUS_UNSTABLE:
+        logger.warning(
+            "Only data-availability failures (forecast not yet in FDB); "
+            "marking build UNSTABLE rather than FAILURE"
+        )
+    return EXIT_CODE[status]
 
 
 def log_summary(results: list[NotebookResult]) -> None:
