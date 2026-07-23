@@ -61,7 +61,9 @@ def strip_ansi(text: str) -> str:
 def classify_failure(ename: str, evalue: str) -> str:
     """Bucket a cell error so a red build tells us whether to retry or investigate."""
     text = evalue.lower()
-    if "datanotfound" in text or "no data retrieved" in text:
+    # gribjump/FDB signals a missing forecast with wording that varies by version
+    # and datasource: "DataNotFound", "No data retrieved", "No data was returned".
+    if "datanotfound" in text or "no data" in text:
         return CAT_DATA_UNAVAILABLE
     if "expiredcredentials" in ename.lower() or "expired" in text or "unauthorized" in text:
         return CAT_AUTH
