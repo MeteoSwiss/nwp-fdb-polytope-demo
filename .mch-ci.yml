@@ -13,11 +13,4 @@ default:
             ECMWF_KEY: ${env.ECMWF_KEY}
           commands: |-
             poetry install
-            poetry run python -m ipykernel install --user --name=polytope-env --display-name "polytope demo"
-            status=0
-            poetry run python ci/check_notebooks.py || status=$?
-
-            echo "=== Polytope cell debug log ==="
-            cat /src/app-root/polytope-cell-debug.log || true
-
-            exit $status
+            poetry run python ci/test_polytope_request.py
