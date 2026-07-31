@@ -11,6 +11,10 @@ default:
             POLYTOPE_ADDRESS: ${env.POLYTOPE_ADDRESS}
             ECMWF_USER_EMAIL: ${env.ECMWF_USER_EMAIL}
             ECMWF_KEY: ${env.ECMWF_KEY}
+            HTTPS_PROXY: http://proxy.meteoswiss.ch:8080
+            HTTP_PROXY: http://proxy.meteoswiss.ch:8080
+            https_proxy: http://proxy.meteoswiss.ch:8080
+            http_proxy: http://proxy.meteoswiss.ch:8080
           commands: |-
             poetry install
             poetry run python ci/test_polytope_request.py
