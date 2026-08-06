@@ -24,14 +24,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "annotated-types"
-version = "0.7.0"
+version = "0.8.0"
 description = "Reusable constraint types to use with typing.Annotated"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "annotated_types-0.7.0-py3-none-any.whl", hash = "sha256:1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53"},
-    {file = "annotated_types-0.7.0.tar.gz", hash = "sha256:aff07c09a53a08bc8cfccb9c85b05f1aa9a2a6f23728d790723543408344ce89"},
+    {file = "annotated_types-0.8.0-py3-none-any.whl", hash = "sha256:f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0"},
+    {file = "annotated_types-0.8.0.tar.gz", hash = "sha256:13b2beaad985e05e2d6407ee4c4f35590b11f8d693a258a561055cac8f64cab7"},
 ]
 
 [package.source]
@@ -224,14 +224,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "botocore"
-version = "1.43.52"
+version = "1.43.65"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">= 3.10"
 groups = ["main"]
 files = [
-    {file = "botocore-1.43.52-py3-none-any.whl", hash = "sha256:43715e971b306f86d5918b3b728ec62aae3f4be49e1606058ef1f0b87dcbad9e"},
-    {file = "botocore-1.43.52.tar.gz", hash = "sha256:3c25e11796ae6e295f1cc3a7760e808c26c432cd580d6a608f32da24715c389b"},
+    {file = "botocore-1.43.65-py3-none-any.whl", hash = "sha256:41a13d9a1954d786f90cdbba0be0953fe9b9389f240b5ff71340c4706ea40135"},
+    {file = "botocore-1.43.65.tar.gz", hash = "sha256:eea5440cf4b850d0f4de4f7eda418c325c87de6d8980873f8b636bb482b31d0f"},
 ]
 
 [package.dependencies]
@@ -390,14 +390,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "certifi"
-version = "2026.6.17"
+version = "2026.7.22"
 description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.7"
 groups = ["main"]
 files = [
-    {file = "certifi-2026.6.17-py3-none-any.whl", hash = "sha256:2227dcbaafe0d2f59279d1762ddddc37783ed4354594f194ffc31d20f41fc3db"},
-    {file = "certifi-2026.6.17.tar.gz", hash = "sha256:024c88eeec92ca068db80f02b8b07c9cef7b9fe261d1d535abfd5abd6f6af432"},
+    {file = "certifi-2026.7.22-py3-none-any.whl", hash = "sha256:62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775"},
+    {file = "certifi-2026.7.22.tar.gz", hash = "sha256:741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55"},
 ]
 
 [package.source]
@@ -1064,23 +1064,6 @@ url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
 reference = "pypi-mch"
 
 [[package]]
-name = "decorator"
-version = "5.3.1"
-description = "Decorators for Humans"
-optional = false
-python-versions = ">=3.8"
-groups = ["main"]
-files = [
-    {file = "decorator-5.3.1-py3-none-any.whl", hash = "sha256:f47fe6fdbd2edd623ecfe36875d37aba411624e2670dd395dddae1358689bb3c"},
-    {file = "decorator-5.3.1.tar.gz", hash = "sha256:4cbcdd55a6efadb9dbea26b858f4fb3264567b52d69ca0d25b721b553f60ea82"},
-]
-
-[package.source]
-type = "legacy"
-url = "https://service.meteoswiss.ch/nexus/repository/python-all/simple"
-reference = "pypi-mch"
-
-[[package]]
 name = "defusedxml"
 version = "0.7.1"
 description = "XML bomb protection for Python stdlib modules"
@@ -1217,14 +1200,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "earthkit-geo"
-version = "1.1.0"
+version = "1.1.1"
 description = "Geospatial computations"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "earthkit_geo-1.1.0-py3-none-any.whl", hash = "sha256:c4559ea8b467a6fcebac5ec132730d675b2fc44c6e2573d4fb0756e10c3f9ba3"},
-    {file = "earthkit_geo-1.1.0.tar.gz", hash = "sha256:9e80e82d049575bfd2324ff668b251dd8207e34a50f3bf97542bc5205e9682dd"},
+    {file = "earthkit_geo-1.1.1-py3-none-any.whl", hash = "sha256:e5943b082a896085c392573e26ad1ecc8413c378d1f17d6b4a7d5401585c4c4d"},
+    {file = "earthkit_geo-1.1.1.tar.gz", hash = "sha256:1ff5bcd8ee14a403b97ba714c7d053e9ba3b732fef5c17d63b91f92154396995"},
 ]
 
 [package.dependencies]
@@ -1253,14 +1236,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "earthkit-meteo"
-version = "1.0.0"
+version = "1.1.0"
 description = "A Python library for meteorological computations"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "earthkit_meteo-1.0.0-py3-none-any.whl", hash = "sha256:c9b3a481a1f4b58c2b18f1edfc20b68d6226cbc2713bbc4616884fbc42b389df"},
-    {file = "earthkit_meteo-1.0.0.tar.gz", hash = "sha256:e80c6e8d0ca1492d6f9e0c607132ce008c7ebfea3c32d55a00101bdc36ada178"},
+    {file = "earthkit_meteo-1.1.0-py3-none-any.whl", hash = "sha256:e2a6ab0fc7526c9f277775d07ed174a1fca963541d0eaed4f8d65be938a3e159"},
+    {file = "earthkit_meteo-1.1.0.tar.gz", hash = "sha256:8be9a2b47391dc4eb35f92e8930654d0c5113bba2f23ae6eb581041376af5d82"},
 ]
 
 [package.dependencies]
@@ -1277,10 +1260,11 @@ all = ["earthkit-meteo[samples,scores,stats]"]
 dev = ["earthkit-meteo[all,docs,test]"]
 docs = ["docutils", "furo", "ipykernel", "nbconvert", "nbsphinx", "pygments (>=2.6.1)", "requests", "setuptools", "sphinx (>=7.3.7)", "sphinx-autoapi", "sphinx-copybutton", "sphinx-design", "sphinx-issues"]
 gpu = ["cupy", "torch"]
+lunar = ["astropy"]
 samples = ["requests"]
 scores = ["scipy", "scores", "xarray"]
 stats = ["scipy (>=1.15)"]
-test = ["earthkit-data", "netcdf4", "pytest", "pytest-cov", "requests", "xarray"]
+test = ["astropy", "earthkit-data", "netcdf4", "pytest", "pytest-cov", "requests", "xarray"]
 
 [package.source]
 type = "legacy"
@@ -1527,21 +1511,21 @@ reference = "pypi-mch"
 
 [[package]]
 name = "ecmwf-datastores-client"
-version = "0.5.1"
+version = "0.5.3"
 description = "ECMWF Data Stores Service (DSS) API Python client"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "ecmwf_datastores_client-0.5.1-py3-none-any.whl", hash = "sha256:3dce212f2da773e22f509c25c7c10144789658107e0a37d09e02cbeffc38ec57"},
-    {file = "ecmwf_datastores_client-0.5.1.tar.gz", hash = "sha256:0ebf6304dc267befa506ce805208d5c7a675e1b0dd76da1dad5dc8501d318cc4"},
+    {file = "ecmwf_datastores_client-0.5.3-py3-none-any.whl", hash = "sha256:c840fdfd5ddfac07ba4f536b4b79c870096371d3f3e33acf74a8f791c64497dd"},
+    {file = "ecmwf_datastores_client-0.5.3.tar.gz", hash = "sha256:15bd614a138c88fc8f6556aefdb4f2e3a5107ad1fc8b7ba18fab06dd69e3ec52"},
 ]
 
 [package.dependencies]
-attrs = "*"
+attrs = ">=23.1.0"
 multiurl = ">=0.3.7"
-requests = "*"
-typing-extensions = "*"
+requests = ">=2.5.0"
+typing-extensions = ">=4.13.0"
 
 [package.extras]
 legacy = ["cdsapi (>=0.7.6)"]
@@ -1553,14 +1537,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "ecmwf-opendata"
-version = "0.3.31"
+version = "0.3.34"
 description = "A package to download ECMWF open data"
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "ecmwf_opendata-0.3.31-py3-none-any.whl", hash = "sha256:9498263d6a1bbe2094ce9831640afb9b772ddc79274e81a82ac28a4e9cf8dd3c"},
-    {file = "ecmwf_opendata-0.3.31.tar.gz", hash = "sha256:dcc6a96697b622a72c31f456b321e5d66381f8f98d00f53b3e811887dc870510"},
+    {file = "ecmwf_opendata-0.3.34-py3-none-any.whl", hash = "sha256:2ed33e30af73ed7180da9e21552f3d28bd284376cce93286c01b1fa436a8df49"},
+    {file = "ecmwf_opendata-0.3.34.tar.gz", hash = "sha256:c174e1d2cacd7bca0b27abc0e067d11d0a2242ebefaa87708805ac2551a09e62"},
 ]
 
 [package.dependencies]
@@ -1610,14 +1594,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "fastjsonschema"
-version = "2.21.2"
+version = "2.22.1"
 description = "Fastest Python implementation of JSON schema"
 optional = false
-python-versions = "*"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "fastjsonschema-2.21.2-py3-none-any.whl", hash = "sha256:1c797122d0a86c5cace2e54bf4e819c36223b552017172f32c5c024a6b77e463"},
-    {file = "fastjsonschema-2.21.2.tar.gz", hash = "sha256:b1eb43748041c880796cd077f1a07c3d94e93ae84bba5ed36800a33554ae05de"},
+    {file = "fastjsonschema-2.22.1-py3-none-any.whl", hash = "sha256:cf377ff5c9a6f4f3125fb35f75a2c5767bd824ffbcf62c209a93cd48d1453999"},
+    {file = "fastjsonschema-2.22.1.tar.gz", hash = "sha256:0b83d1ce8d7845b959dcb20e1a5c3c8883b6541d9c52ab02cce5166b75ec805f"},
 ]
 
 [package.extras]
@@ -1654,14 +1638,14 @@ resolved_reference = "880155beef802d25383721a9c260653c4e3e9062"
 
 [[package]]
 name = "filelock"
-version = "3.31.2"
+version = "3.32.2"
 description = "A platform independent file lock."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "filelock-3.31.2-py3-none-any.whl", hash = "sha256:18a4179901809ad1905c6631d907f1c3a41806c0d3506f7f9862565576a81a16"},
-    {file = "filelock-3.31.2.tar.gz", hash = "sha256:e6d35965c709527915a184837a8421826d18bc3f9d7e9a5a0c8114a782475d66"},
+    {file = "filelock-3.32.2-py3-none-any.whl", hash = "sha256:87dd94cf281e586d135fa51132b8e3d9a598b316e90377a288663c9321036c82"},
+    {file = "filelock-3.32.2.tar.gz", hash = "sha256:c33351e1f49cae33414acbc6d56784e6ecee82514ec90795da1161fc4836b5b8"},
 ]
 
 [package.source]
@@ -1815,14 +1799,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "fsspec"
-version = "2026.6.0"
+version = "2026.7.0"
 description = "File-system specification"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "fsspec-2026.6.0-py3-none-any.whl", hash = "sha256:02e0b71817df9b2169dc30a16832045764def1191b43dcff5bb85bdee212d2a1"},
-    {file = "fsspec-2026.6.0.tar.gz", hash = "sha256:f5bac145310fe30e16e1471bd6840b2d990d609e872251d7e674241822abf01a"},
+    {file = "fsspec-2026.7.0-py3-none-any.whl", hash = "sha256:b57ddbafedfaef7018c1ecab32aa200a9d7ca26b77965f64e48b70061249d279"},
+    {file = "fsspec-2026.7.0.tar.gz", hash = "sha256:c803c40f4cf860b49dea58ee3e1c33cb9c790520e233537e1340049f89b82a88"},
 ]
 
 [package.extras]
@@ -1833,24 +1817,24 @@ dask = ["dask", "distributed"]
 dev = ["pre-commit", "ruff (>=0.5)"]
 doc = ["numpydoc", "sphinx", "sphinx-design", "sphinx-rtd-theme", "yarl"]
 dropbox = ["dropbox", "dropboxdrivefs", "requests"]
-full = ["adlfs", "aiohttp (!=4.0.0a0,!=4.0.0a1)", "dask", "distributed", "dropbox", "dropboxdrivefs", "fusepy", "gcsfs (>2024.2.0)", "libarchive-c", "ocifs", "panel", "paramiko", "pyarrow (>=1)", "pygit2", "requests", "s3fs (>2024.2.0)", "smbprotocol", "tqdm"]
+full = ["adlfs", "aiohttp (!=4.0.0a0,!=4.0.0a1)", "dask", "distributed", "dropbox", "dropboxdrivefs", "fusepy", "gcsfs (>=2026.4.0)", "libarchive-c", "ocifs", "panel", "paramiko", "pyarrow (>=1)", "pygit2", "requests", "s3fs (>=2026.6.0)", "smbprotocol", "tqdm"]
 fuse = ["fusepy"]
-gcs = ["gcsfs (>2024.2.0)"]
+gcs = ["gcsfs (>=2026.4.0)"]
 git = ["pygit2"]
 github = ["requests"]
-gs = ["gcsfs"]
+gs = ["gcsfs (>=2026.4.0)"]
 gui = ["panel"]
 hdfs = ["pyarrow (>=1)"]
 http = ["aiohttp (!=4.0.0a0,!=4.0.0a1)"]
 libarchive = ["libarchive-c"]
 oci = ["ocifs"]
-s3 = ["s3fs (>2024.2.0)"]
+s3 = ["s3fs (>=2026.6.0)"]
 sftp = ["paramiko"]
 smb = ["smbprotocol"]
 ssh = ["paramiko"]
 test = ["aiohttp (!=4.0.0a0,!=4.0.0a1)", "numpy", "pytest", "pytest-asyncio (!=0.22.0)", "pytest-benchmark", "pytest-cov", "pytest-mock", "pytest-recording", "pytest-rerunfailures", "requests"]
 test-downstream = ["aiobotocore (>=2.5.4,<3.0.0)", "dask[dataframe,test]", "moto[server] (>4,<5)", "pytest-timeout", "xarray"]
-test-full = ["adlfs", "aiohttp (!=4.0.0a0,!=4.0.0a1)", "backports-zstd ; python_version < \"3.14\"", "cloudpickle", "dask", "distributed", "dropbox", "dropboxdrivefs", "fastparquet", "fusepy", "gcsfs", "jinja2", "kerchunk", "libarchive-c", "lz4", "notebook", "numpy", "ocifs", "pandas (<3.0.0)", "panel", "paramiko", "pyarrow", "pyarrow (>=1)", "pyftpdlib", "pygit2", "pytest", "pytest-asyncio (!=0.22.0)", "pytest-benchmark", "pytest-cov", "pytest-mock", "pytest-recording", "pytest-rerunfailures", "python-snappy", "requests", "smbprotocol", "tqdm", "urllib3", "zarr (<3.2.0)", "zstandard ; python_version < \"3.14\""]
+test-full = ["adlfs", "aiohttp (!=4.0.0a0,!=4.0.0a1)", "backports-zstd ; python_version < \"3.14\"", "cloudpickle", "dask", "distributed", "dropbox", "dropboxdrivefs", "fastparquet", "fusepy", "gcsfs (>=2026.4.0)", "jinja2", "kerchunk", "libarchive-c", "lz4", "notebook", "numpy", "ocifs", "pandas (<3.0.0)", "panel", "paramiko", "pyarrow (>=1)", "pyftpdlib", "pygit2", "pytest", "pytest-asyncio (!=0.22.0)", "pytest-benchmark", "pytest-cov", "pytest-mock", "pytest-recording", "pytest-rerunfailures", "python-snappy", "requests", "s3fs (>=2026.6.0)", "smbprotocol", "tqdm", "urllib3", "zarr (<3.2.0)", "zstandard ; python_version < \"3.14\""]
 tqdm = ["tqdm"]
 
 [package.source]
@@ -2002,19 +1986,18 @@ reference = "pypi-mch"
 
 [[package]]
 name = "ipython"
-version = "9.15.0"
+version = "9.16.1"
 description = "IPython: Productive Interactive Computing"
 optional = false
 python-versions = ">=3.11"
 groups = ["main"]
 files = [
-    {file = "ipython-9.15.0-py3-none-any.whl", hash = "sha256:515ad9c3cdf0c932a5a9f6245419e8aba706b7bd03c3e1d3a1c83d9351d6aa6e"},
-    {file = "ipython-9.15.0.tar.gz", hash = "sha256:da2819ce2aa83135257df830660b1176d986c3d2876db24df01974fa955b2756"},
+    {file = "ipython-9.16.1-py3-none-any.whl", hash = "sha256:4acae635506f6d352d94c4899a19d5f85f8bc4d230932342dca556fdab1c69b4"},
+    {file = "ipython-9.16.1.tar.gz", hash = "sha256:5a3d1f9a47ff216d6cf9cf863124f6a2c1a198d1354c546a4d24a370a283b64c"},
 ]
 
 [package.dependencies]
 colorama = {version = ">=0.4.4", markers = "sys_platform == \"win32\""}
-decorator = ">=5.1.0"
 ipython-pygments-lexers = ">=1.0.0"
 jedi = ">=0.18.2"
 matplotlib-inline = ">=0.1.6"
@@ -2027,7 +2010,7 @@ traitlets = ">=5.13.0"
 typing_extensions = {version = ">=4.6", markers = "python_version < \"3.12\""}
 
 [package.extras]
-all = ["argcomplete (>=3.0)", "ipython[doc,matplotlib,terminal,test,test-extra]", "types-decorator"]
+all = ["argcomplete (>=3.0)", "ipython[doc,matplotlib,test,test-extra]"]
 black = ["black"]
 doc = ["docrepr", "exceptiongroup", "intersphinx_registry", "ipykernel", "ipython[matplotlib,test]", "setuptools (>=80.0)", "sphinx (>=8.0)", "sphinx-rtd-theme (>=0.1.8)", "sphinx_toml (==0.0.4)", "typing_extensions"]
 matplotlib = ["matplotlib (>3.9)"]
@@ -2528,14 +2511,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "markdown"
-version = "3.10.2"
+version = "3.10.3"
 description = "Python implementation of John Gruber's Markdown."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "markdown-3.10.2-py3-none-any.whl", hash = "sha256:e91464b71ae3ee7afd3017d9f358ef0baf158fd9a298db92f1d4761133824c36"},
-    {file = "markdown-3.10.2.tar.gz", hash = "sha256:994d51325d25ad8aa7ce4ebaec003febcce822c3f8c911e3b17c52f7f589f950"},
+    {file = "markdown-3.10.3-py3-none-any.whl", hash = "sha256:fa6c92a00a4a3c98b22728c64a935ae1928250ae65058a6ded814d2cc29a4cea"},
+    {file = "markdown-3.10.3.tar.gz", hash = "sha256:3589362618f743188b4d955b874402bc814f4f83f544dc207719f4baa7d9c45f"},
 ]
 
 [package.extras]
@@ -2877,14 +2860,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "mistune"
-version = "3.3.3"
+version = "3.3.4"
 description = "A sane and fast Markdown parser with useful plugins and renderers"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "mistune-3.3.3-py3-none-any.whl", hash = "sha256:99de1585e42dcbd826faa9e11a202727a5e202e4e4722a4c69ac1ff615793dd7"},
-    {file = "mistune-3.3.3.tar.gz", hash = "sha256:c4c6c0c840b8637a2e9b8b6d607eb7c8f00888bf14c754409bcd339e848c2477"},
+    {file = "mistune-3.3.4-py3-none-any.whl", hash = "sha256:ee015381e955e370962968befe1d729ab60fafb6a715ac6751763fbce38c8d4a"},
+    {file = "mistune-3.3.4.tar.gz", hash = "sha256:58b5c96d6fcb61190dfe5fae498d2b2065f99cf61e9649418fd54cf1ada86dfe"},
 ]
 
 [package.source]
@@ -3789,14 +3772,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "platformdirs"
-version = "4.10.1"
+version = "4.11.0"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "platformdirs-4.10.1-py3-none-any.whl", hash = "sha256:0e4eff26be2d75293977f7cddc153fd9b8eaa7fb0c7b64ffe4076cb443117443"},
-    {file = "platformdirs-4.10.1.tar.gz", hash = "sha256:ceab4084426fe6319ce18e86deada8ab1b7487c7aee7040c55e277c9ae793695"},
+    {file = "platformdirs-4.11.0-py3-none-any.whl", hash = "sha256:360ccded2b7fce0af0ff80cc8f5942a1c5d99b0e856033acb030bfc634709e74"},
+    {file = "platformdirs-4.11.0.tar.gz", hash = "sha256:0555d18370482847566ffabcaa53ad7c6c1c29f195989ae1ed634a05f76ea1e0"},
 ]
 
 [package.source]
@@ -3863,18 +3846,18 @@ reference = "pypi-mch"
 
 [[package]]
 name = "prompt-toolkit"
-version = "3.0.52"
+version = "3.0.53"
 description = "Library for building powerful interactive command lines in Python"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "prompt_toolkit-3.0.52-py3-none-any.whl", hash = "sha256:9aac639a3bbd33284347de5ad8d68ecc044b91a762dc39b7c21095fcd6a19955"},
-    {file = "prompt_toolkit-3.0.52.tar.gz", hash = "sha256:28cde192929c8e7321de85de1ddbe736f1375148b02f2e17edd840042b1be855"},
+    {file = "prompt_toolkit-3.0.53-py3-none-any.whl", hash = "sha256:01c0891d7f9237d5e339f7d3e42cdae80b7534abb1c7c0e3352efba6231492f2"},
+    {file = "prompt_toolkit-3.0.53.tar.gz", hash = "sha256:9ec8a0ad96d5c56148b3f914aa79c1564c3fde5d2e6b876e7bc327e353cf8fa6"},
 ]
 
 [package.dependencies]
-wcwidth = "*"
+wcwidth = ">=0.1.4"
 
 [package.source]
 type = "legacy"
@@ -4386,14 +4369,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "pyshp"
-version = "3.1.4"
+version = "3.1.6"
 description = "Pure Python read/write support for ESRI Shapefile format"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "pyshp-3.1.4-py3-none-any.whl", hash = "sha256:5bdd39c8fe02a47fe8de9c3355c5efaa312ff5c7fc6b8156592df738246f6167"},
-    {file = "pyshp-3.1.4.tar.gz", hash = "sha256:0663762be72c67684c890decd888fb8e849e01a85ee6ef0346214b7329270453"},
+    {file = "pyshp-3.1.6-py3-none-any.whl", hash = "sha256:be8cd9436dcbde477c63ea789f7dcdea3af19f17ea84f2744bfc12efe9145d1e"},
+    {file = "pyshp-3.1.6.tar.gz", hash = "sha256:4c4b5a4138815c93defd6ebe50bae885b7e58984f431cdb7bb5d00718ac71daf"},
 ]
 
 [package.extras]
@@ -4426,14 +4409,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "pytz"
-version = "2026.2"
+version = "2026.3.post1"
 description = "World timezone definitions, modern and historical"
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "pytz-2026.2-py2.py3-none-any.whl", hash = "sha256:04156e608bee23d3792fd45c94ae47fae1036688e75032eea2e3bf0323d1f126"},
-    {file = "pytz-2026.2.tar.gz", hash = "sha256:0e60b47b29f21574376f218fe21abc009894a2321ea16c6754f3cad6eb7cdd6a"},
+    {file = "pytz-2026.3.post1-py2.py3-none-any.whl", hash = "sha256:dd95840dd199baea12d9cc096a1d452caa6596a1c1e4b5f3dbd1541855d5e815"},
+    {file = "pytz-2026.3.post1.tar.gz", hash = "sha256:2211d3fcf9a797d3405cac96ac7f61d80e6a644f72a3309607282fe8a2010c5d"},
 ]
 
 [package.source]
@@ -5220,14 +5203,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "soupsieve"
-version = "2.9"
+version = "2.9.1"
 description = "A modern CSS selector implementation for Beautiful Soup."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "soupsieve-2.9-py3-none-any.whl", hash = "sha256:a2b2c76d67df2382d245409fd71e321a571717e58463efa32ace87dcadac2c12"},
-    {file = "soupsieve-2.9.tar.gz", hash = "sha256:acee8417325c5653e1377dc31eccad59eb82cbc65942afe6174c53b3aaad63fc"},
+    {file = "soupsieve-2.9.1-py3-none-any.whl", hash = "sha256:4f4477399246b7a0c720a88ca2454b11cd6bb9ae4c9d170140786e916776c14c"},
+    {file = "soupsieve-2.9.1.tar.gz", hash = "sha256:c33e6605bbc71dd628b00c632d58ae607c22bade247e52553928f83bbb75b4ba"},
 ]
 
 [package.source]
@@ -5328,14 +5311,14 @@ reference = "pypi-mch"
 
 [[package]]
 name = "tqdm"
-version = "4.69.0"
+version = "4.70.0"
 description = "Fast, Extensible Progress Meter"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "tqdm-4.69.0-py3-none-any.whl", hash = "sha256:9979978912be667a6ef21fd5d8abf54e324e63d82f7f43c360792ebc2bc4e622"},
-    {file = "tqdm-4.69.0.tar.gz", hash = "sha256:700c5e85dcd5f009dd6222588a29180a193a748247a5d855b4d67db93d79a53b"},
+    {file = "tqdm-4.70.0-py3-none-any.whl", hash = "sha256:7f585706bfddbdebf89daac705b2dfcc16890130727d3197ca62c732b4310953"},
+    {file = "tqdm-4.70.0.tar.gz", hash = "sha256:55b0b0dbd97462d06ebee91e4dac24ed4d4702be82b24f07e6c1d27e08cea220"},
 ]
 
 [package.dependencies]
@@ -5354,19 +5337,19 @@ reference = "pypi-mch"
 
 [[package]]
 name = "traitlets"
-version = "5.15.1"
+version = "5.16.1"
 description = "Traitlets Python configuration system"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "traitlets-5.15.1-py3-none-any.whl", hash = "sha256:770a53705f84b81ac107e83a1b3328ff2dae16094d8fc3cfc004e4b22dfd8e92"},
-    {file = "traitlets-5.15.1.tar.gz", hash = "sha256:7b1c07854fe25acb39e009bae49f11b79ff6cbb2f27999104e9110e7a6b53722"},
+    {file = "traitlets-5.16.1-py3-none-any.whl", hash = "sha256:f775618166caa0396c8e337099240f2bd3e5e917d203b2e6fbe21a58d3cb1f6b"},
+    {file = "traitlets-5.16.1.tar.gz", hash = "sha256:ed900c2b631aa3a112811139fa97b8d2c3bad5e989656bba4b7e52c7852c18c1"},
 ]
 
 [package.extras]
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx"]
-test = ["argcomplete (>=3.0.3)", "mypy (>=1.17.0,<1.19)", "pre-commit", "pytest (>=7.0,<8.2)", "pytest-mock", "pytest-mypy-testing"]
+test = ["argcomplete (>=3.0.3) ; python_version < \"3.12\"", "argcomplete (>=3.5.2) ; python_version >= \"3.12\"", "mypy (>=2.0) ; implementation_name != \"pypy\"", "pre-commit", "pytest (>=7.0,<10.0)", "pytest-mock", "pytest-mypy-testing ; implementation_name != \"pypy\""]
 
 [package.source]
 type = "legacy"
