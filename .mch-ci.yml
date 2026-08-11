@@ -15,8 +15,6 @@ default:
             HTTP_PROXY: http://proxy.meteoswiss.ch:8080
             https_proxy: http://proxy.meteoswiss.ch:8080
             http_proxy: http://proxy.meteoswiss.ch:8080
-            NO_PROXY=localhost,127.0.0.1,.meteoswiss.ch,.mchml.cscs.ch
-            no_proxy=localhost,127.0.0.1,.meteoswiss.ch,.mchml.cscs.ch
           commands: |-
             poetry install
             poetry run python ci/test_polytope_request.py
