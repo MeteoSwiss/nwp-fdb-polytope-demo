@@ -170,10 +170,32 @@ def run_notebook(notebook_path: Path, write_back: bool) -> NotebookResult:
 
 
 def run_all(write_back: bool) -> list[NotebookResult]:
-    """Execute every Polytope notebook and return their results."""
+    """Execute the Polytope notebooks and return the results of those that ran.
+
+    A timeout means the environment stopped answering rather than a notebook
+    misbehaving, so every remaining notebook would burn another CELL_TIMEOUT to
+    tell us the same thing. Abandon the run instead and report what we have —
+    six stalled notebooks take longer than the pipeline's own timeout allows.
+    """
     notebooks = sorted(POLYTOPE_DIR.glob("*.ipynb"))
     logger.info(f"Found {len(notebooks)} notebooks")
-    return [run_notebook(nb, write_back) for nb in notebooks]
+
+    results = []
+    for index, notebook in enumerate(notebooks):
+        result = run_notebook(notebook, write_back)
+        results.append(result)
+
+        if result.category == CAT_TIMEOUT:
+            skipped = notebooks[index + 1 :]
+            if skipped:
+                logger.error(
+                    "Abandoning the run after a timeout; %d notebook(s) not attempted: %s",
+                    len(skipped),
+                    ", ".join(nb.name for nb in skipped),
+                )
+            break
+
+    return results
 
 
 def log_summary(results: list[NotebookResult], failed: list[NotebookResult]) -> None:
