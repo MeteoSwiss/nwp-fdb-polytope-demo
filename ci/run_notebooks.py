@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import nbformat
+from nbclient.exceptions import DeadKernelError
 from nbconvert.preprocessors import CellExecutionError, ExecutePreprocessor
 
 logger = logging.getLogger(__name__)
@@ -26,11 +27,19 @@ KERNEL_NAME = "polytope-env"
 ROOT_DIR = Path(__file__).resolve().parent.parent
 POLYTOPE_DIR = ROOT_DIR / "examples" / "Polytope"
 
+# Per-cell execution budget. The polytope client polls the server with no timeout
+# of its own (max_attempts defaults to infinity), so a request that stays queued
+# would otherwise block the run indefinitely.
+CELL_TIMEOUT = 600
+# How many lines of a failed cell's streamed output to echo into the CI log.
+OUTPUT_TAIL_LINES = 40
+
 # Failure categories. DATA_UNAVAILABLE is environmental (forecast not yet in FDB)
-# and typically warrants a retry rather than a code fix; the others point at a
-# real regression.
+# and typically warrants a retry rather than a code fix; the others — TIMEOUT
+# included — point at a real regression and fail the build.
 CAT_DATA_UNAVAILABLE = "DATA_UNAVAILABLE"
 CAT_AUTH = "AUTH"
+CAT_TIMEOUT = "TIMEOUT"
 CAT_NOTEBOOK_ERROR = "NOTEBOOK_ERROR"
 
 # Matches ANSI colour escapes (e.g. "\x1b[31m") that Jupyter embeds in tracebacks.
@@ -61,6 +70,10 @@ def strip_ansi(text: str) -> str:
 def classify_failure(ename: str, evalue: str) -> str:
     """Bucket a cell error so a red build tells us whether to retry or investigate."""
     text = evalue.lower()
+    # Checked first: a hung cell is reported as a synthesized CellTimeoutError,
+    # whose message may otherwise resemble another category.
+    if "timeout" in ename.lower() or "timed out" in text:
+        return CAT_TIMEOUT
     # gribjump/FDB signals a missing forecast with wording that varies by version
     # and datasource: "DataNotFound", "No data retrieved", "No data was returned".
     if "datanotfound" in text or "no data" in text:
@@ -86,6 +99,29 @@ def summarize_error(evalue: str) -> str:
     return lines[-1] if lines else text
 
 
+def log_failed_cell_output(nb: nbformat.NotebookNode) -> None:
+    """Echo the failing cell's streamed output into the log.
+
+    Outputs are attached to nb as they stream and execution stops at the first
+    failure, so the last cell holding any output is the one that failed. Without
+    this, progress messages from a hung cell (e.g. the polytope client reporting
+    a queued request) only live in the in-memory notebook, which CI discards.
+    """
+    cell = next((c for c in reversed(nb.cells) if c.get("outputs")), None)
+    if cell is None:
+        return
+
+    streamed = "".join(
+        out.get("text", "") for out in cell.outputs if out.get("output_type") == "stream"
+    )
+    lines = [ln for ln in strip_ansi(streamed).splitlines() if ln.strip()]
+    if not lines:
+        return
+
+    tail = lines[-OUTPUT_TAIL_LINES:]
+    logger.error("Output of the failed cell (last %d lines):\n%s", len(tail), "\n".join(tail))
+
+
 def run_notebook(notebook_path: Path, write_back: bool) -> NotebookResult:
     """Execute a notebook and return a classified result.
 
@@ -99,7 +135,18 @@ def run_notebook(notebook_path: Path, write_back: bool) -> NotebookResult:
         # Read as nbformat v4 (the current schema) whatever version is on disk.
         nb = nbformat.read(f, as_version=4)
 
-    ep = ExecutePreprocessor(timeout=600, kernel_name=KERNEL_NAME)
+    ep = ExecutePreprocessor(
+        timeout=CELL_TIMEOUT,
+        # On timeout, interrupt the kernel and synthesize an error reply. Left at
+        # its default, nbclient raises CellTimeoutError, which is *not* a
+        # CellExecutionError — it would escape below and abort the whole run.
+        interrupt_on_timeout=True,
+        error_on_timeout={
+            "ename": "CellTimeoutError",
+            "evalue": f"Cell execution timed out after {CELL_TIMEOUT} seconds",
+        },
+        kernel_name=KERNEL_NAME,
+    )
     try:
         # Run in the notebook's own directory so its relative reads (config.yml) work.
         ep.preprocess(nb, {"metadata": {"path": notebook_path.parent}})
@@ -108,15 +155,16 @@ def run_notebook(notebook_path: Path, write_back: bool) -> NotebookResult:
                 nbformat.write(nb, f)
         logger.info(f"PASS: {name}")
         return NotebookResult(name, passed=True)
-    except CellExecutionError as e:
-        # ename is the error's class name (e.g. "HTTPResponseError"),
-        # evalue its message text.
-        ename = strip_ansi(getattr(e, "ename", ""))
+    except (CellExecutionError, DeadKernelError) as e:
+        # ename is the error's class name (e.g. "HTTPResponseError"), evalue its
+        # message text; DeadKernelError carries neither, so fall back to its type.
+        ename = strip_ansi(getattr(e, "ename", "")) or type(e).__name__
         evalue = strip_ansi(getattr(e, "evalue", "") or str(e))
         category = classify_failure(ename, evalue)
         detail = summarize_error(evalue)
         # One actionable line at INFO/ERROR; the full traceback only when debugging.
-        logger.error("FAIL: %s — %s: %s — %s", name, category, ename or "error", detail)
+        logger.error("FAIL: %s — %s: %s — %s", name, category, ename, detail)
+        log_failed_cell_output(nb)
         logger.debug("Full traceback for %s", name, exc_info=True)
         return NotebookResult(name, passed=False, category=category, detail=detail)
 
