@@ -8,7 +8,7 @@ import requests
 
 REQUEST = {
     "param": "500011",
-    "date": "20260731",
+    "date": "20260811",
     "time": "0000",
     "expver": "0001",
     "step": 0,
