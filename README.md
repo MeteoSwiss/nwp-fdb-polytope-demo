@@ -2,7 +2,7 @@
 <h3 align="center">Jupyter Notebook Examples Using MeteoSwiss NWP Data</h3>
 
 
-This repository contains examples for using [FDB](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+for+ICON) and [Polytope](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/327780397/Polytope) to access ICON forecast data.
+This repository contains examples for using [FDB](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/144150401/Realtime+FDB+for+ICON) and [Polytope](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/327780397/Polytope) to access ICON forecast data. Additionally, there is a section on how to use [earthkit](https://earthkit.readthedocs.io/en/latest/) with MeteoSwiss' data.
 
 **FDB** allows to retrieve any multi-dimensional dataset of the recent real-time ICON NWP forecasts.
 FDB is designed to access **full horizontal fields** (feature extraction is not supported) and it is only accessible from within CSCS.
@@ -10,13 +10,17 @@ FDB is designed to access **full horizontal fields** (feature extraction is not 
 **Polytope** allows to efficiently extract specific **features** from the same real-time ICON NWP forecast, such as grid point data, time-series, vertical profiles or polygons.
 Polytope is an HTTP service and therefore access is not restricted to CSCS (it supports access from LabVM and ACPM).
 
+**earthkit** is an open-source Python library developed by ECMWF that provides powerful tools for weather and climate data, including reading data, metadata inspection, format conversion, regridding, and plotting.
+
 ---
 
 ## 📓 Notebooks
 
+### FDB
 The following notebook demonstrates how to access ICON-CH1-EPS & ICON-CH2-EPS model data with FDB:
 * [How to access model data with FDB from CSCS](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/FDB/realtime/data_retrieve_from_FDB.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/data_retrieve_from_FDB.html)
 
+### Polytope
 The following notebooks demonstrate various use cases to access ICON-CH1-EPS & ICON-CH2-EPS model data via Polytope:
 
 **Feature extraction**:
@@ -28,6 +32,13 @@ The following notebooks demonstrate various use cases to access ICON-CH1-EPS & I
 
 **Full field retrieval**:
 * [Full field](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/full_field.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/full_field.html)
+
+### Earthkit onboarding
+The following notebook illustrates the core functionalities of earthkit using MeteoSwiss' data.
+
+* [earthkit onboarding](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/earthkit/earthkit_onboarding_meteoswiss.ipynb)
+
+
 
 ---
 
