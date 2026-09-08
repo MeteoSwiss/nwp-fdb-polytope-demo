@@ -24,7 +24,7 @@ The following notebook demonstrates how to access ICON-CH1-EPS & ICON-CH2-EPS mo
 The following notebooks demonstrate various use cases to access ICON-CH1-EPS & ICON-CH2-EPS model data via Polytope:
 
 **Feature extraction**:
-* [Bounding Box](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_bounding_box.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_bounding_box.html)
+* [Bounding Box (& regridding)](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_bounding_box.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_bounding_box.html)
 * [Polygon country cut-out](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_polygon_country_cut-out.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_polygon_country_cut-out.html)
 * [Time Series](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_time_series.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_time_series.html)
 * [Trajectory](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_trajectory.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_trajectory.html)
