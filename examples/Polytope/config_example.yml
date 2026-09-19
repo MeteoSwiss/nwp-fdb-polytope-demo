@@ -1,5 +1,6 @@
 meteoswiss:
   key: <meteoswiss_key>
+  # address: https://service.meteoswiss.ch/polytope  # optional; defaults to the public Polytope URL if omitted
 ecmwf:
   user_email: <ecmwf_user_email>
   key: <ecmwf_key>
