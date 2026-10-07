@@ -7796,6 +7796,17 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0dc54cb4">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><a href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/swiss_lv95_regridding.html"><img alt="Open Rendered Output" src="https://img.shields.io/badge/Rendered%20Output-Open-blue?logo=link&amp;logoColor=white"/></a></p>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f2a066c9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -7846,10 +7857,10 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">load_config</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">"config.yml"</span><span class="p">):</span>
@@ -7885,10 +7896,10 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"ECCODES_ECKIT_GEO"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"1"</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"ECCODES_VERSION_CHECK_OFF"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"1"</span>
@@ -7915,15 +7926,15 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=ba8a828e">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ba8a828e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">timezone</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">timezone</span>
 
 <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
 <span class="n">past_time</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
@@ -7945,6 +7956,19 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </div>
 </div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Model cycle: 20261006 2100
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=089fd6db">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7956,15 +7980,15 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=00260a77">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=00260a77">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">earthkit.data</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ekd</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">earthkit.data</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ekd</span>
 
 <span class="n">request</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">"param"</span><span class="p">:</span> <span class="s2">"500011"</span><span class="p">,</span>       <span class="c1"># T_2M</span>
@@ -7994,6 +8018,282 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </div>
 </div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>2026-10-07 11:54:20 - INFO - Sending request...
+{'request': 'class: od\n'
+            "date: '20261006'\n"
+            "expver: '0001'\n"
+            'levtype: sfc\n'
+            'model: icon-ch1-eps\n'
+            "param: '500011'\n"
+            'step: 0\n'
+            'stream: enfo\n'
+            "time: '2100'\n"
+            'timespan: none\n'
+            'type: CF\n',
+ 'verb': 'retrieve'}
+2026-10-07 11:54:21 - INFO - Request accepted. Please poll ./4bee656f-1f35-4240-b458-c5ddfdc165ba for status
+2026-10-07 11:54:21 - INFO - Checking request status (4bee656f-1f35-4240-b458-c5ddfdc165ba)...
+2026-10-07 11:54:21 - INFO - The current status of the request is 'queued'
+2026-10-07 11:54:21 - INFO - The current status of the request is 'processing'
+2026-10-07 11:54:23 - INFO - The current status of the request is 'processed'
+                                                                                           </pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<style type="text/css"> /* Based on:
+ https://codepen.io/htmlcssfreebies/pen/WNpVeRK
+ https://github.com/pydata/xarray/blob/main/xarray/static/css/style.css
+ */
+
+ :root {
+    --eh-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+    --eh-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+    --eh-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+    --eh-border-color: var(--jp-border-color2, #e0e0e0);
+    --eh-disabled-color: var(--jp-layout-color3, #bdbdbd);
+    --eh-background-color: var(--jp-layout-color0, white);
+  }
+
+html[theme=dark],
+body[data-theme=dark],
+body.vscode-dark {
+  --eh-font-color0: rgba(255, 255, 255, 1);
+  --eh-font-color2: rgba(255, 255, 255, 0.54);
+  --eh-font-color3: rgba(255, 255, 255, 0.38);
+  --eh-border-color: #1F1F1F;
+  --eh-disabled-color: #515151;
+  --eh-background-color: #111111;
+}
+
+ /* Reset */
+ *,
+ *::before,
+ *::after {
+     box-sizing: border-box;
+ }
+
+ .eh-description {
+    color: var(--eh-font-color2);
+ }
+
+ .eh-section {
+    padding-left: 0px;
+ }
+
+ /* Tabs Container */
+ .eh-tabs-container {
+     padding: 0px;
+ }
+
+ /* Tabs Block */
+ .eh-tabs-block {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding-top: 4px;
+ }
+
+ /* Tabs */
+ .eh-tabs {
+     display: flex;
+     flex-wrap: wrap;
+     width: 100%;
+ }
+
+ .eh-tabs label {
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding-left: 6px;
+     padding-right: 6px;
+     font-weight: 400;
+     cursor: pointer;
+     color: var(--eh-font-color2);
+     background-color: var(--eh-background-color);
+     border-top: 1px solid var(--eh-background-color);
+     border-bottom: 1px solid var(--eh-disabled-color);
+ }
+
+ /* Tab page contents */
+ .eh-tabs .tab {
+     flex-grow: 1;
+     width: 100%;
+     height: 100%;
+     display: none;
+     padding: 2px 2px;
+ }
+
+ .eh-tabs [type=radio] {
+     display: none;
+ }
+
+ .eh-tabs [type=radio]:checked + label {
+     font-weight: 500;
+     color: var(--eh-font-color0);
+     border: 1px solid var(--eh-disabled-color);
+ }
+
+ .eh-tabs [type=radio]:checked + label + .tab {
+     display: block;
+ }
+
+ .eh-tabs [type=radio]:not(:checked) + label:hover {
+    color: var(--xr-font-color0);
+ }
+
+
+ @media (min-width: 768px) {
+
+     .eh-tabs-container {
+         padding: 1rem 1rem;
+     }
+
+     .eh-tabs label {
+         order: 1;
+         width: auto;
+     }
+
+     .eh-tabs .tab {
+         order: 9;
+     }
+
+     .eh-tabs [type=radio]:checked + label {
+         border-bottom: none;
+     }
+ }
+ @media (min-width: 992px) {
+
+     .eh-tabs {
+         width: 800px;
+     }
+ }
+</style><div class="eh-description">Field</div>
+<div>
+<section class="eh-section">
+<div class="eh-tabs-container">
+<div class="eh-tabs-block">
+<div class="eh-tabs">
+<input id="7b9f7fb0-2ff6-4e24-b84f-57c24fe56c63" name="eh-tabs" type="radio"/>
+<label for="7b9f7fb0-2ff6-4e24-b84f-57c24fe56c63" title="Keys in the data namespace">data</label>
+<div class="tab">
+<style type="text/css">table.ek td {
+    vertical-align: top;
+    text-align: left !important;
+}
+
+table.ek th {
+    vertical-align: top;
+    text-align: left !important;
+}
+</style>
+<table class="eh-table">
+<tr><td><b>number_of_values</b></td><td>1147980</td></tr> <tr><td><b>array_type</b></td><td>ndarray</td></tr> <tr><td><b>array_dtype</b></td><td>float64</td></tr>
+</table>
+</div>
+<input checked="" id="98cf845f-aba0-4831-98fc-3d67ee33ba17" name="eh-tabs" type="radio"/>
+<label for="98cf845f-aba0-4831-98fc-3d67ee33ba17" title="Keys in the parameter namespace">parameter</label>
+<div class="tab">
+<style type="text/css">table.ek td {
+    vertical-align: top;
+    text-align: left !important;
+}
+
+table.ek th {
+    vertical-align: top;
+    text-align: left !important;
+}
+</style>
+<table class="eh-table">
+<tr><td><b>variable</b></td><td>T_2M</td></tr> <tr><td><b>standard_name</b></td><td>air_temperature</td></tr> <tr><td><b>long_name</b></td><td>2m Temperature</td></tr> <tr><td><b>units</b></td><td>kelvin</td></tr>
+</table>
+</div>
+<input id="c9152786-62e9-4dd1-9c89-e7322a946e89" name="eh-tabs" type="radio"/>
+<label for="c9152786-62e9-4dd1-9c89-e7322a946e89" title="Keys in the time namespace">time</label>
+<div class="tab">
+<style type="text/css">table.ek td {
+    vertical-align: top;
+    text-align: left !important;
+}
+
+table.ek th {
+    vertical-align: top;
+    text-align: left !important;
+}
+</style>
+<table class="eh-table">
+<tr><td><b>valid_datetime</b></td><td>2026-10-06 21:00:00</td></tr> <tr><td><b>base_datetime</b></td><td>2026-10-06 21:00:00</td></tr> <tr><td><b>step</b></td><td>0:00:00</td></tr>
+</table>
+</div>
+<input id="8978edf4-ff67-42ff-a555-a27e24c2cb14" name="eh-tabs" type="radio"/>
+<label for="8978edf4-ff67-42ff-a555-a27e24c2cb14" title="Keys in the vertical namespace">vertical</label>
+<div class="tab">
+<style type="text/css">table.ek td {
+    vertical-align: top;
+    text-align: left !important;
+}
+
+table.ek th {
+    vertical-align: top;
+    text-align: left !important;
+}
+</style>
+<table class="eh-table">
+<tr><td><b>level</b></td><td>2</td></tr> <tr><td><b>layer</b></td><td>None</td></tr> <tr><td><b>level_type</b></td><td>height_above_ground_level</td></tr>
+</table>
+</div>
+<input id="5d6c1361-ed19-4786-8a8b-3b6173c2ef5e" name="eh-tabs" type="radio"/>
+<label for="5d6c1361-ed19-4786-8a8b-3b6173c2ef5e" title="Keys in the ensemble namespace">ensemble</label>
+<div class="tab">
+<style type="text/css">table.ek td {
+    vertical-align: top;
+    text-align: left !important;
+}
+
+table.ek th {
+    vertical-align: top;
+    text-align: left !important;
+}
+</style>
+<table class="eh-table">
+<tr><td><b>member</b></td><td>0</td></tr>
+</table>
+</div>
+<input id="fae57f49-0d4b-44da-8f6a-4549c105ef3f" name="eh-tabs" type="radio"/>
+<label for="fae57f49-0d4b-44da-8f6a-4549c105ef3f" title="Keys in the geography namespace">geography</label>
+<div class="tab">
+<style type="text/css">table.ek td {
+    vertical-align: top;
+    text-align: left !important;
+}
+
+table.ek th {
+    vertical-align: top;
+    text-align: left !important;
+}
+</style>
+<table class="eh-table">
+<tr><td><b>grid_spec</b></td><td>{'area': [50.6, -0.9, 41.9, 17.8], 'grid': 'ICON-CH1_C', 'uid': '17643da2574959b644d254a3cd6e2bc0'}</td></tr> <tr><td><b>grid_type</b></td><td>ICON</td></tr> <tr><td><b>shape</b></td><td>(1147980,)</td></tr> <tr><td><b>area</b></td><td>(50.6, -0.9, 41.9, 17.8)</td></tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=60739481">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -8005,21 +8305,44 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=23e13516">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=23e13516">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">ls</span><span class="p">())</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">ls</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"gridType:"</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">metadata</span><span class="p">(</span><span class="s2">"gridType"</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"grid spec:"</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">geography</span><span class="o">.</span><span class="n">grid_spec</span><span class="p">())</span>
 
 <span class="n">values</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"number of source points:"</span><span class="p">,</span> <span class="n">values</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>  parameter.variable time.valid_datetime  time.base_datetime time.step  \
+0               T_2M 2026-10-06 21:00:00 2026-10-06 21:00:00    0 days   
+
+   vertical.level        vertical.level_type ensemble.member  \
+0               2  height_above_ground_level               0   
+
+  geography.grid_type  
+0                ICON  
+gridType: unstructured_grid
+grid spec: {'area': [50.6, -0.9, 41.9, 17.8], 'grid': 'ICON-CH1_C', 'uid': '17643da2574959b644d254a3cd6e2bc0'}
+number of source points: 1147980
+</pre>
 </div>
 </div>
 </div>
@@ -8047,15 +8370,15 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8a9da1b4">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8a9da1b4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">eckit.geo</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">eckit.geo</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
 
 <span class="n">target_grid</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span><span class="s2">"swisslv95"</span><span class="p">)</span>
 
@@ -8064,6 +8387,22 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <span class="nb">print</span><span class="p">(</span><span class="s2">"shape:"</span><span class="p">,</span> <span class="n">target_grid</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"size:"</span><span class="p">,</span> <span class="n">target_grid</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Swiss LV95 grid specification:
+{'area': [48.1517247240718, 5.27585865137911, 45.4640456795421, 11.023684403413], 'bounding_box_xy': [2439000, 1040500, 2867000, 1333500], 'figure': {'a': 6377397.155, 'b': 6356078.96281819}, 'grid': [1000, 1000], 'order': 'i+j+', 'projection': {'target': 'EPSG:2056', 'type': 'proj'}, 'shape': [429, 294], 'type': 'regular_xy'}
+shape: (294, 429)
+size: 126126
+</pre>
 </div>
 </div>
 </div>
@@ -8080,15 +8419,15 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=927f0ab2">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=927f0ab2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">earthkit.geo</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ekg</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">earthkit.geo</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ekg</span>
 
 <span class="n">result</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ekg</span><span class="o">.</span><span class="n">grids</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">regrid</span><span class="p">(</span>
     <span class="n">values</span><span class="p">,</span>
@@ -8101,6 +8440,24 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <span class="nb">print</span><span class="p">(</span><span class="s2">"target points:"</span><span class="p">,</span> <span class="n">target_grid</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"output points:"</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Cache file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/unstructured-126126-cb95d416308e2d6d522c0b9e02d71986-8adf5494c66fb6c4b6937ba013a0701e.mat does not exist
+source points: 1147980
+target points: 126126
+output points: 126126
+Creating cache file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/unstructured-126126-cb95d416308e2d6d522c0b9e02d71986-8adf5494c66fb6c4b6937ba013a0701e.mat
+CacheManager creating file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/unstructured-126126-cb95d416308e2d6d522c0b9e02d71986-8adf5494c66fb6c4b6937ba013a0701e.mat
+</pre>
 </div>
 </div>
 </div>
@@ -8141,15 +8498,15 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4ef6192c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4ef6192c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Source points: </span><span class="si">{</span><span class="n">values</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Target points: </span><span class="si">{</span><span class="n">target_grid</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -8171,6 +8528,25 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </div>
 </div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Source points: 1147980
+Target points: 126126
+Output points: 126126
+Source range: 265.467 to 297.542
+Result range: 265.613 to 295.249
+Source NaNs: 0
+Result NaNs: 0
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=757f8fb9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -8178,7 +8554,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Notes-on-interpolation-weights">Notes on interpolation weights<a class="anchor-link" href="#Notes-on-interpolation-weights">¶</a></h2><p>When earthkit-geo performs the regridding, it uses MIR (Meteorological Interpolation and Regridding), ECMWF's interpolation library, under the hood.</p>
+<h2 id="Notes-on-interpolation-weights">Notes on interpolation weights<a class="anchor-link" href="#Notes-on-interpolation-weights">¶</a></h2><p>When earthkit-geo performs the regridding, it uses <a href="https://www.ecmwf.int/en/newsletter/152/computing/new-ecmwf-interpolation-package-mir">MIR</a> (Meteorological Interpolation and Regridding), ECMWF's interpolation library, under the hood.</p>
 <p>For each combination of:</p>
 <ul>
 <li>source grid,</li>
