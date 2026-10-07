@@ -29,6 +29,8 @@ The following notebooks demonstrate various use cases to access ICON-CH1-EPS & I
 * [Time Series](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_time_series.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_time_series.html)
 * [Trajectory](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_trajectory.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_trajectory.html)
 * [Vertical Profile](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/feature_vertical_profile.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/feature_vertical_profile.html)
+Full field regridding to Swiss LV95 and HTML rendered output
+* [Full field regridding to Swiss LV95](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/swiss_lv95_regridding.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/swiss_lv95_regridding.html)
 
 **Full field retrieval**:
 * [Full field](https://github.com/MeteoSwiss/nwp-fdb-polytope-demo/blob/main/examples/Polytope/full_field.ipynb) and [HTML rendered output](https://htmlpreview.github.io/?https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/snapshots/full_field.html)
