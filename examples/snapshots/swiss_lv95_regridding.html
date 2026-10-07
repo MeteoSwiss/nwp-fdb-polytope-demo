@@ -7814,6 +7814,30 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="Regrid-a-full-ICON-CH1-EPS-field-to-the-Swiss-LV95-grid">Regrid a full ICON-CH1-EPS field to the Swiss LV95 grid<a class="anchor-link" href="#Regrid-a-full-ICON-CH1-EPS-field-to-the-Swiss-LV95-grid">¶</a></h1><p>This example retrieves one <strong>full ICON-CH1-EPS field</strong> from MeteoSwiss Polytope and interpolates it to the predefined <strong>Swiss LV95 1-km grid</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a245a81e">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div style="text-align:center;">
+<img alt="No description has been provided for this image" src="https://raw.githubusercontent.com/MeteoSwiss/nwp-fdb-polytope-demo/main/examples/Polytope/images/icon_ch1_eps_comparison.png
+  " style="width:70%;"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0cc63a1f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Environment-setup">Environment setup<a class="anchor-link" href="#Environment-setup">¶</a></h2><p>Create a clean Python 3.11 environment:</p>
 <div class="highlight"><pre><span></span>python3.11<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv-swisslv95
 <span class="nb">source</span><span class="w"> </span>.venv-swisslv95/bin/activate
@@ -7963,7 +7987,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Model cycle: 20261006 2100
+<pre>Model cycle: 20261007 0000
 </pre>
 </div>
 </div>
@@ -8025,25 +8049,25 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>2026-10-07 11:54:20 - INFO - Sending request...
+<pre>2026-10-07 15:23:59 - INFO - Sending request...
 {'request': 'class: od\n'
-            "date: '20261006'\n"
+            "date: '20261007'\n"
             "expver: '0001'\n"
             'levtype: sfc\n'
             'model: icon-ch1-eps\n'
             "param: '500011'\n"
             'step: 0\n'
             'stream: enfo\n'
-            "time: '2100'\n"
+            "time: '0000'\n"
             'timespan: none\n'
             'type: CF\n',
  'verb': 'retrieve'}
-2026-10-07 11:54:21 - INFO - Request accepted. Please poll ./4bee656f-1f35-4240-b458-c5ddfdc165ba for status
-2026-10-07 11:54:21 - INFO - Checking request status (4bee656f-1f35-4240-b458-c5ddfdc165ba)...
-2026-10-07 11:54:21 - INFO - The current status of the request is 'queued'
-2026-10-07 11:54:21 - INFO - The current status of the request is 'processing'
-2026-10-07 11:54:23 - INFO - The current status of the request is 'processed'
-                                                                                           </pre>
+2026-10-07 15:23:59 - INFO - Request accepted. Please poll ./2f3456e1-e8d1-4728-b475-ff65069c5c79 for status
+2026-10-07 15:23:59 - INFO - Checking request status (2f3456e1-e8d1-4728-b475-ff65069c5c79)...
+2026-10-07 15:23:59 - INFO - The current status of the request is 'queued'
+2026-10-07 15:24:00 - INFO - The current status of the request is 'processing'
+2026-10-07 15:24:01 - INFO - The current status of the request is 'processed'
+                                                                               </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
@@ -8183,8 +8207,8 @@ body.vscode-dark {
 <div class="eh-tabs-container">
 <div class="eh-tabs-block">
 <div class="eh-tabs">
-<input id="7b9f7fb0-2ff6-4e24-b84f-57c24fe56c63" name="eh-tabs" type="radio"/>
-<label for="7b9f7fb0-2ff6-4e24-b84f-57c24fe56c63" title="Keys in the data namespace">data</label>
+<input id="1e5ba93c-0e7d-4c88-86b1-165d14be9795" name="eh-tabs" type="radio"/>
+<label for="1e5ba93c-0e7d-4c88-86b1-165d14be9795" title="Keys in the data namespace">data</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8200,8 +8224,8 @@ table.ek th {
 <tr><td><b>number_of_values</b></td><td>1147980</td></tr> <tr><td><b>array_type</b></td><td>ndarray</td></tr> <tr><td><b>array_dtype</b></td><td>float64</td></tr>
 </table>
 </div>
-<input checked="" id="98cf845f-aba0-4831-98fc-3d67ee33ba17" name="eh-tabs" type="radio"/>
-<label for="98cf845f-aba0-4831-98fc-3d67ee33ba17" title="Keys in the parameter namespace">parameter</label>
+<input checked="" id="286cf6cc-b4a5-430b-906b-42b482219b07" name="eh-tabs" type="radio"/>
+<label for="286cf6cc-b4a5-430b-906b-42b482219b07" title="Keys in the parameter namespace">parameter</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8217,8 +8241,8 @@ table.ek th {
 <tr><td><b>variable</b></td><td>T_2M</td></tr> <tr><td><b>standard_name</b></td><td>air_temperature</td></tr> <tr><td><b>long_name</b></td><td>2m Temperature</td></tr> <tr><td><b>units</b></td><td>kelvin</td></tr>
 </table>
 </div>
-<input id="c9152786-62e9-4dd1-9c89-e7322a946e89" name="eh-tabs" type="radio"/>
-<label for="c9152786-62e9-4dd1-9c89-e7322a946e89" title="Keys in the time namespace">time</label>
+<input id="25a8b78b-221f-4f3b-a835-7a18464bc56c" name="eh-tabs" type="radio"/>
+<label for="25a8b78b-221f-4f3b-a835-7a18464bc56c" title="Keys in the time namespace">time</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8231,11 +8255,11 @@ table.ek th {
 }
 </style>
 <table class="eh-table">
-<tr><td><b>valid_datetime</b></td><td>2026-10-06 21:00:00</td></tr> <tr><td><b>base_datetime</b></td><td>2026-10-06 21:00:00</td></tr> <tr><td><b>step</b></td><td>0:00:00</td></tr>
+<tr><td><b>valid_datetime</b></td><td>2026-10-07 00:00:00</td></tr> <tr><td><b>base_datetime</b></td><td>2026-10-07 00:00:00</td></tr> <tr><td><b>step</b></td><td>0:00:00</td></tr>
 </table>
 </div>
-<input id="8978edf4-ff67-42ff-a555-a27e24c2cb14" name="eh-tabs" type="radio"/>
-<label for="8978edf4-ff67-42ff-a555-a27e24c2cb14" title="Keys in the vertical namespace">vertical</label>
+<input id="7bbbe0cd-0737-460b-bc1d-f03e4d8439d4" name="eh-tabs" type="radio"/>
+<label for="7bbbe0cd-0737-460b-bc1d-f03e4d8439d4" title="Keys in the vertical namespace">vertical</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8251,8 +8275,8 @@ table.ek th {
 <tr><td><b>level</b></td><td>2</td></tr> <tr><td><b>layer</b></td><td>None</td></tr> <tr><td><b>level_type</b></td><td>height_above_ground_level</td></tr>
 </table>
 </div>
-<input id="5d6c1361-ed19-4786-8a8b-3b6173c2ef5e" name="eh-tabs" type="radio"/>
-<label for="5d6c1361-ed19-4786-8a8b-3b6173c2ef5e" title="Keys in the ensemble namespace">ensemble</label>
+<input id="165603a1-7c9c-4f42-b684-76ddce67018b" name="eh-tabs" type="radio"/>
+<label for="165603a1-7c9c-4f42-b684-76ddce67018b" title="Keys in the ensemble namespace">ensemble</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8268,8 +8292,8 @@ table.ek th {
 <tr><td><b>member</b></td><td>0</td></tr>
 </table>
 </div>
-<input id="fae57f49-0d4b-44da-8f6a-4549c105ef3f" name="eh-tabs" type="radio"/>
-<label for="fae57f49-0d4b-44da-8f6a-4549c105ef3f" title="Keys in the geography namespace">geography</label>
+<input id="dc1a0f37-5a01-4393-8cec-904703a67503" name="eh-tabs" type="radio"/>
+<label for="dc1a0f37-5a01-4393-8cec-904703a67503" title="Keys in the geography namespace">geography</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8331,8 +8355,8 @@ table.ek th {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>  parameter.variable time.valid_datetime  time.base_datetime time.step  \
-0               T_2M 2026-10-06 21:00:00 2026-10-06 21:00:00    0 days   
+<pre>  parameter.variable time.valid_datetime time.base_datetime time.step  \
+0               T_2M          2026-10-07         2026-10-07    0 days   
 
    vertical.level        vertical.level_type ensemble.member  \
 0               2  height_above_ground_level               0   
@@ -8452,11 +8476,11 @@ size: 126126
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Cache file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/unstructured-126126-cb95d416308e2d6d522c0b9e02d71986-8adf5494c66fb6c4b6937ba013a0701e.mat does not exist
+Creating cache file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/unstructured-126126-cb95d416308e2d6d522c0b9e02d71986-8adf5494c66fb6c4b6937ba013a0701e.mat
+CacheManager creating file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/unstructured-126126-cb95d416308e2d6d522c0b9e02d71986-8adf5494c66fb6c4b6937ba013a0701e.mat
 source points: 1147980
 target points: 126126
 output points: 126126
-Creating cache file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/unstructured-126126-cb95d416308e2d6d522c0b9e02d71986-8adf5494c66fb6c4b6937ba013a0701e.mat
-CacheManager creating file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/unstructured-126126-cb95d416308e2d6d522c0b9e02d71986-8adf5494c66fb6c4b6937ba013a0701e.mat
 </pre>
 </div>
 </div>
@@ -8538,8 +8562,8 @@ CacheManager creating file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da
 <pre>Source points: 1147980
 Target points: 126126
 Output points: 126126
-Source range: 265.467 to 297.542
-Result range: 265.613 to 295.249
+Source range: 263.950 to 297.308
+Result range: 264.185 to 294.400
 Source NaNs: 0
 Result NaNs: 0
 </pre>
