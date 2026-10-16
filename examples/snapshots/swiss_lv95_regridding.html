@@ -7814,6 +7814,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="Regrid-a-full-ICON-CH1-EPS-field-to-the-Swiss-LV95-grid">Regrid a full ICON-CH1-EPS field to the Swiss LV95 grid<a class="anchor-link" href="#Regrid-a-full-ICON-CH1-EPS-field-to-the-Swiss-LV95-grid">¶</a></h1><p>This example retrieves one <strong>full ICON-CH1-EPS field</strong> from MeteoSwiss Polytope and interpolates it to the predefined <strong>Swiss LV95 1-km grid</strong>.</p>
+<p>It also shows how to configure a persistent MIR interpolation-weight cache so that weights can be reused when additional variables are interpolated between the same grids.</p>
 </div>
 </div>
 </div>
@@ -7850,18 +7851,80 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <span class="w">    </span>eccodes-cosmo-resources-python<span class="o">==</span><span class="m">2</span>.47.0.1<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>ipykernel
 </pre></div>
-<p>Install the newer ECMWF regridding backend wheels:</p>
+<p>For the current Swiss LV95 test setup, install the temporary MIR test wheel:</p>
 <div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-i<span class="w"> </span>https://get-test.ecmwf.int/repository/pypi-betas/simple/<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--extra-index-url<span class="w"> </span>https://pypi.org/simple<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="nv">eckit</span><span class="o">==</span><span class="m">2</span>.3.1.dev213<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>mir-python<span class="o">==</span><span class="m">1</span>.30.2.dev213
+<span class="w">    </span>mir-python<span class="o">==</span><span class="m">1</span>.30.2.49
 </pre></div>
+<blockquote>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Compatibility warnings from <code>pip</code> can be expected because the temporary test wheel overrides backend versions pinned by the current Earthkit release.</li>
+<li>This extra beta-wheel installation is temporary. Once the corresponding changes are included in a future earthkit-geo release, users should no longer need to install the MIR test wheel separately.</li>
+</ul>
+</blockquote>
 <p>Register the environment as a Jupyter kernel:</p>
 <div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--name<span class="w"> </span>swisslv95<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--display-name<span class="w"> </span><span class="s2">"Python (Swiss LV95)"</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f466591f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Check-the-main-package-versions">Check the main package versions<a class="anchor-link" href="#Check-the-main-package-versions">¶</a></h3><p>The cell below prints the main packages relevant to this example so the environment used for the interpolation is easy to reproduce.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4dea8d46">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">importlib.metadata</span><span class="w"> </span><span class="kn">import</span> <span class="n">PackageNotFoundError</span><span class="p">,</span> <span class="n">version</span>
+
+<span class="n">packages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"earthkit-data"</span><span class="p">,</span>
+    <span class="s2">"earthkit-geo"</span><span class="p">,</span>
+    <span class="s2">"eckit"</span><span class="p">,</span>
+    <span class="s2">"mir-python"</span><span class="p">,</span>
+    <span class="s2">"eccodes-cosmo-resources-python"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">package</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">package</span><span class="si">:</span><span class="s2">&lt;32</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">version</span><span class="p">(</span><span class="n">package</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">PackageNotFoundError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">package</span><span class="si">:</span><span class="s2">&lt;32</span><span class="si">}</span><span class="s2">: NOT INSTALLED"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>earthkit-data                   : 1.1.0
+earthkit-geo                    : 1.1.2
+eckit                           : 2.5.0.49
+mir-python                      : 1.30.2.49
+eccodes-cosmo-resources-python  : 2.47.0.1
+</pre>
+</div>
 </div>
 </div>
 </div>
@@ -7881,7 +7944,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -7920,7 +7983,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -7955,7 +8018,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">timezone</span>
@@ -7987,7 +8050,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Model cycle: 20261007 0000
+<pre>Model cycle: 20261015 1800
 </pre>
 </div>
 </div>
@@ -8009,7 +8072,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">earthkit.data</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ekd</span>
@@ -8049,29 +8112,29 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>2026-10-07 15:23:59 - INFO - Sending request...
+<pre>2026-10-16 09:26:57 - INFO - Sending request...
 {'request': 'class: od\n'
-            "date: '20261007'\n"
+            "date: '20261015'\n"
             "expver: '0001'\n"
             'levtype: sfc\n'
             'model: icon-ch1-eps\n'
             "param: '500011'\n"
             'step: 0\n'
             'stream: enfo\n'
-            "time: '0000'\n"
+            "time: '1800'\n"
             'timespan: none\n'
             'type: CF\n',
  'verb': 'retrieve'}
-2026-10-07 15:23:59 - INFO - Request accepted. Please poll ./2f3456e1-e8d1-4728-b475-ff65069c5c79 for status
-2026-10-07 15:23:59 - INFO - Checking request status (2f3456e1-e8d1-4728-b475-ff65069c5c79)...
-2026-10-07 15:23:59 - INFO - The current status of the request is 'queued'
-2026-10-07 15:24:00 - INFO - The current status of the request is 'processing'
-2026-10-07 15:24:01 - INFO - The current status of the request is 'processed'
-                                                                               </pre>
+2026-10-16 09:26:57 - INFO - Request accepted. Please poll ./537502ee-20e9-4052-922c-60b549cce9cf for status
+2026-10-16 09:26:57 - INFO - Checking request status (537502ee-20e9-4052-922c-60b549cce9cf)...
+2026-10-16 09:26:57 - INFO - The current status of the request is 'queued'
+2026-10-16 09:26:58 - INFO - The current status of the request is 'processing'
+2026-10-16 09:26:59 - INFO - The current status of the request is 'processed'
+                                                                                                                                                                                                                                                                                                                                           </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <style type="text/css"> /* Based on:
  https://codepen.io/htmlcssfreebies/pen/WNpVeRK
@@ -8207,8 +8270,8 @@ body.vscode-dark {
 <div class="eh-tabs-container">
 <div class="eh-tabs-block">
 <div class="eh-tabs">
-<input id="1e5ba93c-0e7d-4c88-86b1-165d14be9795" name="eh-tabs" type="radio"/>
-<label for="1e5ba93c-0e7d-4c88-86b1-165d14be9795" title="Keys in the data namespace">data</label>
+<input id="ddb23985-8653-47eb-a66a-60aef67ad24b" name="eh-tabs" type="radio"/>
+<label for="ddb23985-8653-47eb-a66a-60aef67ad24b" title="Keys in the data namespace">data</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8224,8 +8287,8 @@ table.ek th {
 <tr><td><b>number_of_values</b></td><td>1147980</td></tr> <tr><td><b>array_type</b></td><td>ndarray</td></tr> <tr><td><b>array_dtype</b></td><td>float64</td></tr>
 </table>
 </div>
-<input checked="" id="286cf6cc-b4a5-430b-906b-42b482219b07" name="eh-tabs" type="radio"/>
-<label for="286cf6cc-b4a5-430b-906b-42b482219b07" title="Keys in the parameter namespace">parameter</label>
+<input checked="" id="0d48f23f-6b96-49f9-8ce2-7c3addef3f3d" name="eh-tabs" type="radio"/>
+<label for="0d48f23f-6b96-49f9-8ce2-7c3addef3f3d" title="Keys in the parameter namespace">parameter</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8241,8 +8304,8 @@ table.ek th {
 <tr><td><b>variable</b></td><td>T_2M</td></tr> <tr><td><b>standard_name</b></td><td>air_temperature</td></tr> <tr><td><b>long_name</b></td><td>2m Temperature</td></tr> <tr><td><b>units</b></td><td>kelvin</td></tr>
 </table>
 </div>
-<input id="25a8b78b-221f-4f3b-a835-7a18464bc56c" name="eh-tabs" type="radio"/>
-<label for="25a8b78b-221f-4f3b-a835-7a18464bc56c" title="Keys in the time namespace">time</label>
+<input id="bb1e9ee0-dde6-4f74-92c6-3f3dd22daa7d" name="eh-tabs" type="radio"/>
+<label for="bb1e9ee0-dde6-4f74-92c6-3f3dd22daa7d" title="Keys in the time namespace">time</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8255,11 +8318,11 @@ table.ek th {
 }
 </style>
 <table class="eh-table">
-<tr><td><b>valid_datetime</b></td><td>2026-10-07 00:00:00</td></tr> <tr><td><b>base_datetime</b></td><td>2026-10-07 00:00:00</td></tr> <tr><td><b>step</b></td><td>0:00:00</td></tr>
+<tr><td><b>valid_datetime</b></td><td>2026-10-15 18:00:00</td></tr> <tr><td><b>base_datetime</b></td><td>2026-10-15 18:00:00</td></tr> <tr><td><b>step</b></td><td>0:00:00</td></tr>
 </table>
 </div>
-<input id="7bbbe0cd-0737-460b-bc1d-f03e4d8439d4" name="eh-tabs" type="radio"/>
-<label for="7bbbe0cd-0737-460b-bc1d-f03e4d8439d4" title="Keys in the vertical namespace">vertical</label>
+<input id="8a7febb0-67bf-4d7e-ba07-26aebc5dbf55" name="eh-tabs" type="radio"/>
+<label for="8a7febb0-67bf-4d7e-ba07-26aebc5dbf55" title="Keys in the vertical namespace">vertical</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8275,8 +8338,8 @@ table.ek th {
 <tr><td><b>level</b></td><td>2</td></tr> <tr><td><b>layer</b></td><td>None</td></tr> <tr><td><b>level_type</b></td><td>height_above_ground_level</td></tr>
 </table>
 </div>
-<input id="165603a1-7c9c-4f42-b684-76ddce67018b" name="eh-tabs" type="radio"/>
-<label for="165603a1-7c9c-4f42-b684-76ddce67018b" title="Keys in the ensemble namespace">ensemble</label>
+<input id="67830d65-62bb-4f26-b285-a8728eb9954b" name="eh-tabs" type="radio"/>
+<label for="67830d65-62bb-4f26-b285-a8728eb9954b" title="Keys in the ensemble namespace">ensemble</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8292,8 +8355,8 @@ table.ek th {
 <tr><td><b>member</b></td><td>0</td></tr>
 </table>
 </div>
-<input id="dc1a0f37-5a01-4393-8cec-904703a67503" name="eh-tabs" type="radio"/>
-<label for="dc1a0f37-5a01-4393-8cec-904703a67503" title="Keys in the geography namespace">geography</label>
+<input id="0af58174-be1e-4a15-8dbc-736fd8aa6769" name="eh-tabs" type="radio"/>
+<label for="0af58174-be1e-4a15-8dbc-736fd8aa6769" title="Keys in the geography namespace">geography</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8334,7 +8397,7 @@ table.ek th {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">ls</span><span class="p">())</span>
@@ -8355,8 +8418,8 @@ table.ek th {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>  parameter.variable time.valid_datetime time.base_datetime time.step  \
-0               T_2M          2026-10-07         2026-10-07    0 days   
+<pre>  parameter.variable time.valid_datetime  time.base_datetime time.step  \
+0               T_2M 2026-10-15 18:00:00 2026-10-15 18:00:00    0 days   
 
    vertical.level        vertical.level_type ensemble.member  \
 0               2  height_above_ground_level               0   
@@ -8366,6 +8429,62 @@ table.ek th {
 gridType: unstructured_grid
 grid spec: {'area': [50.6, -0.9, 41.9, 17.8], 'grid': 'ICON-CH1_C', 'uid': '17643da2574959b644d254a3cd6e2bc0'}
 number of source points: 1147980
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=20173f70">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Configure-the-MIR-interpolation-weight-cache">Configure the MIR interpolation-weight cache<a class="anchor-link" href="#Configure-the-MIR-interpolation-weight-cache">¶</a></h2><p><code>earthkit-geo</code> uses <strong>MIR</strong> (Meteorological Interpolation and Regridding), ECMWF's interpolation library, for this regridding.</p>
+<p>For each combination of:</p>
+<ul>
+<li>source grid,</li>
+<li>target grid,</li>
+<li>interpolation method,</li>
+</ul>
+<p>MIR computes interpolation weights. These weights can be reused for other variables on the same grids. For example, after weights have been computed for <code>T_2M</code>, fields such as <code>TOT_PREC</code>, <code>U_10M</code> or <code>V_10M</code> can reuse them when the source grid, target grid and interpolation method are unchanged.</p>
+<p>By default, MIR may use a temporary cache location. Set <code>MIR_CACHE_PATH</code> to a persistent writable directory if the weights should be kept between sessions.</p>
+<p>For a workstation or Lab VM, a user cache directory such as <code>~/.cache/mir</code> is a convenient default. On an HPC system, use an appropriate persistent user, project or scratch location according to the system policy.</p>
+<p>The cache path must be configured <strong>before the first MIR regridding call</strong>.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c50e31f1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">mir_cache</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">".cache"</span> <span class="o">/</span> <span class="s2">"mir"</span>
+<span class="n">mir_cache</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"MIR_CACHE_PATH"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mir_cache</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"MIR cache:"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"MIR_CACHE_PATH"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>MIR cache: /users/nburgdor/.cache/mir
 </pre>
 </div>
 </div>
@@ -8391,6 +8510,7 @@ number of source points: 1147980
 <span class="p">}</span>
 </pre></div>
 <p>The explicit form is useful when a different LV95 extent or spacing is required.</p>
+<p>Defining the grid explicitly is not slower by itself. Performance mainly depends on the number of target points. If the explicit specification describes the same target geometry as the predefined grid, MIR can reuse the same interpolation setup; changing the extent or resolution requires a different set of weights.</p>
 </div>
 </div>
 </div>
@@ -8399,7 +8519,7 @@ number of source points: 1147980
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">eckit.geo</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grid</span>
@@ -8423,7 +8543,7 @@ number of source points: 1147980
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Swiss LV95 grid specification:
-{'area': [48.1517247240718, 5.27585865137911, 45.4640456795421, 11.023684403413], 'bounding_box_xy': [2439000, 1040500, 2867000, 1333500], 'figure': {'a': 6377397.155, 'b': 6356078.96281819}, 'grid': [1000, 1000], 'order': 'i+j+', 'projection': {'target': 'EPSG:2056', 'type': 'proj'}, 'shape': [429, 294], 'type': 'regular_xy'}
+{'order': 'i+j+', 'projection': 'swisslv95', 'x': [2439000, 2867000, 1000], 'y': [1040500, 1333500, 1000]}
 shape: (294, 429)
 size: 126126
 </pre>
@@ -8439,7 +8559,7 @@ size: 126126
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Regrid-ICON-CH1-EPS-to-Swiss-LV95">Regrid ICON-CH1-EPS to Swiss LV95<a class="anchor-link" href="#Regrid-ICON-CH1-EPS-to-Swiss-LV95">¶</a></h2><p><code>earthkit-geo</code> delegates the interpolation to MIR. Here we use linear interpolation.</p>
-<p>The first interpolation for a given source grid, target grid and interpolation method may take longer because MIR computes the interpolation coefficients (weights). MIR can cache these weights and reuse them for later fields on the same pair of grids.</p>
+<p>The first interpolation for a new source-grid / target-grid / interpolation-method combination may take longer because MIR has to compute the interpolation weights. Once those weights are present in the configured cache, subsequent fields using the same combination can reuse them and are typically faster.</p>
 </div>
 </div>
 </div>
@@ -8448,7 +8568,7 @@ size: 126126
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">earthkit.geo</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ekg</span>
@@ -8475,12 +8595,12 @@ size: 126126
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Cache file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/unstructured-126126-cb95d416308e2d6d522c0b9e02d71986-8adf5494c66fb6c4b6937ba013a0701e.mat does not exist
-Creating cache file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/unstructured-126126-cb95d416308e2d6d522c0b9e02d71986-8adf5494c66fb6c4b6937ba013a0701e.mat
-CacheManager creating file /tmp/cache/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/unstructured-126126-cb95d416308e2d6d522c0b9e02d71986-8adf5494c66fb6c4b6937ba013a0701e.mat
+<pre>Cache file /users/nburgdor/.cache/mir/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/regular_xy-126126-35a7a70c3550b69c8e025a5449b62a03-b5410caac63305df5e0f459260fe20a6.mat does not exist
 source points: 1147980
 target points: 126126
 output points: 126126
+Creating cache file /users/nburgdor/.cache/mir/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/regular_xy-126126-35a7a70c3550b69c8e025a5449b62a03-b5410caac63305df5e0f459260fe20a6.mat
+CacheManager creating file /users/nburgdor/.cache/mir/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/regular_xy-126126-35a7a70c3550b69c8e025a5449b62a03-b5410caac63305df5e0f459260fe20a6.mat
 </pre>
 </div>
 </div>
@@ -8518,7 +8638,9 @@ output points: 126126
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Sanity-checks">Sanity checks<a class="anchor-link" href="#Sanity-checks">¶</a></h2><p>The source ICON grid contains many more points than the 1-km Swiss target grid. The exact values depend on the selected field and model cycle.</p>
+<h2 id="Sanity-checks">Sanity checks<a class="anchor-link" href="#Sanity-checks">¶</a></h2><p>The source ICON grid contains many more points than the 1-km Swiss target grid. The output size should therefore match the Swiss LV95 target grid rather than the number of source points.</p>
+<p>The value range can also change after interpolation. This is expected: the target grid samples different locations, and linear interpolation computes target values from neighbouring source values instead of copying source grid points directly. Source-grid extrema therefore do not necessarily appear with exactly the same values on the target grid.</p>
+<p>The checks below compare the number of points, value ranges and missing values.</p>
 </div>
 </div>
 </div>
@@ -8527,7 +8649,7 @@ output points: 126126
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -8562,8 +8684,8 @@ output points: 126126
 <pre>Source points: 1147980
 Target points: 126126
 Output points: 126126
-Source range: 263.950 to 297.308
-Result range: 264.185 to 294.400
+Source range: 270.040 to 296.946
+Result range: 270.536 to 294.300
 Source NaNs: 0
 Result NaNs: 0
 </pre>
@@ -8578,15 +8700,19 @@ Result NaNs: 0
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Notes-on-interpolation-weights">Notes on interpolation weights<a class="anchor-link" href="#Notes-on-interpolation-weights">¶</a></h2><p>When earthkit-geo performs the regridding, it uses <a href="https://www.ecmwf.int/en/newsletter/152/computing/new-ecmwf-interpolation-package-mir">MIR</a> (Meteorological Interpolation and Regridding), ECMWF's interpolation library, under the hood.</p>
-<p>For each combination of:</p>
+<h2 id="Reusing-interpolation-weights">Reusing interpolation weights<a class="anchor-link" href="#Reusing-interpolation-weights">¶</a></h2><p>The MIR cache is useful when several variables are regridded from the same ICON grid to the same LV95 grid.</p>
+<p>For example, these fields can reuse the same linear-interpolation weights when their grid geometry is identical:</p>
 <ul>
-<li>source grid,</li>
-<li>target grid,</li>
-<li>interpolation method.</li>
+<li><code>T_2M</code></li>
+<li><code>TOT_PREC</code></li>
+<li><code>U_10M</code></li>
+<li><code>V_10M</code></li>
 </ul>
-<p>MIR computes interpolation coefficients. These coefficients can be cached and reused for repeated interpolations on the same grids.</p>
-<p>The cache location depends on the system configuration. On some systems it may use a temporary directory such as /tmp, so the cache may be recreated when the environment or machine changes.</p>
+<p>A new weight set is required when the source grid, target-grid geometry or interpolation method changes, for example when switching from ICON-CH1-EPS to ICON-CH2-EPS, changing the LV95 resolution, changing the target extent, or using another interpolation method.</p>
+<p>You can inspect the configured cache location with:</p>
+<div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"MIR_CACHE_PATH"</span><span class="p">])</span>
+</pre></div>
+<p>The cache contains interpolation weights, not meteorological output data. It can be removed if necessary; MIR will recreate the required weights the next time the interpolation is run.</p>
 </div>
 </div>
 </div>
