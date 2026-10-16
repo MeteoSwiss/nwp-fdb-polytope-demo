@@ -7860,7 +7860,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <blockquote>
 <p><strong>Note:</strong></p>
 <ul>
-<li>Compatibility warnings from <code>pip</code> can be expected because the temporary test wheel overrides backend versions pinned by the current Earthkit release.</li>
+<li>Compatibility warnings from <code>pip</code> can be expected because the temporary test wheel overrides backend versions pinned by the current earthkit release.</li>
 <li>This extra beta-wheel installation is temporary. Once the corresponding changes are included in a future earthkit-geo release, users should no longer need to install the MIR test wheel separately.</li>
 </ul>
 </blockquote>
@@ -7873,7 +7873,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f466591f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e9d07c02">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7883,7 +7883,7 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4dea8d46">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=91913249">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7896,7 +7896,6 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <span class="n">packages</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">"earthkit-data"</span><span class="p">,</span>
     <span class="s2">"earthkit-geo"</span><span class="p">,</span>
-    <span class="s2">"eckit"</span><span class="p">,</span>
     <span class="s2">"mir-python"</span><span class="p">,</span>
     <span class="s2">"eccodes-cosmo-resources-python"</span><span class="p">,</span>
 <span class="p">]</span>
@@ -7920,7 +7919,6 @@ python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </sp
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>earthkit-data                   : 1.1.0
 earthkit-geo                    : 1.1.2
-eckit                           : 2.5.0.49
 mir-python                      : 1.30.2.49
 eccodes-cosmo-resources-python  : 2.47.0.1
 </pre>
@@ -8050,7 +8048,7 @@ eccodes-cosmo-resources-python  : 2.47.0.1
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Model cycle: 20261015 1800
+<pre>Model cycle: 20261016 0000
 </pre>
 </div>
 </div>
@@ -8078,7 +8076,7 @@ eccodes-cosmo-resources-python  : 2.47.0.1
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">earthkit.data</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ekd</span>
 
 <span class="n">request</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"param"</span><span class="p">:</span> <span class="s2">"500011"</span><span class="p">,</span>       <span class="c1"># T_2M</span>
+    <span class="s2">"param"</span><span class="p">:</span> <span class="s2">"T_2M"</span><span class="p">,</span>
     <span class="s2">"date"</span><span class="p">:</span> <span class="n">request_date</span><span class="p">,</span>
     <span class="s2">"time"</span><span class="p">:</span> <span class="n">request_time</span><span class="p">,</span>
     <span class="s2">"expver"</span><span class="p">:</span> <span class="s2">"0001"</span><span class="p">,</span>
@@ -8112,24 +8110,24 @@ eccodes-cosmo-resources-python  : 2.47.0.1
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>2026-10-16 09:26:57 - INFO - Sending request...
+<pre>2026-10-16 15:30:10 - INFO - Sending request...
 {'request': 'class: od\n'
-            "date: '20261015'\n"
+            "date: '20261016'\n"
             "expver: '0001'\n"
             'levtype: sfc\n'
             'model: icon-ch1-eps\n'
-            "param: '500011'\n"
+            'param: T_2M\n'
             'step: 0\n'
             'stream: enfo\n'
-            "time: '1800'\n"
+            "time: '0000'\n"
             'timespan: none\n'
             'type: CF\n',
  'verb': 'retrieve'}
-2026-10-16 09:26:57 - INFO - Request accepted. Please poll ./537502ee-20e9-4052-922c-60b549cce9cf for status
-2026-10-16 09:26:57 - INFO - Checking request status (537502ee-20e9-4052-922c-60b549cce9cf)...
-2026-10-16 09:26:57 - INFO - The current status of the request is 'queued'
-2026-10-16 09:26:58 - INFO - The current status of the request is 'processing'
-2026-10-16 09:26:59 - INFO - The current status of the request is 'processed'
+2026-10-16 15:30:10 - INFO - Request accepted. Please poll ./22d790f5-42f5-4954-9360-dcfa700e9922 for status
+2026-10-16 15:30:10 - INFO - Checking request status (22d790f5-42f5-4954-9360-dcfa700e9922)...
+2026-10-16 15:30:10 - INFO - The current status of the request is 'queued'
+2026-10-16 15:30:11 - INFO - The current status of the request is 'processing'
+2026-10-16 15:30:12 - INFO - The current status of the request is 'processed'
                                                                                                                                                                                                                                                                                                                                            </pre>
 </div>
 </div>
@@ -8270,8 +8268,8 @@ body.vscode-dark {
 <div class="eh-tabs-container">
 <div class="eh-tabs-block">
 <div class="eh-tabs">
-<input id="ddb23985-8653-47eb-a66a-60aef67ad24b" name="eh-tabs" type="radio"/>
-<label for="ddb23985-8653-47eb-a66a-60aef67ad24b" title="Keys in the data namespace">data</label>
+<input id="0a8e5a6a-3afb-4da2-b17b-7e0d7bdd9dfc" name="eh-tabs" type="radio"/>
+<label for="0a8e5a6a-3afb-4da2-b17b-7e0d7bdd9dfc" title="Keys in the data namespace">data</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8287,8 +8285,8 @@ table.ek th {
 <tr><td><b>number_of_values</b></td><td>1147980</td></tr> <tr><td><b>array_type</b></td><td>ndarray</td></tr> <tr><td><b>array_dtype</b></td><td>float64</td></tr>
 </table>
 </div>
-<input checked="" id="0d48f23f-6b96-49f9-8ce2-7c3addef3f3d" name="eh-tabs" type="radio"/>
-<label for="0d48f23f-6b96-49f9-8ce2-7c3addef3f3d" title="Keys in the parameter namespace">parameter</label>
+<input checked="" id="21f18dc4-7d0c-4ca5-bc49-bd1ad262d7b2" name="eh-tabs" type="radio"/>
+<label for="21f18dc4-7d0c-4ca5-bc49-bd1ad262d7b2" title="Keys in the parameter namespace">parameter</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8304,8 +8302,8 @@ table.ek th {
 <tr><td><b>variable</b></td><td>T_2M</td></tr> <tr><td><b>standard_name</b></td><td>air_temperature</td></tr> <tr><td><b>long_name</b></td><td>2m Temperature</td></tr> <tr><td><b>units</b></td><td>kelvin</td></tr>
 </table>
 </div>
-<input id="bb1e9ee0-dde6-4f74-92c6-3f3dd22daa7d" name="eh-tabs" type="radio"/>
-<label for="bb1e9ee0-dde6-4f74-92c6-3f3dd22daa7d" title="Keys in the time namespace">time</label>
+<input id="c4a52167-940c-4164-8fc5-588bbaf3a781" name="eh-tabs" type="radio"/>
+<label for="c4a52167-940c-4164-8fc5-588bbaf3a781" title="Keys in the time namespace">time</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8318,11 +8316,11 @@ table.ek th {
 }
 </style>
 <table class="eh-table">
-<tr><td><b>valid_datetime</b></td><td>2026-10-15 18:00:00</td></tr> <tr><td><b>base_datetime</b></td><td>2026-10-15 18:00:00</td></tr> <tr><td><b>step</b></td><td>0:00:00</td></tr>
+<tr><td><b>valid_datetime</b></td><td>2026-10-16 00:00:00</td></tr> <tr><td><b>base_datetime</b></td><td>2026-10-16 00:00:00</td></tr> <tr><td><b>step</b></td><td>0:00:00</td></tr>
 </table>
 </div>
-<input id="8a7febb0-67bf-4d7e-ba07-26aebc5dbf55" name="eh-tabs" type="radio"/>
-<label for="8a7febb0-67bf-4d7e-ba07-26aebc5dbf55" title="Keys in the vertical namespace">vertical</label>
+<input id="6e3d8ed6-e000-436b-b2e1-2b4732765394" name="eh-tabs" type="radio"/>
+<label for="6e3d8ed6-e000-436b-b2e1-2b4732765394" title="Keys in the vertical namespace">vertical</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8338,8 +8336,8 @@ table.ek th {
 <tr><td><b>level</b></td><td>2</td></tr> <tr><td><b>layer</b></td><td>None</td></tr> <tr><td><b>level_type</b></td><td>height_above_ground_level</td></tr>
 </table>
 </div>
-<input id="67830d65-62bb-4f26-b285-a8728eb9954b" name="eh-tabs" type="radio"/>
-<label for="67830d65-62bb-4f26-b285-a8728eb9954b" title="Keys in the ensemble namespace">ensemble</label>
+<input id="b493182b-9391-4dbe-aa22-6dca0c144f5e" name="eh-tabs" type="radio"/>
+<label for="b493182b-9391-4dbe-aa22-6dca0c144f5e" title="Keys in the ensemble namespace">ensemble</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8355,8 +8353,8 @@ table.ek th {
 <tr><td><b>member</b></td><td>0</td></tr>
 </table>
 </div>
-<input id="0af58174-be1e-4a15-8dbc-736fd8aa6769" name="eh-tabs" type="radio"/>
-<label for="0af58174-be1e-4a15-8dbc-736fd8aa6769" title="Keys in the geography namespace">geography</label>
+<input id="b224ddac-3411-4187-8cb5-cddd787877c8" name="eh-tabs" type="radio"/>
+<label for="b224ddac-3411-4187-8cb5-cddd787877c8" title="Keys in the geography namespace">geography</label>
 <div class="tab">
 <style type="text/css">table.ek td {
     vertical-align: top;
@@ -8418,8 +8416,8 @@ table.ek th {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>  parameter.variable time.valid_datetime  time.base_datetime time.step  \
-0               T_2M 2026-10-15 18:00:00 2026-10-15 18:00:00    0 days   
+<pre>  parameter.variable time.valid_datetime time.base_datetime time.step  \
+0               T_2M          2026-10-16         2026-10-16    0 days   
 
    vertical.level        vertical.level_type ensemble.member  \
 0               2  height_above_ground_level               0   
@@ -8498,19 +8496,39 @@ number of source points: 1147980
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Swiss-LV95-target-grid">Swiss LV95 target grid<a class="anchor-link" href="#Swiss-LV95-target-grid">¶</a></h2><p><strong>LV95</strong> is Switzerland's national projected coordinate system, <strong>CH1903+ / LV95 (EPSG:2056)</strong>.</p>
-<p>Unlike latitude/longitude coordinates, LV95 uses projected <strong>eastings and northings in metres</strong>. The predefined <code>swisslv95</code> grid is a regular 1-km grid covering Switzerland.</p>
-<p>For the standard MeteoSwiss grid, the easiest form is simply:</p>
+<p>Unlike latitude/longitude coordinates, LV95 uses projected <strong>eastings and northings in metres</strong>.</p>
+<h3 id="Predefined-CH-domain">Predefined CH domain<a class="anchor-link" href="#Predefined-CH-domain">¶</a></h3><p>The predefined Earthkit grid</p>
 <div class="highlight"><pre><span></span><span class="n">Grid</span><span class="p">(</span><span class="s2">"swisslv95"</span><span class="p">)</span>
 </pre></div>
-<p>Its 1-km grid corresponds to the following explicit specification:</p>
+<p>uses the standard <strong>CH domain</strong> at 1-km spacing:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"swisslv95"</span><span class="p">,</span>
     <span class="s2">"x"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2439000</span><span class="p">,</span> <span class="mi">2867000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
     <span class="s2">"y"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1040500</span><span class="p">,</span> <span class="mi">1333500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
 <span class="p">}</span>
 </pre></div>
-<p>The explicit form is useful when a different LV95 extent or spacing is required.</p>
-<p>Defining the grid explicitly is not slower by itself. Performance mainly depends on the number of target points. If the explicit specification describes the same target geometry as the predefined grid, MIR can reuse the same interpolation setup; changing the extent or resolution requires a different set of weights.</p>
+<p>This is the easiest option when the CH domain is sufficient.</p>
+<h3 id="Custom-LV95-domain">Custom LV95 domain<a class="anchor-link" href="#Custom-LV95-domain">¶</a></h3><p>A different LV95 domain can be defined explicitly by providing the x/y bounds and spacing.</p>
+<p>For example, the MeteoSwiss <strong>RADAR domain</strong> can be defined as:</p>
+<div class="highlight"><pre><span></span><span class="n">radar_target_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"swisslv95"</span><span class="p">,</span>
+    <span class="s2">"x"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2255500</span><span class="p">,</span> <span class="mi">2964500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
+    <span class="s2">"y"</span><span class="p">:</span> <span class="p">[</span><span class="mi">840500</span><span class="p">,</span> <span class="mi">1479500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+<p>and used directly in the regridding call:</p>
+<div class="highlight"><pre><span></span><span class="n">result</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ekg</span><span class="o">.</span><span class="n">grids</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">regrid</span><span class="p">(</span>
+    <span class="n">values</span><span class="p">,</span>
+    <span class="n">in_grid</span><span class="o">=</span><span class="n">field</span><span class="o">.</span><span class="n">geography</span><span class="o">.</span><span class="n">grid_spec</span><span class="p">(),</span>
+    <span class="n">out_grid</span><span class="o">=</span><span class="n">radar_target_grid</span><span class="p">,</span>
+    <span class="n">interpolation</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+<p>Defining the grid explicitly is not slower by itself. Performance mainly depends on the number of target points. A larger domain such as RADAR contains more target points than the CH domain and therefore requires more work.</p>
+<p>Changing the target extent or resolution also creates a different grid geometry, so MIR will compute and cache a separate set of interpolation weights for that grid.</p>
+<blockquote>
+<p><strong>MeteoSwiss internal:</strong> Additional predefined target domains are documented on the <a href="https://meteoswiss.atlassian.net/wiki/spaces/APN/pages/132454424/ICON-22+PP+Migrating+from+COSMO+to+ICON#Target-grids-ICON-CH1-EPSIch">ICON-CH1-EPS target-grid Confluence page</a>. This page is only accessible to MeteoSwiss employees.</p>
+</blockquote>
 </div>
 </div>
 </div>
@@ -8580,6 +8598,7 @@ size: 126126
     <span class="n">interpolation</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span>
 <span class="p">)</span>
 
+
 <span class="nb">print</span><span class="p">(</span><span class="s2">"source points:"</span><span class="p">,</span> <span class="n">values</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"target points:"</span><span class="p">,</span> <span class="n">target_grid</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"output points:"</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
@@ -8596,38 +8615,13 @@ size: 126126
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Cache file /users/nburgdor/.cache/mir/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/regular_xy-126126-35a7a70c3550b69c8e025a5449b62a03-b5410caac63305df5e0f459260fe20a6.mat does not exist
+Creating cache file /users/nburgdor/.cache/mir/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/regular_xy-126126-35a7a70c3550b69c8e025a5449b62a03-b5410caac63305df5e0f459260fe20a6.mat
+CacheManager creating file /users/nburgdor/.cache/mir/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/regular_xy-126126-35a7a70c3550b69c8e025a5449b62a03-b5410caac63305df5e0f459260fe20a6.mat
 source points: 1147980
 target points: 126126
 output points: 126126
-Creating cache file /users/nburgdor/.cache/mir/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/regular_xy-126126-35a7a70c3550b69c8e025a5449b62a03-b5410caac63305df5e0f459260fe20a6.mat
-CacheManager creating file /users/nburgdor/.cache/mir/mir/weights/19/linear/ICON-1147980-17643da2574959b644d254a3cd6e2bc0/regular_xy-126126-35a7a70c3550b69c8e025a5449b62a03-b5410caac63305df5e0f459260fe20a6.mat
 </pre>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5015157c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Alternative:-define-the-LV95-target-explicitly">Alternative: define the LV95 target explicitly<a class="anchor-link" href="#Alternative:-define-the-LV95-target-explicitly">¶</a></h3><p>Instead of the predefined named grid, pass a grid specification directly:</p>
-<div class="highlight"><pre><span></span><span class="n">custom_target_grid</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"swisslv95"</span><span class="p">,</span>
-    <span class="s2">"x"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2439000</span><span class="p">,</span> <span class="mi">2867000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
-    <span class="s2">"y"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1040500</span><span class="p">,</span> <span class="mi">1333500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span>
-<span class="p">}</span>
-
-<span class="n">result</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ekg</span><span class="o">.</span><span class="n">grids</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">regrid</span><span class="p">(</span>
-    <span class="n">values</span><span class="p">,</span>
-    <span class="n">in_grid</span><span class="o">=</span><span class="n">field</span><span class="o">.</span><span class="n">geography</span><span class="o">.</span><span class="n">grid_spec</span><span class="p">(),</span>
-    <span class="n">out_grid</span><span class="o">=</span><span class="n">custom_target_grid</span><span class="p">,</span>
-    <span class="n">interpolation</span><span class="o">=</span><span class="s2">"linear"</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-<p>Change the x/y bounds or spacing when a different LV95 target domain is needed.</p>
 </div>
 </div>
 </div>
@@ -8684,8 +8678,8 @@ CacheManager creating file /users/nburgdor/.cache/mir/mir/weights/19/linear/ICON
 <pre>Source points: 1147980
 Target points: 126126
 Output points: 126126
-Source range: 270.040 to 296.946
-Result range: 270.536 to 294.300
+Source range: 270.465 to 296.294
+Result range: 270.592 to 292.475
 Source NaNs: 0
 Result NaNs: 0
 </pre>
@@ -8701,18 +8695,34 @@ Result NaNs: 0
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Reusing-interpolation-weights">Reusing interpolation weights<a class="anchor-link" href="#Reusing-interpolation-weights">¶</a></h2><p>The MIR cache is useful when several variables are regridded from the same ICON grid to the same LV95 grid.</p>
-<p>For example, these fields can reuse the same linear-interpolation weights when their grid geometry is identical:</p>
+<p>For example, different fields (<code>T_2M</code>, <code>TOT_PREC</code>, <code>U_10M</code>, ...) can reuse the same linear-interpolation weights when their grid geometry is identical.</p>
+<p>A new weight set is required when the source grid, target-grid geometry, or interpolation method changes, for example when switching from ICON-CH1-EPS to ICON-CH2-EPS, changing the LV95 resolution, changing the target extent, or using another interpolation method.</p>
+<h3 id="Example-timings">Example timings<a class="anchor-link" href="#Example-timings">¶</a></h3><p>In one benchmark run for ICON-CH1-EPS:</p>
 <ul>
-<li><code>T_2M</code></li>
-<li><code>TOT_PREC</code></li>
-<li><code>U_10M</code></li>
-<li><code>V_10M</code></li>
+<li><p><strong>CH domain</strong> (<code>Grid("swisslv95")</code>)</p>
+<ul>
+<li>first interpolation, without cached weights: <strong>1 min 18 s</strong></li>
+<li>repeated interpolation, with cached weights: <strong>0.2 s</strong></li>
 </ul>
-<p>A new weight set is required when the source grid, target-grid geometry or interpolation method changes, for example when switching from ICON-CH1-EPS to ICON-CH2-EPS, changing the LV95 resolution, changing the target extent, or using another interpolation method.</p>
+</li>
+<li><p><strong>RADAR domain</strong></p>
+<ul>
+<li>first interpolation, without cached weights: <strong>3 min 47 s</strong></li>
+<li>repeated interpolation, with cached weights: <strong>0.3 s</strong></li>
+</ul>
+</li>
+</ul>
+<p>These timings are indicative only and depend on the machine, storage, and runtime environment. The large speed-up on subsequent runs comes from reusing the previously computed MIR interpolation weights.</p>
+<h3 id="Example-cache-size">Example cache size<a class="anchor-link" href="#Example-cache-size">¶</a></h3><p>For the same benchmark, the cached linear-interpolation weights required approximately:</p>
+<ul>
+<li><strong>CH domain:</strong> <strong>4.9 MB</strong></li>
+<li><strong>RADAR domain:</strong> <strong>18 MB</strong></li>
+<li><strong>Total for both cached grids:</strong> <strong>23 MB</strong></li>
+</ul>
+<p>The exact cache size depends on the source grid, target grid, and interpolation method. Additional target grids or interpolation methods create additional cache entries.</p>
 <p>You can inspect the configured cache location with:</p>
 <div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"MIR_CACHE_PATH"</span><span class="p">])</span>
 </pre></div>
-<p>The cache contains interpolation weights, not meteorological output data. It can be removed if necessary; MIR will recreate the required weights the next time the interpolation is run.</p>
 </div>
 </div>
 </div>
