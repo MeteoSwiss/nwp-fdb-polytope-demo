@@ -35,6 +35,7 @@ earthkit-plots = "^1"
 
 # MCH internal pypi (until officially published by DWD)
 eccodes-cosmo-resources-python-internal = {version = "~2.47", source = "pypi-mch"}
+earthkit-transforms = "^1.0.0"
 
 [tool.pytest.ini_options]
 testpaths = ["test"]
