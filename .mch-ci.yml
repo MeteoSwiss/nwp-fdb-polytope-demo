@@ -1,0 +1,26 @@
+default:
+  - test:
+    - notebooks_execution:
+        pythonContainerRun:
+          pythonVersion: '3.11'
+          installDependencies: false
+          packageManager: ''
+          env:
+            # Forward the Vault-injected keys from the Jenkins shell into the container
+            POLYTOPE_USER_KEY: ${env.POLYTOPE_USER_KEY}
+            POLYTOPE_ADDRESS: ${env.POLYTOPE_ADDRESS}
+            ECMWF_USER_EMAIL: ${env.ECMWF_USER_EMAIL}
+            ECMWF_KEY: ${env.ECMWF_KEY}
+            # Without these the container has no egress: Polytope hands back a
+            # presigned result URL on rgw.cscs.ch (CSCS object store) and the
+            # download hangs until the cell times out.
+            HTTP_PROXY: ${env.HTTP_PROXY}
+            HTTPS_PROXY: ${env.HTTPS_PROXY}
+            # Deliberately narrower than the Jenkinsfile's NO_PROXY, which also
+            # bypasses .cscs.ch — that bypass is what leaves the result download
+            # with no route out of the container.
+            NO_PROXY: .meteoswiss.ch,localhost
+          commands: |-
+            poetry install
+            poetry run python -m ipykernel install --user --name=polytope-env --display-name "polytope demo"
+            poetry run python ci/check_notebooks.py
