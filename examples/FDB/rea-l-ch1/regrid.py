@@ -1,14 +1,16 @@
+import json
 from pathlib import Path
 from uuid import UUID
 
 import eccodes
 import earthkit.data as ekd
+import numpy as np
 import xarray as xr
 import yaml
 from rasterio.crs import CRS
 
-#from meteodatalab import icon_grid
-#from meteodatalab.operators import regrid
+from meteodatalab import icon_grid
+from meteodatalab.operators import regrid
 from uenv_param_map import shortname_to_paramid
 
 
@@ -23,35 +25,63 @@ with open(script_dir / "profile_2d.yaml", "r") as file:
     profile_2d = yaml.safe_load(file)
 
 
-# def regrid_dataset(ds, grid_params):
+def regrid_dataset(ds, grid_params):
 
-#     crs_str, *grid_params = grid_params.split(",")
-#     crs = CRS.from_string(crs_str)
-#     xmin, ymin, xmax, ymax, dx, dy = map(int, grid_params)
-#     nx = (xmax - xmin) / dx + 1
-#     ny = (ymax - ymin) / dy + 1
+    crs_str, *grid_params = grid_params.split(",")
+    crs = CRS.from_string(crs_str)
+    xmin, ymin, xmax, ymax, dx, dy = map(int, grid_params)
+    nx = (xmax - xmin) / dx + 1
+    ny = (ymax - ymin) / dy + 1
 
-#     target_grid = regrid.RegularGrid(crs, int(nx), int(ny), xmin, xmax, ymin, ymax)
+    target_grid = regrid.RegularGrid(crs, int(nx), int(ny), xmin, xmax, ymin, ymax)
 
-#     regridded_ds = xr.Dataset(
-#         {var: regrid.iconremap(ds[var], target_grid) for var in ds.data_vars}
-#     )
+    regridded_ds = xr.Dataset(
+        {var: regrid.iconremap(ds[var], target_grid) for var in ds.data_vars}
+    )
 
-#     # Add x/y as coordinates
-#     regridded_ds = regridded_ds.assign_coords(x=target_grid.x, y=target_grid.y)
+    # Add x/y as coordinates
+    regridded_ds = regridded_ds.assign_coords(x=target_grid.x, y=target_grid.y)
 
-#     return regridded_ds
+    make_attrs_netcdf_safe(regridded_ds)
+
+    return regridded_ds
 
 
-# def add_icon_grid(array):
-#     hcoords = icon_grid.load_grid_from_balfrin()(UUID(array.attrs["uuidOfHGrid"]))
+def make_attrs_netcdf_safe(ds):
+    """Convert attributes netCDF can't store (in place).
 
-#     array = array.rename({"values": "cell"})
-#     array = array.assign_coords(
-#         lon=("cell", hcoords["lon"].data), lat=("cell", hcoords["lat"].data)
-#     )
+    meteodatalab stores GRIB metadata as dicts (e.g. "parameter", "geography") and
+    flags as bools (e.g. "uses_icon_grid"): dicts become JSON strings, bools 0/1.
+    """
+    for attrs in [ds.attrs] + [v.attrs for v in ds.variables.values()]:
+        for name, value in attrs.items():
+            if isinstance(value, dict):
+                attrs[name] = json.dumps(value, default=str)
+            elif isinstance(value, (bool, np.bool_)):
+                attrs[name] = int(value)
 
-#     return array
+
+def earthkit_message_b64(array):
+    """Return the base64 GRIB message earthkit stores in attrs["_earthkit"].
+
+    meteodatalab expects it in attrs["message_b64"].
+    """
+    ek = array.attrs["_earthkit"]
+    if isinstance(ek, str):
+        ek = json.loads(ek)
+    return ek["message"]["__bytes_b64__"]
+
+
+def add_icon_grid(array):
+    array.attrs["uuidOfHGrid"] = "17643da2-5749-59b6-44d2-54a3cd6e2bc0"
+    hcoords = icon_grid.load_grid_from_balfrin()(UUID(array.attrs["uuidOfHGrid"]))
+
+    array = array.rename({"values": "cell"})
+    array = array.assign_coords(
+        lon=("cell", hcoords["lon"].data), lat=("cell", hcoords["lat"].data)
+    )
+
+    return array
 
 
 requests = {
@@ -137,8 +167,10 @@ for key, req_info in requests.items():
     # Convert each field to a xarray.Dataset and print the available parameters and the date of the dataset.
     for group in fl.group_by("date"):
         ds = group.to_xarray(profile="grib", **profile)
+
         for var in ds:
-            #ds[var] = add_icon_grid(ds[var])
+            ds[var].attrs["message_b64"] = earthkit_message_b64(ds[var])
+            ds[var] = add_icon_grid(ds[var])
 
             # Example to accumulate 10min data to 1h avarages without regridding
             if key == "10m_avg":
@@ -154,11 +186,11 @@ for key, req_info in requests.items():
             raise RuntimeError("error finding all steps")
 
         out_regrid_target = "epsg:21781,549500,149500,650500,250500,1000,1000"
-        # swiss_ds = regrid_dataset(ds, out_regrid_target)
-        for var in ds:
+        swiss_ds = regrid_dataset(ds, out_regrid_target)
+        for var in swiss_ds:
             vals = ds.coords["valid_time"].dt.strftime("%Y%m").values
             assert len(vals) == 1
             assert all(x == vals[0][0] for x in vals[0])
             valid_time_month = vals[0][0]
             filename = f"ds_{var}_steps{req_info['steps']}_{valid_time_month}"
-            ds.earthkit.to_netcdf(filename, mode="a")
+            swiss_ds.earthkit.to_netcdf(filename, mode="a")
