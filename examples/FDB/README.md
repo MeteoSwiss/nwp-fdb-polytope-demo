@@ -30,13 +30,24 @@ To run the scripts or retrieve data via MARS request visit the following page.
 - [FDB for NWP Data Access at CSCS](https://meteoswiss.atlassian.net/wiki/x/poR-Ew)
 
 > [!NOTE]
-> To execute the script [regrid.py](rea-l-ch1/regrid.py) there is a different set up necessary. See below.
-
-### Installation for rea-l-ch1/regrid.py
-
-Make sure you navigate to the folder `nwp-fdb-polytope-demo/examples/FDB/rea-l-ch1/` before proceeding with the next steps.
-```sh
-uenv start --view=rea-l-ch1 fdb/5.18:v1
-poetry install
-poetry run python regrid.py
-```
+> The script [regrid.py](rea-l-ch1/regrid.py) also needs [meteodata-lab](https://github.com/MeteoSwiss/meteodata-lab).
+> This is only a **temporary workaround** until earthkit releases the swissgrid regridding.
+>
+> 1. Clone meteodata-lab:
+>    ```bash
+>    git clone https://github.com/MeteoSwiss/meteodata-lab.git
+>    ```
+> 2. Add its `src` folder to `PYTHONPATH`, keeping the existing entries:
+>    ```bash
+>    export PYTHONPATH=/path/to/meteodata-lab/src:$PYTHONPATH
+>    ```
+> 3. Add package metadata so `meteodata-lab` is recognised as installed. Create the folder
+>    `meteodata-lab/src/meteodata_lab-0.0.0+local.dist-info` with a file `METADATA` in it:
+>    ```bash
+>    mkdir -p /path/to/meteodata-lab/src/meteodata_lab-0.0.0+local.dist-info
+>    cat > /path/to/meteodata-lab/src/meteodata_lab-0.0.0+local.dist-info/METADATA <<EOF
+>    Metadata-Version: 2.1
+>    Name: meteodata-lab
+>    Version: 0.0.0+local
+>    EOF
+>    ```
