@@ -1,14 +1,14 @@
 ensure_dims: [z,number,step, forecast_reference_time]
 dim_roles:
-  number: number
-  date: dataDate
-  time: dataTime
-  step: step_timedelta
-  level: level:float
-  level_type: typeOfLevel
+  member: metadata.number
+  date: metadata.dataDate
+  time: metadata.dataTime
+  step: metadata.step_timedelta
+  level: metadata.level:float
+  level_type: metadata.typeOfLevel
 rename_dims: {
    level: z,
-   number: eps,
+   member: eps,
    step: lead_time,
    forecast_reference_time: ref_time
 }

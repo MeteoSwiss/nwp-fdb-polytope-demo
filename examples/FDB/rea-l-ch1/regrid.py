@@ -1,13 +1,14 @@
 from pathlib import Path
 from uuid import UUID
 
+import eccodes
 import earthkit.data as ekd
 import xarray as xr
 import yaml
 from rasterio.crs import CRS
 
-from meteodatalab import icon_grid
-from meteodatalab.operators import regrid
+#from meteodatalab import icon_grid
+#from meteodatalab.operators import regrid
 from uenv_param_map import shortname_to_paramid
 
 
@@ -22,35 +23,35 @@ with open(script_dir / "profile_2d.yaml", "r") as file:
     profile_2d = yaml.safe_load(file)
 
 
-def regrid_dataset(ds, grid_params):
+# def regrid_dataset(ds, grid_params):
 
-    crs_str, *grid_params = grid_params.split(",")
-    crs = CRS.from_string(crs_str)
-    xmin, ymin, xmax, ymax, dx, dy = map(int, grid_params)
-    nx = (xmax - xmin) / dx + 1
-    ny = (ymax - ymin) / dy + 1
+#     crs_str, *grid_params = grid_params.split(",")
+#     crs = CRS.from_string(crs_str)
+#     xmin, ymin, xmax, ymax, dx, dy = map(int, grid_params)
+#     nx = (xmax - xmin) / dx + 1
+#     ny = (ymax - ymin) / dy + 1
 
-    target_grid = regrid.RegularGrid(crs, int(nx), int(ny), xmin, xmax, ymin, ymax)
+#     target_grid = regrid.RegularGrid(crs, int(nx), int(ny), xmin, xmax, ymin, ymax)
 
-    regridded_ds = xr.Dataset(
-        {var: regrid.iconremap(ds[var], target_grid) for var in ds.data_vars}
-    )
+#     regridded_ds = xr.Dataset(
+#         {var: regrid.iconremap(ds[var], target_grid) for var in ds.data_vars}
+#     )
 
-    # Add x/y as coordinates
-    regridded_ds = regridded_ds.assign_coords(x=target_grid.x, y=target_grid.y)
+#     # Add x/y as coordinates
+#     regridded_ds = regridded_ds.assign_coords(x=target_grid.x, y=target_grid.y)
 
-    return regridded_ds
+#     return regridded_ds
 
 
-def add_icon_grid(array):
-    hcoords = icon_grid.load_grid_from_balfrin()(UUID(array.attrs["uuidOfHGrid"]))
+# def add_icon_grid(array):
+#     hcoords = icon_grid.load_grid_from_balfrin()(UUID(array.attrs["uuidOfHGrid"]))
 
-    array = array.rename({"values": "cell"})
-    array = array.assign_coords(
-        lon=("cell", hcoords["lon"].data), lat=("cell", hcoords["lat"].data)
-    )
+#     array = array.rename({"values": "cell"})
+#     array = array.assign_coords(
+#         lon=("cell", hcoords["lon"].data), lat=("cell", hcoords["lat"].data)
+#     )
 
-    return array
+#     return array
 
 
 requests = {
@@ -131,13 +132,13 @@ for key, req_info in requests.items():
     req["param"] = shortname_to_paramid(req_info["vars"])
 
     # Load data as a stream, otherwise it might not fit in memory
-    fs = ekd.from_source("fdb", req, stream=True)
+    fl = ekd.from_source("fdb", req, stream=True).to_fieldlist()
 
     # Convert each field to a xarray.Dataset and print the available parameters and the date of the dataset.
-    for f in fs.group_by("date"):
-        ds = f.to_xarray(profile="grib", **profile)
+    for group in fl.group_by("date"):
+        ds = group.to_xarray(profile="grib", **profile)
         for var in ds:
-            ds[var] = add_icon_grid(ds[var])
+            #ds[var] = add_icon_grid(ds[var])
 
             # Example to accumulate 10min data to 1h avarages without regridding
             if key == "10m_avg":
@@ -153,11 +154,11 @@ for key, req_info in requests.items():
             raise RuntimeError("error finding all steps")
 
         out_regrid_target = "epsg:21781,549500,149500,650500,250500,1000,1000"
-        swiss_ds = regrid_dataset(ds, out_regrid_target)
-        for var in swiss_ds:
+        # swiss_ds = regrid_dataset(ds, out_regrid_target)
+        for var in ds:
             vals = ds.coords["valid_time"].dt.strftime("%Y%m").values
             assert len(vals) == 1
             assert all(x == vals[0][0] for x in vals[0])
             valid_time_month = vals[0][0]
             filename = f"ds_{var}_steps{req_info['steps']}_{valid_time_month}"
-            swiss_ds.earthkit.to_netcdf(filename, mode="a")
+            ds.earthkit.to_netcdf(filename, mode="a")
