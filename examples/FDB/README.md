@@ -39,7 +39,7 @@ To run the scripts or retrieve data via MARS request visit the following page.
 >    ```
 > 2. Add its `src` folder to `PYTHONPATH`, keeping the existing entries:
 >    ```bash
->    export PYTHONPATH=/path/to/meteodata-lab/src:$PYTHONPATHq
+>    export PYTHONPATH=/path/to/meteodata-lab/src:$PYTHONPATH
 >    ```
 > 3. Add package metadata so `meteodata-lab` is recognised as installed. Create the folder
 >    `meteodata-lab/src/meteodata_lab-0.0.0+local.dist-info` with a file `METADATA` in it:
