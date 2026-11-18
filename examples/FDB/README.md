@@ -30,13 +30,4 @@ To run the scripts or retrieve data via MARS request visit the following page.
 - [FDB for NWP Data Access at CSCS](https://meteoswiss.atlassian.net/wiki/x/poR-Ew)
 
 > [!NOTE]
-> To execute the script [regrid.py](rea-l-ch1/regrid.py) there is a different set up necessary. See below.
-
-### Installation for rea-l-ch1/regrid.py
-
-Make sure you navigate to the folder `nwp-fdb-polytope-demo/examples/FDB/rea-l-ch1/` before proceeding with the next steps.
-```sh
-uenv start --view=rea-l-ch1 fdb/5.18:v1
-poetry install
-poetry run python regrid.py
-```
+> The script [regrid.py](rea-l-ch1/regrid.py) is at the moment only available without regridding. 
