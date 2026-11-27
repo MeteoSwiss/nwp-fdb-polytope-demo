@@ -33,21 +33,12 @@ To run the scripts or retrieve data via MARS request visit the following page.
 > The script [regrid.py](rea-l-ch1/regrid.py) also needs [meteodata-lab](https://github.com/MeteoSwiss/meteodata-lab).
 > This is only a **temporary workaround** until earthkit releases the swissgrid regridding.
 >
-> 1. Clone meteodata-lab:
+> 1. Create and activate a virtual environment as described in [Create the venv](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/327124134/FDB+for+NWP+Data+Access+at+CSCS#Create-the-venv) (Confluence).
+> 2. Install meteodata-lab without its dependencies (they are already provided by the uenv):
 >    ```bash
->    git clone https://github.com/MeteoSwiss/meteodata-lab.git
+>    pip install --no-deps "meteodata-lab @ git+https://github.com/MeteoSwiss/meteodata-lab.git@v0.8.2"
 >    ```
-> 2. Add its `src` folder to `PYTHONPATH`, keeping the existing entries:
+> 3. Go to the directory containing the script and run it::
 >    ```bash
->    export PYTHONPATH=/path/to/meteodata-lab/src:$PYTHONPATH
->    ```
-> 3. Add package metadata so `meteodata-lab` is recognised as installed. Create the folder
->    `meteodata-lab/src/meteodata_lab-0.0.0+local.dist-info` with a file `METADATA` in it:
->    ```bash
->    mkdir -p /path/to/meteodata-lab/src/meteodata_lab-0.0.0+local.dist-info
->    cat > /path/to/meteodata-lab/src/meteodata_lab-0.0.0+local.dist-info/METADATA <<EOF
->    Metadata-Version: 2.1
->    Name: meteodata-lab
->    Version: 0.0.0+local
->    EOF
+>    python regrid.py
 >    ```
