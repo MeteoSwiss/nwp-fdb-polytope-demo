@@ -1,7 +1,10 @@
+import json
 from pathlib import Path
 from uuid import UUID
 
+import eccodes
 import earthkit.data as ekd
+import numpy as np
 import xarray as xr
 import yaml
 from rasterio.crs import CRS
@@ -39,10 +42,38 @@ def regrid_dataset(ds, grid_params):
     # Add x/y as coordinates
     regridded_ds = regridded_ds.assign_coords(x=target_grid.x, y=target_grid.y)
 
+    make_attrs_netcdf_safe(regridded_ds)
+
     return regridded_ds
 
 
+def make_attrs_netcdf_safe(ds):
+    """Convert attributes netCDF can't store (in place).
+
+    meteodatalab stores GRIB metadata as dicts (e.g. "parameter", "geography") and
+    flags as bools (e.g. "uses_icon_grid"): dicts become JSON strings, bools 0/1.
+    """
+    for attrs in [ds.attrs] + [v.attrs for v in ds.variables.values()]:
+        for name, value in attrs.items():
+            if isinstance(value, dict):
+                attrs[name] = json.dumps(value, default=str)
+            elif isinstance(value, (bool, np.bool_)):
+                attrs[name] = int(value)
+
+
+def earthkit_message_b64(array):
+    """Return the base64 GRIB message earthkit stores in attrs["_earthkit"].
+
+    meteodatalab expects it in attrs["message_b64"].
+    """
+    ek = array.attrs["_earthkit"]
+    if isinstance(ek, str):
+        ek = json.loads(ek)
+    return ek["message"]["__bytes_b64__"]
+
+
 def add_icon_grid(array):
+    array.attrs["uuidOfHGrid"] = "17643da2-5749-59b6-44d2-54a3cd6e2bc0"
     hcoords = icon_grid.load_grid_from_balfrin()(UUID(array.attrs["uuidOfHGrid"]))
 
     array = array.rename({"values": "cell"})
@@ -131,12 +162,14 @@ for key, req_info in requests.items():
     req["param"] = shortname_to_paramid(req_info["vars"])
 
     # Load data as a stream, otherwise it might not fit in memory
-    fs = ekd.from_source("fdb", req, stream=True)
+    fl = ekd.from_source("fdb", req, stream=True).to_fieldlist()
 
     # Convert each field to a xarray.Dataset and print the available parameters and the date of the dataset.
-    for f in fs.group_by("date"):
-        ds = f.to_xarray(profile="grib", **profile)
+    for group in fl.group_by("date"):
+        ds = group.to_xarray(profile="grib", **profile)
+
         for var in ds:
+            ds[var].attrs["message_b64"] = earthkit_message_b64(ds[var])
             ds[var] = add_icon_grid(ds[var])
 
             # Example to accumulate 10min data to 1h avarages without regridding

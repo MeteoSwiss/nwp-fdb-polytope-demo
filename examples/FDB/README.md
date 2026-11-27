@@ -30,13 +30,15 @@ To run the scripts or retrieve data via MARS request visit the following page.
 - [FDB for NWP Data Access at CSCS](https://meteoswiss.atlassian.net/wiki/x/poR-Ew)
 
 > [!NOTE]
-> To execute the script [regrid.py](rea-l-ch1/regrid.py) there is a different set up necessary. See below.
-
-### Installation for rea-l-ch1/regrid.py
-
-Make sure you navigate to the folder `nwp-fdb-polytope-demo/examples/FDB/rea-l-ch1/` before proceeding with the next steps.
-```sh
-uenv start --view=rea-l-ch1 fdb/5.18:v1
-poetry install
-poetry run python regrid.py
-```
+> The script [regrid.py](rea-l-ch1/regrid.py) also needs [meteodata-lab](https://github.com/MeteoSwiss/meteodata-lab).
+> This is only a **temporary workaround** until earthkit releases the swissgrid regridding.
+>
+> 1. Create and activate a virtual environment as described in [Create the venv](https://meteoswiss.atlassian.net/wiki/spaces/IW2/pages/327124134/FDB+for+NWP+Data+Access+at+CSCS#Create-the-venv) (Confluence).
+> 2. Install meteodata-lab without its dependencies (they are already provided by the uenv):
+>    ```bash
+>    pip install --no-deps "meteodata-lab @ git+https://github.com/MeteoSwiss/meteodata-lab.git@v0.8.2"
+>    ```
+> 3. Go to the directory containing the script and run it::
+>    ```bash
+>    python regrid.py
+>    ```
