@@ -101,7 +101,11 @@ if $clear_outputs; then
   echo "Clearing outputs in-place"
   for nb in "${notebooks[@]}"; do
     echo "  - $nb"
-    $jup nbconvert --to notebook --ClearOutputPreprocessor.enabled=True --inplace "$nb" >/dev/null
+    $jup nbconvert --to notebook --inplace \
+      --ClearOutputPreprocessor.enabled=True \
+      --ClearMetadataPreprocessor.enabled=True \
+      --ClearMetadataPreprocessor.clear_notebook_metadata=False \
+      "$nb" >/dev/null
   done
 fi
 
